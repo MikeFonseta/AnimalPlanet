@@ -1,0 +1,50 @@
+.tab-pane *.tab-header-area *.tab-header-background {
+  -fx-background-color: #77499D;
+}
+
+.tab-pane {
+  -fx-tab-min-width:120px;
+  -fx-tab-max-width:120px;
+  -fx-tab-min-height:50px;
+  -fx-tab-max-height:50px;
+}
+
+.tab {
+  -fx-font-family: Arial;
+  -fx-font-size: 18;
+  -fx-background-color:#77499D;
+  -fx-text-base-color: white;
+}
+
+.tab:selected {
+    -fx-background-color:#BD9DEB;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-background: #BD9DEB;
+    -fx-background-insets: 0, 1 1 0 1;
+    -fx-background-radius: 10 10 10 10, 10 10 10 10;
+}
+
+.button {
+    -fx-background-color: #E5E3E6;
+    -fx-background-radius: 10;
+    -fx-background-insets: 0;
+    -fx-text-fill: black;
+}
+
+.choice-box {
+    -fx-background-color: #E5E3E6;
+    -fx-background-radius: 10;
+    -fx-background-insets: 0;
+    -fx-text-fill: black;
+}
+
+.text-field {
+    -fx-background-radius: 10;
+    -fx-background-insets: 0;
+    -fx-text-fill: black;
+}
+
+.table-cell {
+    -fx-alignment: CENTER;
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="800.0" maxWidth="1300.0" minHeight="800" minWidth="1300.0" prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: #77499D;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikefonseta.animalplanet.mainController">
+   <children>
+      <TabPane layoutX="7.0" layoutY="9.0" prefHeight="772.0" prefWidth="1178.0" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+        <tabs>
+          <Tab text="HOME">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="743.0" prefWidth="920.0">
+                     <children>
+                        <TextField fx:id="ricerca" layoutX="5.0" layoutY="14.0" prefHeight="30.0" prefWidth="252.0" promptText="Cerca prodotto.." stylesheets="@style.css" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="14.0" />
+                        <Button layoutX="426.0" layoutY="14.0" mnemonicParsing="false" onAction="#search" prefHeight="30.0" prefWidth="77.0" stylesheets="@style.css" text="CERCA" AnchorPane.leftAnchor="426.0" AnchorPane.topAnchor="14.0" />
+                        <Button layoutX="509.0" layoutY="14.0" mnemonicParsing="false" onAction="#svuota" prefHeight="30.0" prefWidth="77.0" stylesheets="@style.css" text="SVUOTA" AnchorPane.leftAnchor="509.0" AnchorPane.topAnchor="14.0" />
+                        <ChoiceBox fx:id="categorie" layoutX="267.0" layoutY="14.0" prefHeight="30.0" prefWidth="150.0" stylesheets="@style.css" AnchorPane.leftAnchor="267.0" AnchorPane.topAnchor="14.0" />
+                        <Button layoutX="643.0" layoutY="14.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="30.0" prefWidth="77.0" stylesheets="@style.css" text="AGGIUNGI" AnchorPane.rightAnchor="553.0" />
+                        <Button layoutX="731.0" layoutY="14.0" mnemonicParsing="false" onAction="#modifyProduct" prefHeight="30.0" prefWidth="77.0" stylesheets="@style.css" text="MODIFICA" AnchorPane.rightAnchor="465.0" />
+                        <Button layoutX="819.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteProduct" prefHeight="30.0" prefWidth="77.0" stylesheets="@style.css" text="ELIMINA" AnchorPane.rightAnchor="377.0" />
+                        <RadioButton layoutX="593.0" layoutY="4.0" mnemonicParsing="false" onAction="#hide" prefHeight="50.0" prefWidth="50.0" />
+                        <TableView fx:id="listaProdotti" layoutX="5.0" layoutY="54.0" minHeight="659.0" minWidth="888.0" prefHeight="659.0" prefWidth="888.0" stylesheets="@style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="380.0" AnchorPane.topAnchor="55.0">
+                          <columns>
+                            <TableColumn fx:id="nome" maxWidth="1.7976931348623157E308" minWidth="300.0" prefWidth="300.0" resizable="false" text="Prodotto" />
+                            <TableColumn fx:id="categoria" maxWidth="1.7976931348623157E308" minWidth="200.0" prefWidth="200.0" resizable="false" text="Categoria" />
+                              <TableColumn fx:id="prezzo_di_acquisto" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" resizable="false" text="Prezzo di acquisto" />
+                              <TableColumn fx:id="prezzo_di_vendita" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" resizable="false" text="Prezzo di vendita" />
+                              <TableColumn fx:id="ricarico" maxWidth="86.0" minWidth="86.0" prefWidth="86.0" resizable="false" text="Ricarico" />
+                          </columns>
+                        </TableView>
+                        <TableView fx:id="scontrino" layoutX="904.0" layoutY="14.0" prefHeight="523.0" prefWidth="355.0" AnchorPane.bottomAnchor="177.0" AnchorPane.leftAnchor="904.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+                          <columns>
+                            <TableColumn fx:id="nome_scontrino" maxWidth="231.0" minWidth="87.0" prefWidth="191.0" text="Prodotto" />
+                              <TableColumn fx:id="num_pezzi" maxWidth="154.0" minWidth="19.0" prefWidth="34.0" />
+                              <TableColumn fx:id="prezzo_scontrino" maxWidth="146.0" minWidth="15.0" prefWidth="50.0" text="€" />
+                          </columns>
+                        </TableView>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="STATISTICHE">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

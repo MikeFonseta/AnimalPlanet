@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="222.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikefonseta.animalplanet.modifyProdcutController">
+   <children>
+      <TextField fx:id="nome" focusTraversable="false" layoutX="135.0" layoutY="29.0" prefHeight="25.0" prefWidth="251.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="29.0" />
+      <Label layoutX="21.0" layoutY="33.0" text="Nome prodotto" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="33.0" />
+      <Label layoutX="25.0" layoutY="70.0" text="Categoria" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="70.0" />
+      <ChoiceBox fx:id="categoria" focusTraversable="false" layoutX="135.0" layoutY="66.0" prefHeight="25.0" prefWidth="147.0" AnchorPane.rightAnchor="138.0" AnchorPane.topAnchor="66.0" />
+      <Button focusTraversable="false" layoutX="293.0" layoutY="66.0" mnemonicParsing="false" onAction="#addCategoria" prefHeight="25.0" prefWidth="92.0" text="NUOVA" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="66.0" />
+      <Button focusTraversable="false" layoutX="293.0" layoutY="99.0" mnemonicParsing="false" onAction="#deleteCategoria" prefHeight="25.0" prefWidth="92.0" text="ELIMINA" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="99.0" />
+      <Label layoutX="21.0" layoutY="103.0" text="Prezzo di acquisto" AnchorPane.bottomAnchor="102.0" AnchorPane.leftAnchor="21.0" />
+      <TextField fx:id="prezzo_di_vendita" focusTraversable="false" layoutX="134.0" layoutY="131.0" prefHeight="25.0" prefWidth="52.0" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="134.0" />
+      <Label layoutX="24.0" layoutY="135.0" text="Prezzo di vendita" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="21.0" />
+      <TextField fx:id="prezzo_di_acquisto" focusTraversable="false" layoutX="134.0" layoutY="99.0" prefHeight="25.0" prefWidth="52.0" AnchorPane.bottomAnchor="98.0" AnchorPane.leftAnchor="134.0" />
+      <RadioButton fx:id="sfuso" focusTraversable="false" layoutX="138.0" layoutY="167.0" mnemonicParsing="false" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="138.0" />
+      <Label layoutX="21.0" layoutY="167.0" text="Sfuso" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="21.0" />
+      <Button focusTraversable="false" layoutX="280.0" layoutY="156.0" mnemonicParsing="false" onAction="#modifyProduct" prefHeight="39.0" prefWidth="105.0" text="AGGIORNA" AnchorPane.bottomAnchor="27.0" AnchorPane.rightAnchor="35.0" />
+   </children>
+</AnchorPane>
