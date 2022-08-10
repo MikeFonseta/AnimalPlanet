@@ -32,6 +32,20 @@
     -fx-text-fill: black;
 }
 
+
+.button:hover {
+        -fx-background-color: #BD9DEB;
+        -fx-background-radius: 10;
+        -fx-background-insets: 0;
+        -fx-text-fill: black;
+}
+
+.button:pressed {
+        -fx-background-color: #757575;
+        -fx-background-radius: 10;
+        -fx-text-fill: black;
+}
+
 .choice-box {
     -fx-background-color: #E5E3E6;
     -fx-background-radius: 10;

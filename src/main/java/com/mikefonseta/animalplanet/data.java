@@ -1,11 +1,9 @@
 package com.mikefonseta.animalplanet;
 
 import com.mikefonseta.animalplanet.Entity.Prodotto;
-import com.mikefonseta.animalplanet.Entity.ProdottoScontrino;
+import com.mikefonseta.animalplanet.Entity.ProdottoListaScontrino;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import java.util.List;
 
 public class data {
 
@@ -14,7 +12,8 @@ public class data {
     private static ObservableList<String> categorie = FXCollections.observableArrayList();
     private static boolean isHiding = false;
 
-    private static ObservableList<ProdottoScontrino> scontrino = FXCollections.observableArrayList();
+    private static ObservableList<ProdottoListaScontrino> scontrino = FXCollections.observableArrayList();
+    private static float totaleIntScontrino = 0;
 
     public static ObservableList<Prodotto> getProdotti() {
         return prodotti;
@@ -37,7 +36,10 @@ public class data {
     public static boolean isIsHiding() {return isHiding;}
     public static void setIsHiding(boolean isHiding) {data.isHiding = isHiding;}
 
-    public static ObservableList<ProdottoScontrino> getScontrino() {return scontrino;}
-    public static void setScontrino(ObservableList<ProdottoScontrino> scontrino) {data.scontrino = scontrino;}
+    public static ObservableList<ProdottoListaScontrino> getScontrino() {return scontrino;}
+    public static void setScontrino(ObservableList<ProdottoListaScontrino> scontrino) {data.scontrino = scontrino;}
+
+    public static float getTotaleIntScontrino() { return totaleIntScontrino;}
+    public static void setTotaleIntScontrino(float totaleIntScontrino) { data.totaleIntScontrino = totaleIntScontrino;}
 }
 

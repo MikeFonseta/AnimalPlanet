@@ -2,7 +2,7 @@ package com.mikefonseta.animalplanet;
 
 import com.mikefonseta.animalplanet.Database.Product;
 import com.mikefonseta.animalplanet.Entity.Prodotto;
-import com.mikefonseta.animalplanet.Entity.ProdottoScontrino;
+import com.mikefonseta.animalplanet.Entity.ProdottoListaScontrino;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +22,7 @@ import java.util.stream.IntStream;
 
 public class mainController implements Initializable {
 
+    //Prodotti
     @FXML
     private ChoiceBox<String> categorie;
     @FXML
@@ -39,7 +40,7 @@ public class mainController implements Initializable {
     @FXML
     public TableColumn<Prodotto, String> ricarico;
 
-
+    //Scontrino
     @FXML
     private TableView scontrino;
     @FXML
@@ -48,6 +49,10 @@ public class mainController implements Initializable {
     public TableColumn<Prodotto, Integer> num_pezzi;
     @FXML
     public TableColumn<Prodotto, Float> prezzo_scontrino;
+    @FXML
+    public Label totaleScontrino;
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -76,12 +81,12 @@ public class mainController implements Initializable {
                                 .orElse(-1);
                         data.getScontrino().get(index).setNum_pezzi(data.getScontrino().get(index).getNum_pezzi() + 1);
                         data.getScontrino().get(index).setPrezzo_scontrino(data.getScontrino().get(index).getPrezzo_singolo()*data.getScontrino().get(index).getNum_pezzi());
+                        data.setTotaleIntScontrino(data.getTotaleIntScontrino()+prodotto.getPrezzoDiVendita());
+                        totaleScontrino.setText("Totale: " + data.getTotaleIntScontrino()+"€");
                     }else {
-                        data.getScontrino().add(new ProdottoScontrino(prodotto.getId(), prodotto.getNome(), 1, prodotto.getPrezzoDiVendita()));
-                    }
-                    for (ProdottoScontrino prodottoScontrino: data.getScontrino())
-                    {
-                        System.out.println("Prodotto: " + prodottoScontrino.getNome_scontrino());
+                        data.getScontrino().add(new ProdottoListaScontrino(prodotto.getId(), prodotto.getNome(), 1, prodotto.getPrezzoDiVendita()));
+                        data.setTotaleIntScontrino(data.getTotaleIntScontrino()+prodotto.getPrezzoDiVendita());
+                        totaleScontrino.setText("Totale: " + data.getTotaleIntScontrino()+"€");
                     }
                 }
             });
@@ -94,29 +99,32 @@ public class mainController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        data.getCategorie().add(0,"");
         categorie.setItems(data.getCategorie());
-        categorie.setValue("Nessuna");
         listaProdotti.setItems(data.getProdotti());
 
         scontrino.setItems(data.getScontrino());
+        totaleScontrino.setText("Totale: " + data.getTotaleIntScontrino()+"€");
     }
 
     private void addButtonToScontrino() {
         TableColumn addBtn = new TableColumn("");
         TableColumn removeBtn = new TableColumn("");
 
-        Callback<TableColumn<ProdottoScontrino, Void>, TableCell<ProdottoScontrino, Void>> cellFactoryAdd = new Callback<TableColumn<ProdottoScontrino, Void>, TableCell<ProdottoScontrino, Void>>() {
+        Callback<TableColumn<ProdottoListaScontrino, Void>, TableCell<ProdottoListaScontrino, Void>> cellFactoryAdd = new Callback<TableColumn<ProdottoListaScontrino, Void>, TableCell<ProdottoListaScontrino, Void>>() {
             @Override
-            public TableCell<ProdottoScontrino, Void> call(final TableColumn<ProdottoScontrino, Void> param) {
-                final TableCell<ProdottoScontrino, Void> cell = new TableCell<ProdottoScontrino, Void>() {
+            public TableCell<ProdottoListaScontrino, Void> call(final TableColumn<ProdottoListaScontrino, Void> param) {
+                final TableCell<ProdottoListaScontrino, Void> cell = new TableCell<ProdottoListaScontrino, Void>() {
 
                     private final Button add_btn = new Button("+");
 
                     {
                         add_btn.setOnAction((ActionEvent event) -> {
-                            ProdottoScontrino prodotto = getTableView().getItems().get(getIndex());
+                            ProdottoListaScontrino prodotto = getTableView().getItems().get(getIndex());
                             prodotto.setNum_pezzi(prodotto.getNum_pezzi()+1);
                             prodotto.setPrezzo_scontrino(prodotto.getPrezzo_singolo()*prodotto.getNum_pezzi());
+                            data.setTotaleIntScontrino(data.getTotaleIntScontrino()+prodotto.getPrezzo_singolo());
+                            totaleScontrino.setText("Totale: " + data.getTotaleIntScontrino()+"€");
                         });
                     }
 
@@ -134,22 +142,26 @@ public class mainController implements Initializable {
             }
         };
 
-        Callback<TableColumn<ProdottoScontrino, Void>, TableCell<ProdottoScontrino, Void>> cellFactoryRemove = new Callback<TableColumn<ProdottoScontrino, Void>, TableCell<ProdottoScontrino, Void>>() {
+        Callback<TableColumn<ProdottoListaScontrino, Void>, TableCell<ProdottoListaScontrino, Void>> cellFactoryRemove = new Callback<TableColumn<ProdottoListaScontrino, Void>, TableCell<ProdottoListaScontrino, Void>>() {
             @Override
-            public TableCell<ProdottoScontrino, Void> call(final TableColumn<ProdottoScontrino, Void> param) {
-                final TableCell<ProdottoScontrino, Void> cell = new TableCell<ProdottoScontrino, Void>() {
+            public TableCell<ProdottoListaScontrino, Void> call(final TableColumn<ProdottoListaScontrino, Void> param) {
+                final TableCell<ProdottoListaScontrino, Void> cell = new TableCell<ProdottoListaScontrino, Void>() {
 
                     private final Button remove_btn = new Button("-");
 
                     {
                         remove_btn.setOnAction((ActionEvent event) -> {
-                            ProdottoScontrino prodotto = getTableView().getItems().get(getIndex());
+                            ProdottoListaScontrino prodotto = getTableView().getItems().get(getIndex());
                             if(prodotto.getNum_pezzi() > 1) {
                                 prodotto.setNum_pezzi(prodotto.getNum_pezzi() - 1);
                                 prodotto.setPrezzo_scontrino(prodotto.getPrezzo_singolo() * prodotto.getNum_pezzi());
+                                data.setTotaleIntScontrino(data.getTotaleIntScontrino()-prodotto.getPrezzo_singolo());
+                                totaleScontrino.setText("Totale: " + data.getTotaleIntScontrino()+"€");
                             }
                             else{
                                 data.getScontrino().remove(prodotto);
+                                data.setTotaleIntScontrino(data.getTotaleIntScontrino()-prodotto.getPrezzo_singolo());
+                                totaleScontrino.setText("Totale: " + data.getTotaleIntScontrino()+"€");
                             }
                         });
                     }
@@ -260,7 +272,7 @@ public class mainController implements Initializable {
 
     public void search(){
         try {
-            data.setProdotti(Product.search(ricerca.getText(),categorie.getValue()));
+            data.setProdotti(Product.search(ricerca.getText(), categorie.getValue()));
         } catch (SQLException e) {
             Alert alert1 = new Alert(Alert.AlertType.INFORMATION, "Errore durante la connessione al database", ButtonType.OK);
             alert1.setTitle("");
@@ -270,8 +282,9 @@ public class mainController implements Initializable {
         listaProdotti.setItems(data.getProdotti());
     }
 
-    public void svuota(){
+    public void svuotaListaProdotti(){
         ricerca.setText("");
+        categorie.setValue("");
         try {
             data.setProdotti(Product.getProducts());
         } catch (SQLException e) {
@@ -298,11 +311,26 @@ public class mainController implements Initializable {
         }
     }
 
-    public void add_scontrino(){
-        data.getScontrino().get(scontrino.getSelectionModel().getSelectedIndex()).setNum_pezzi(data.getScontrino().get(scontrino.getSelectionModel().getSelectedIndex()).getNum_pezzi() + 1);
+    public void svuotaScontrino(){
+        data.getScontrino().clear();
+        data.setTotaleIntScontrino(0);
+        totaleScontrino.setText("Totale: " + data.getTotaleIntScontrino()+"€");
     }
 
-    public void setRemove_scontrino(){
+
+    public void procedi(){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addScontrino.fxml"));
+        Parent root1 = null;
+        try {
+            root1 = fxmlLoader.load();
+        } catch (IOException e) {
+
+        }
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root1));
+        stage.show();
+        stage.setResizable(false);
 
     }
+
 }

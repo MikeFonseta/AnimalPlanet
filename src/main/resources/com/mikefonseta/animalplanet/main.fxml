@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="800.0" maxWidth="1300.0" minHeight="800" minWidth="1300.0" prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: #77499D;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikefonseta.animalplanet.mainController">
    <children>
@@ -11,13 +12,13 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="743.0" prefWidth="920.0">
                      <children>
-                        <TextField fx:id="ricerca" layoutX="5.0" layoutY="14.0" prefHeight="30.0" prefWidth="252.0" promptText="Cerca prodotto.." stylesheets="@style.css" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="14.0" />
+                        <TextField fx:id="ricerca" layoutX="5.0" layoutY="14.0" onKeyTyped="#search" prefHeight="30.0" prefWidth="252.0" promptText="Cerca prodotto.." stylesheets="@style.css" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="14.0" />
                         <Button layoutX="426.0" layoutY="14.0" mnemonicParsing="false" onAction="#search" prefHeight="30.0" prefWidth="77.0" stylesheets="@style.css" text="CERCA" AnchorPane.leftAnchor="426.0" AnchorPane.topAnchor="14.0" />
-                        <Button layoutX="509.0" layoutY="14.0" mnemonicParsing="false" onAction="#svuota" prefHeight="30.0" prefWidth="77.0" stylesheets="@style.css" text="SVUOTA" AnchorPane.leftAnchor="509.0" AnchorPane.topAnchor="14.0" />
-                        <ChoiceBox fx:id="categorie" layoutX="267.0" layoutY="14.0" prefHeight="30.0" prefWidth="150.0" stylesheets="@style.css" AnchorPane.leftAnchor="267.0" AnchorPane.topAnchor="14.0" />
-                        <Button layoutX="643.0" layoutY="14.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="30.0" prefWidth="77.0" stylesheets="@style.css" text="AGGIUNGI" AnchorPane.rightAnchor="553.0" />
-                        <Button layoutX="731.0" layoutY="14.0" mnemonicParsing="false" onAction="#modifyProduct" prefHeight="30.0" prefWidth="77.0" stylesheets="@style.css" text="MODIFICA" AnchorPane.rightAnchor="465.0" />
-                        <Button layoutX="819.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteProduct" prefHeight="30.0" prefWidth="77.0" stylesheets="@style.css" text="ELIMINA" AnchorPane.rightAnchor="377.0" />
+                        <Button layoutX="509.0" layoutY="14.0" mnemonicParsing="false" onAction="#svuotaListaProdotti" prefHeight="30.0" prefWidth="77.0" stylesheets="@style.css" text="SVUOTA" AnchorPane.leftAnchor="509.0" AnchorPane.topAnchor="14.0" />
+                        <ChoiceBox fx:id="categorie" layoutX="267.0" layoutY="14.0" maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" prefHeight="30.0" prefWidth="150.0" stylesheets="@style.css" AnchorPane.leftAnchor="267.0" AnchorPane.topAnchor="14.0" />
+                        <Button layoutX="618.0" layoutY="14.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="30.0" prefWidth="85.0" stylesheets="@style.css" text="AGGIUNGI" AnchorPane.rightAnchor="564.0" />
+                        <Button layoutX="717.0" layoutY="14.0" mnemonicParsing="false" onAction="#modifyProduct" prefHeight="30.0" prefWidth="85.0" stylesheets="@style.css" text="MODIFICA" AnchorPane.rightAnchor="470.0" />
+                        <Button layoutX="819.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteProduct" prefHeight="30.0" prefWidth="85.0" stylesheets="@style.css" text="ELIMINA" AnchorPane.rightAnchor="377.0" />
                         <RadioButton layoutX="593.0" layoutY="4.0" mnemonicParsing="false" onAction="#hide" prefHeight="50.0" prefWidth="50.0" />
                         <TableView fx:id="listaProdotti" layoutX="5.0" layoutY="54.0" minHeight="659.0" minWidth="888.0" prefHeight="659.0" prefWidth="888.0" stylesheets="@style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="380.0" AnchorPane.topAnchor="55.0">
                           <columns>
@@ -28,13 +29,28 @@
                               <TableColumn fx:id="ricarico" maxWidth="86.0" minWidth="86.0" prefWidth="86.0" resizable="false" text="Ricarico" />
                           </columns>
                         </TableView>
-                        <TableView fx:id="scontrino" layoutX="904.0" layoutY="14.0" prefHeight="523.0" prefWidth="355.0" AnchorPane.bottomAnchor="177.0" AnchorPane.leftAnchor="904.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+                        <TableView fx:id="scontrino" layoutX="904.0" layoutY="54.0" maxHeight="600.0" maxWidth="354.0" minHeight="544.0" minWidth="354.0" prefHeight="552.0" prefWidth="354.0" AnchorPane.bottomAnchor="107.0" AnchorPane.leftAnchor="904.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="55.0">
                           <columns>
                             <TableColumn fx:id="nome_scontrino" maxWidth="231.0" minWidth="87.0" prefWidth="191.0" text="Prodotto" />
                               <TableColumn fx:id="num_pezzi" maxWidth="154.0" minWidth="19.0" prefWidth="34.0" />
                               <TableColumn fx:id="prezzo_scontrino" maxWidth="146.0" minWidth="15.0" prefWidth="50.0" text="€" />
                           </columns>
                         </TableView>
+                        <Button layoutX="1088.0" layoutY="664.0" mnemonicParsing="false" onAction="#procedi" prefHeight="50.0" prefWidth="170.0" text="PROCEDI" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="14.0">
+                           <font>
+                              <Font size="19.0" />
+                           </font></Button>
+                        <Button layoutX="906.0" layoutY="662.0" mnemonicParsing="false" onAction="#svuotaScontrino" prefHeight="52.0" prefWidth="170.0" text="SVUOTA" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="906.0">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="906.0" layoutY="14.0" maxHeight="30.0" maxWidth="354.0" minHeight="30.0" minWidth="354.0" mnemonicParsing="false" onAction="#deleteProduct" prefHeight="30.0" prefWidth="354.0" stylesheets="@style.css" text="VISUALIZZA SCONTRINI GIORNALIERI" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
+                        <Label fx:id="totaleScontrino" alignment="CENTER_RIGHT" layoutX="904.0" layoutY="610.0" prefHeight="44.0" prefWidth="355.0" text="Totale: 10€" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="14.0">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Label>
                      </children></AnchorPane>
             </content>
           </Tab>

@@ -3,9 +3,8 @@ package com.mikefonseta.animalplanet.Entity;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.control.Button;
 
-public class ProdottoScontrino {
+public class ProdottoListaScontrino {
 
     private int id;
     private SimpleStringProperty nome_scontrino;
@@ -13,7 +12,7 @@ public class ProdottoScontrino {
     private SimpleFloatProperty prezzo_scontrino;
     private float prezzo_singolo;
 
-    public ProdottoScontrino(int id, String nome, int numPezzi, float prezzoDiVendita) {
+    public ProdottoListaScontrino(int id, String nome, int numPezzi, float prezzoDiVendita) {
         this.id = id;
         this.nome_scontrino = new SimpleStringProperty(nome);
         this.num_pezzi = new SimpleIntegerProperty(numPezzi);

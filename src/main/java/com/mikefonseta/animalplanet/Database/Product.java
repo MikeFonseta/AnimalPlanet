@@ -141,10 +141,8 @@ public class Product {
         connection = DBConnection.getInstance().getConnection();
         st = connection.createStatement();
 
-        result = st.executeUpdate("UPDATE Prodotto SET categoria='Nessuna' WHERE categoria='"+nome+"'");
-        if(result > 0) {
-            result = st.executeUpdate("DELETE FROM Categoria WHERE nome_categoria='" + nome + "'");
-        }
+        st.executeUpdate("UPDATE Prodotto SET categoria='Nessuna' WHERE categoria='"+nome+"'");
+        result = st.executeUpdate("DELETE FROM Categoria WHERE nome_categoria='" + nome + "'");
 
         st.close();
         connection.close();
@@ -158,11 +156,11 @@ public class Product {
 
         if(!nome.isEmpty() && !nome.isBlank()) {
             sql += " WHERE nome LIKE '%" + nome + "%' OR " + "'" + nome + "%' OR " + "'%" + nome + "'";
-            if (!categoria.isEmpty() && !categoria.isBlank()) {
+            if (categoria != null && !categoria.isEmpty() && !categoria.isBlank()) {
                 sql += " AND categoria='" + categoria + "'";
             }
         }else{
-            if (!categoria.isEmpty() && !categoria.isBlank()) {
+            if (categoria != null && !categoria.isEmpty() && !categoria.isBlank()) {
                 sql += " WHERE categoria='" + categoria + "'";
             }
         }

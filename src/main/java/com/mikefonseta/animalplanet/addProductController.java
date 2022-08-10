@@ -105,9 +105,17 @@ public class addProductController implements Initializable {
                                         new Prodotto(p.getId(),p.getNome(),"Nessuna",p.getPrezzoDiAcquisto(),p.getPrezzoDiVendita(),p.isSfuso()));
                             }
                         }
+                        String deleted = categoria.getValue();
                         data.getCategorie().remove(categoria.getValue());
                         categoria.setValue("Nessuna");
-                        Alert alert1 = new Alert(Alert.AlertType.INFORMATION, categoria + " eliminata correttamente", ButtonType.OK);
+                        Alert alert1 = new Alert(Alert.AlertType.INFORMATION, deleted + " eliminata correttamente", ButtonType.OK);
+                        alert1.setTitle("");
+                        alert1.setHeaderText("");
+                        alert1.showAndWait();
+                    }else{
+                        Stage stage = (Stage) categoria.getScene().getWindow();
+                        stage.close();
+                        Alert alert1 = new Alert(Alert.AlertType.INFORMATION, "Errore durante la connessione al database", ButtonType.OK);
                         alert1.setTitle("");
                         alert1.setHeaderText("");
                         alert1.showAndWait();

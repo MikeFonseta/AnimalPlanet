@@ -47,18 +47,17 @@ public class DBConnection {
                 "\tnome_categoria TEXT NOT NULL PRIMARY KEY, UNIQUE(nome_categoria)\n" +
                 ");");
         statement.executeUpdate("INSERT OR IGNORE INTO Categoria(nome_categoria) VALUES('Nessuna')");
-        statement.executeUpdate("INSERT OR IGNORE INTO Categoria(nome_categoria) VALUES('Cane')");
         statement.executeUpdate("CREATE TABLE IF NOT EXISTS Scontrino(\n" +
                 "    id_scontrino SERIAL PRIMARY KEY,\n" +
                 "    creazione_ordine TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n" +
                 "    totale DECIMAL(10,2) NOT NULL\n" +
                 ");");
         statement.executeUpdate("CREATE TABLE IF NOT EXISTS CompScontrino(\n" +
-                "    id_prodotto INTEGER NOT NULL,\n" +
+                "    nome_prodotto TEXT NOT NULL,\n" +
+                "    categoria TEXT NOT NULL DEFAULT 'Nessuna' NOT NULL,\n" +
                 "    num_pezzi INTEGER NOT NULL,\n" +
+                "    sfuso BOOLEAN default 0,\n" +
                 "    id_scontrino INTEGER NOT NULL,\n" +
-                "    CONSTRAINT ProdottoPresenteInOrdine UNIQUE(id_scontrino,id_scontrino), \n" +
-                "    CONSTRAINT fkCOProdotto FOREIGN KEY(id_prodotto) REFERENCES Prodotto(id) ON DELETE CASCADE, \n" +
                 "    CONSTRAINT  fkCOScontrino FOREIGN KEY(id_scontrino) REFERENCES Scontrino(id_scontrino) ON DELETE CASCADE\n" +
                 ");");
     }
