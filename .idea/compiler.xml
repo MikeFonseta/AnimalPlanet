@@ -10,6 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="Animal Planet" target="18" />
       <module name="AnimalPlanet" target="18" />
     </bytecodeTargetLevel>
   </component>

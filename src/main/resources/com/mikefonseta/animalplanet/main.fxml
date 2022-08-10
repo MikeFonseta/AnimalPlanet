@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="800.0" maxWidth="1300.0" minHeight="800" minWidth="1300.0" prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: #77499D;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikefonseta.animalplanet.mainController">
+<AnchorPane maxHeight="800.0" maxWidth="1300.0" minHeight="800" minWidth="1300.0" prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: #77499D;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikefonseta.animalplanet.mainController">
    <children>
       <TabPane layoutX="7.0" layoutY="9.0" prefHeight="772.0" prefWidth="1178.0" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
         <tabs>
@@ -15,9 +15,9 @@
                         <Button layoutX="426.0" layoutY="14.0" mnemonicParsing="false" onAction="#search" prefHeight="30.0" prefWidth="77.0" stylesheets="@style.css" text="CERCA" AnchorPane.leftAnchor="426.0" AnchorPane.topAnchor="14.0" />
                         <Button layoutX="509.0" layoutY="14.0" mnemonicParsing="false" onAction="#svuota" prefHeight="30.0" prefWidth="77.0" stylesheets="@style.css" text="SVUOTA" AnchorPane.leftAnchor="509.0" AnchorPane.topAnchor="14.0" />
                         <ChoiceBox fx:id="categorie" layoutX="267.0" layoutY="14.0" prefHeight="30.0" prefWidth="150.0" stylesheets="@style.css" AnchorPane.leftAnchor="267.0" AnchorPane.topAnchor="14.0" />
-                        <Button layoutX="643.0" layoutY="14.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="30.0" prefWidth="77.0" stylesheets="@style.css" text="AGGIUNGI" AnchorPane.rightAnchor="553.0" />
-                        <Button layoutX="731.0" layoutY="14.0" mnemonicParsing="false" onAction="#modifyProduct" prefHeight="30.0" prefWidth="77.0" stylesheets="@style.css" text="MODIFICA" AnchorPane.rightAnchor="465.0" />
-                        <Button layoutX="819.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteProduct" prefHeight="30.0" prefWidth="77.0" stylesheets="@style.css" text="ELIMINA" AnchorPane.rightAnchor="377.0" />
+                        <Button layoutX="618.0" layoutY="14.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="30.0" prefWidth="85.0" stylesheets="@style.css" text="AGGIUNGI" AnchorPane.rightAnchor="564.0" />
+                        <Button layoutX="717.0" layoutY="14.0" mnemonicParsing="false" onAction="#modifyProduct" prefHeight="30.0" prefWidth="85.0" stylesheets="@style.css" text="MODIFICA" AnchorPane.rightAnchor="470.0" />
+                        <Button layoutX="819.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteProduct" prefHeight="30.0" prefWidth="85.0" stylesheets="@style.css" text="ELIMINA" AnchorPane.rightAnchor="377.0" />
                         <RadioButton layoutX="593.0" layoutY="4.0" mnemonicParsing="false" onAction="#hide" prefHeight="50.0" prefWidth="50.0" />
                         <TableView fx:id="listaProdotti" layoutX="5.0" layoutY="54.0" minHeight="659.0" minWidth="888.0" prefHeight="659.0" prefWidth="888.0" stylesheets="@style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="380.0" AnchorPane.topAnchor="55.0">
                           <columns>
