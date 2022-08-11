@@ -154,14 +154,14 @@ public class Product {
 
         String sql = "SELECT * FROM Prodotto";
 
-        if(!nome.isEmpty() && !nome.isBlank()) {
-            sql += " WHERE nome LIKE '%" + nome + "%' OR " + "'" + nome + "%' OR " + "'%" + nome + "'";
-            if (categoria != null && !categoria.isEmpty() && !categoria.isBlank()) {
-                sql += " AND categoria='" + categoria + "'";
+        if(categoria != null && !categoria.isEmpty() && !categoria.isBlank()) {
+            sql += " WHERE categoria='" + categoria + "'";
+            if (!nome.isEmpty() && !nome.isBlank()) {
+                sql += " AND nome LIKE '%" + nome + "%' OR " + "'" + nome + "%' OR " + "'%" + nome + "'";
             }
         }else{
-            if (categoria != null && !categoria.isEmpty() && !categoria.isBlank()) {
-                sql += " WHERE categoria='" + categoria + "'";
+            if (!nome.isEmpty() && !nome.isBlank()) {
+                sql += " WHERE nome LIKE '%" + nome + "%' OR " + "'" + nome + "%' OR " + "'%" + nome + "'";
             }
         }
 
@@ -174,6 +174,7 @@ public class Product {
             products.add(new Prodotto(rs.getInt("id"), rs.getString("nome"),
                     rs.getString("categoria"), rs.getFloat("prezzo_di_acquisto"),
                     rs.getFloat("prezzo_di_vendita"), rs.getBoolean("sfuso")));
+
         }
 
         rs.close();

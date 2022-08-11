@@ -1,7 +1,9 @@
-package com.mikefonseta.animalplanet;
+package com.mikefonseta.animalplanet.Controller;
 
 import com.mikefonseta.animalplanet.Database.Product;
 import com.mikefonseta.animalplanet.Entity.Prodotto;
+import com.mikefonseta.animalplanet.Entity.ProdottoListaScontrino;
+import com.mikefonseta.animalplanet.data;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -36,11 +38,10 @@ public class addProductController implements Initializable {
             categoria.setItems(data.getCategorie());
             categoria.setValue("Nessuna");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Errore durante la connessione al database", ButtonType.OK);
-            alert.setTitle("");
-            alert.setHeaderText("");
-            alert.showAndWait();
+            Alert alert1 = new Alert(Alert.AlertType.ERROR, "Codice errore: 9", ButtonType.OK);
+            alert1.setTitle("");
+            alert1.setHeaderText("");
+            alert1.showAndWait();
         }
     }
 

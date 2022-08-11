@@ -1,8 +1,10 @@
-package com.mikefonseta.animalplanet;
+package com.mikefonseta.animalplanet.Controller;
 
 import com.mikefonseta.animalplanet.Database.Product;
 import com.mikefonseta.animalplanet.Entity.Prodotto;
 import com.mikefonseta.animalplanet.Entity.ProdottoListaScontrino;
+import com.mikefonseta.animalplanet.data;
+import com.mikefonseta.animalplanet.main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 public class mainController implements Initializable {
@@ -53,7 +56,6 @@ public class mainController implements Initializable {
     public Label totaleScontrino;
 
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -73,20 +75,23 @@ public class mainController implements Initializable {
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
                     Prodotto prodotto = row.getItem();
-                    if(data.getScontrino().stream().anyMatch(item -> prodotto.getId() == item.getId()))
-                    {
-                        int index = IntStream.range(0, data.getScontrino().size())
-                                .filter(i -> data.getScontrino().get(i).getId() == prodotto.getId())
-                                .findFirst()
-                                .orElse(-1);
-                        data.getScontrino().get(index).setNum_pezzi(data.getScontrino().get(index).getNum_pezzi() + 1);
-                        data.getScontrino().get(index).setPrezzo_scontrino(data.getScontrino().get(index).getPrezzo_singolo()*data.getScontrino().get(index).getNum_pezzi());
-                        data.setTotaleIntScontrino(data.getTotaleIntScontrino()+prodotto.getPrezzoDiVendita());
-                        totaleScontrino.setText("Totale: " + data.getTotaleIntScontrino()+"€");
-                    }else {
-                        data.getScontrino().add(new ProdottoListaScontrino(prodotto.getId(), prodotto.getNome(), 1, prodotto.getPrezzoDiVendita()));
-                        data.setTotaleIntScontrino(data.getTotaleIntScontrino()+prodotto.getPrezzoDiVendita());
-                        totaleScontrino.setText("Totale: " + data.getTotaleIntScontrino()+"€");
+                    if(!prodotto.isSfuso()) {
+                        if (data.getScontrino().stream().anyMatch(item -> prodotto.getId() == item.getId())) {
+                            int index = IntStream.range(0, data.getScontrino().size())
+                                    .filter(i -> data.getScontrino().get(i).getId() == prodotto.getId())
+                                    .findFirst()
+                                    .orElse(-1);
+                            data.getScontrino().get(index).setNum_pezzi(data.getScontrino().get(index).getNum_pezzi() + 1);
+                            data.getScontrino().get(index).setPrezzo_scontrino(data.getScontrino().get(index).getPrezzo_singolo() * data.getScontrino().get(index).getNum_pezzi());
+                            data.setTotaleScontrino(data.getTotaleScontrino() + prodotto.getPrezzoDiVendita());
+                            totaleScontrino.setText("Totale: " + data.getTotaleScontrino() + "€");
+                        } else {
+                            data.getScontrino().add(new ProdottoListaScontrino(prodotto.getId(), prodotto.getNome(), 1, prodotto.getPrezzoDiVendita(), false));
+                            data.setTotaleScontrino(data.getTotaleScontrino() + prodotto.getPrezzoDiVendita());
+                            totaleScontrino.setText("Totale: " + data.getTotaleScontrino() + "€");
+                        }
+                    }else{
+                        addSfusoToCart(new ProdottoListaScontrino(prodotto.getId(),prodotto.getNome(),1,prodotto.getPrezzoDiVendita(),prodotto.isSfuso()), false);
                     }
                 }
             });
@@ -104,7 +109,7 @@ public class mainController implements Initializable {
         listaProdotti.setItems(data.getProdotti());
 
         scontrino.setItems(data.getScontrino());
-        totaleScontrino.setText("Totale: " + data.getTotaleIntScontrino()+"€");
+        totaleScontrino.setText("Totale: " + data.getTotaleScontrino()+"€");
     }
 
     private void addButtonToScontrino() {
@@ -121,10 +126,15 @@ public class mainController implements Initializable {
                     {
                         add_btn.setOnAction((ActionEvent event) -> {
                             ProdottoListaScontrino prodotto = getTableView().getItems().get(getIndex());
-                            prodotto.setNum_pezzi(prodotto.getNum_pezzi()+1);
-                            prodotto.setPrezzo_scontrino(prodotto.getPrezzo_singolo()*prodotto.getNum_pezzi());
-                            data.setTotaleIntScontrino(data.getTotaleIntScontrino()+prodotto.getPrezzo_singolo());
-                            totaleScontrino.setText("Totale: " + data.getTotaleIntScontrino()+"€");
+                            if(!prodotto.isSfuso()) {
+                                prodotto.setNum_pezzi(prodotto.getNum_pezzi() + 1);
+                                prodotto.setPrezzo_scontrino(prodotto.getPrezzo_singolo() * prodotto.getNum_pezzi());
+                                data.setTotaleScontrino(data.getTotaleScontrino() + prodotto.getPrezzo_singolo());
+                                totaleScontrino.setText("Totale: " + data.getTotaleScontrino() + "€");
+                            }else
+                            {
+                                addSfusoToCart(prodotto,true);
+                            }
                         });
                     }
 
@@ -152,16 +162,17 @@ public class mainController implements Initializable {
                     {
                         remove_btn.setOnAction((ActionEvent event) -> {
                             ProdottoListaScontrino prodotto = getTableView().getItems().get(getIndex());
-                            if(prodotto.getNum_pezzi() > 1) {
-                                prodotto.setNum_pezzi(prodotto.getNum_pezzi() - 1);
-                                prodotto.setPrezzo_scontrino(prodotto.getPrezzo_singolo() * prodotto.getNum_pezzi());
-                                data.setTotaleIntScontrino(data.getTotaleIntScontrino()-prodotto.getPrezzo_singolo());
-                                totaleScontrino.setText("Totale: " + data.getTotaleIntScontrino()+"€");
-                            }
-                            else{
-                                data.getScontrino().remove(prodotto);
-                                data.setTotaleIntScontrino(data.getTotaleIntScontrino()-prodotto.getPrezzo_singolo());
-                                totaleScontrino.setText("Totale: " + data.getTotaleIntScontrino()+"€");
+                            if(!prodotto.isSfuso()) {
+                                if(prodotto.getNum_pezzi() > 1) {
+                                    prodotto.setNum_pezzi(prodotto.getNum_pezzi() - 1);
+                                    prodotto.setPrezzo_scontrino(prodotto.getPrezzo_singolo() * prodotto.getNum_pezzi());
+                                } else {
+                                    data.getScontrino().remove(prodotto);
+                                }
+                                data.setTotaleScontrino(data.getTotaleScontrino() - prodotto.getPrezzo_singolo());
+                                totaleScontrino.setText("Totale: " + data.getTotaleScontrino() + "€");
+                            }else{
+                                addSfusoToCart(prodotto, true);
                             }
                         });
                     }
@@ -193,17 +204,19 @@ public class mainController implements Initializable {
     }
 
     public void addProduct() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addProduct.fxml"));
-        Parent root1 = null;
         try {
-            root1 = (Parent) fxmlLoader.load();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/addProduct.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            stage.setResizable(false);
         } catch (IOException e) {
-
+            Alert alert1 = new Alert(Alert.AlertType.ERROR, "Codice errore: 2", ButtonType.OK);
+            alert1.setTitle("");
+            alert1.setHeaderText("");
+            alert1.showAndWait();
         }
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root1));
-        stage.show();
-        stage.setResizable(false);
     }
 
     public void deleteProduct()
@@ -229,9 +242,7 @@ public class mainController implements Initializable {
                         alert1.showAndWait();
                     }
                 } catch (SQLException e) {
-                    Stage stage = (Stage) listaProdotti.getScene().getWindow();
-                    stage.close();
-                    Alert alert1 = new Alert(Alert.AlertType.INFORMATION, "Errore durante la connessione al database", ButtonType.OK);
+                    Alert alert1 = new Alert(Alert.AlertType.ERROR, "Eliminazione non riuscita\nCodice errore: 3", ButtonType.OK);
                     alert1.setTitle("");
                     alert1.setHeaderText("");
                     alert1.showAndWait();
@@ -248,20 +259,21 @@ public class mainController implements Initializable {
 
     public void modifyProduct() {
         if(listaProdotti.getSelectionModel().getSelectedIndex() != -1) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("modifyProduct.fxml"));
-            Parent root1 = null;
             try {
-                root1 = (Parent) fxmlLoader.load();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/modifyProduct.fxml"));
+                Parent root = (Parent) fxmlLoader.load();
                 modifyProdcutController modifyProdcutController = fxmlLoader.getController();
                 modifyProdcutController.loadProduct(data.getProdotti().get(listaProdotti.getSelectionModel().getSelectedIndex()));
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+                stage.setResizable(false);
             } catch (IOException e) {
-
+                Alert alert1 = new Alert(Alert.AlertType.ERROR, "Codice errore: 4", ButtonType.OK);
+                alert1.setTitle("");
+                alert1.setHeaderText("");
+                alert1.showAndWait();
             }
-            modifyProdcutController modifyController;
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root1));
-            stage.show();
-            stage.setResizable(false);
         }else{
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Nessun elemento selezionato", ButtonType.OK);
             alert.setTitle("");
@@ -274,7 +286,7 @@ public class mainController implements Initializable {
         try {
             data.setProdotti(Product.search(ricerca.getText(), categorie.getValue()));
         } catch (SQLException e) {
-            Alert alert1 = new Alert(Alert.AlertType.INFORMATION, "Errore durante la connessione al database", ButtonType.OK);
+            Alert alert1 = new Alert(Alert.AlertType.ERROR, "Codice errore: 5", ButtonType.OK);
             alert1.setTitle("");
             alert1.setHeaderText("");
             alert1.showAndWait();
@@ -288,7 +300,7 @@ public class mainController implements Initializable {
         try {
             data.setProdotti(Product.getProducts());
         } catch (SQLException e) {
-            Alert alert1 = new Alert(Alert.AlertType.INFORMATION, "Errore durante la connessione al database", ButtonType.OK);
+            Alert alert1 = new Alert(Alert.AlertType.ERROR, "Codice errore: 6", ButtonType.OK);
             alert1.setTitle("");
             alert1.setHeaderText("");
             alert1.showAndWait();
@@ -313,24 +325,55 @@ public class mainController implements Initializable {
 
     public void svuotaScontrino(){
         data.getScontrino().clear();
-        data.setTotaleIntScontrino(0);
-        totaleScontrino.setText("Totale: " + data.getTotaleIntScontrino()+"€");
+        data.setTotaleScontrino(0);
+        totaleScontrino.setText("Totale: " + data.getTotaleScontrino()+"€");
     }
 
-
     public void procedi(){
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addScontrino.fxml"));
-        Parent root1 = null;
-        try {
-            root1 = fxmlLoader.load();
-        } catch (IOException e) {
-
+        if(data.getScontrino() != null && data.getScontrino().size() > 0) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/addScontrino.fxml"));
+                Parent root = fxmlLoader.load();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+                stage.setResizable(false);
+            } catch (IOException e) {
+                Alert alert1 = new Alert(Alert.AlertType.ERROR, "Codice errore: 7", ButtonType.OK);
+                alert1.setTitle("");
+                alert1.setHeaderText("");
+                alert1.showAndWait();
+            }
+        }else
+        {
+            Alert alert1 = new Alert(Alert.AlertType.INFORMATION, "Scontrino vuoto", ButtonType.OK);
+            alert1.setTitle("");
+            alert1.setHeaderText("");
+            alert1.showAndWait();
         }
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root1));
-        stage.show();
-        stage.setResizable(false);
 
+    }
+
+    public void addSfusoToCart(ProdottoListaScontrino prodotto, boolean modify) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/addSfusoValue.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            addSfusoController addSfusoController = fxmlLoader.getController();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            stage.setResizable(false);
+            data.setProdottoSfuso(prodotto);
+            data.setModifyProdottoSfuso(modify);
+            addSfusoController.updateInfo();
+            addSfusoController.setLabel(totaleScontrino);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert1 = new Alert(Alert.AlertType.ERROR, "Codice errore: 8\n"+e.getCause(), ButtonType.OK);
+            alert1.setTitle("");
+            alert1.setHeaderText("");
+            alert1.showAndWait();
+        }
     }
 
 }

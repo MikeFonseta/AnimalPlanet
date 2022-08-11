@@ -9,4 +9,6 @@ module com.mikefonseta.animalplanet {
     exports com.mikefonseta.animalplanet;
     exports com.mikefonseta.animalplanet.Entity;
     opens com.mikefonseta.animalplanet.Entity to javafx.fxml;
+    exports com.mikefonseta.animalplanet.Controller;
+    opens com.mikefonseta.animalplanet.Controller to javafx.fxml;
 }

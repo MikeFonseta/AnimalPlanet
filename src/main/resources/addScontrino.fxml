@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="191.0" prefWidth="204.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikefonseta.animalplanet.addScontrinoController">
+<AnchorPane prefHeight="191.0" prefWidth="204.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikefonseta.animalplanet.Controller.scontrinoController">
    <children>
       <Label layoutX="49.0" layoutY="26.0" prefHeight="25.0" prefWidth="56.0" text="Subtotale" AnchorPane.leftAnchor="49.0" />
       <TextField fx:id="scontoTF" layoutX="115.0" layoutY="54.0" onKeyTyped="#sconto" prefHeight="25.0" prefWidth="41.0" />

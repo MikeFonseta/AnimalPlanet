@@ -1,7 +1,8 @@
-package com.mikefonseta.animalplanet;
+package com.mikefonseta.animalplanet.Controller;
 
 import com.mikefonseta.animalplanet.Database.Product;
 import com.mikefonseta.animalplanet.Entity.Prodotto;
+import com.mikefonseta.animalplanet.data;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

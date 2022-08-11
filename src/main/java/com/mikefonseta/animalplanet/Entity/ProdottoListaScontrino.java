@@ -1,23 +1,24 @@
 package com.mikefonseta.animalplanet.Entity;
 
 import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class ProdottoListaScontrino {
 
     private int id;
     private SimpleStringProperty nome_scontrino;
-    private SimpleIntegerProperty num_pezzi;
+    private SimpleFloatProperty num_pezzi;
     private SimpleFloatProperty prezzo_scontrino;
+    private boolean isSfuso;
     private float prezzo_singolo;
 
-    public ProdottoListaScontrino(int id, String nome, int numPezzi, float prezzoDiVendita) {
+    public ProdottoListaScontrino(int id, String nome, float numPezzi, float prezzoDiVendita, boolean isSfuso) {
         this.id = id;
         this.nome_scontrino = new SimpleStringProperty(nome);
-        this.num_pezzi = new SimpleIntegerProperty(numPezzi);
+        this.num_pezzi = new SimpleFloatProperty(numPezzi);
         this.prezzo_singolo = prezzoDiVendita;
-        this.prezzo_scontrino = new SimpleFloatProperty(prezzoDiVendita);
+        this.prezzo_scontrino = new SimpleFloatProperty(prezzoDiVendita*numPezzi);
+        this.isSfuso = isSfuso;
     }
 
     public int getId() {
@@ -40,15 +41,15 @@ public class ProdottoListaScontrino {
         this.nome_scontrino.set(nome_scontrino);
     }
 
-    public int getNum_pezzi() {
+    public float getNum_pezzi() {
         return num_pezzi.get();
     }
 
-    public SimpleIntegerProperty num_pezziProperty() {
+    public SimpleFloatProperty num_pezziProperty() {
         return num_pezzi;
     }
 
-    public void setNum_pezzi(int num_pezzi) {
+    public void setNum_pezzi(float num_pezzi) {
         this.num_pezzi.set(num_pezzi);
     }
 
@@ -62,6 +63,14 @@ public class ProdottoListaScontrino {
 
     public void setPrezzo_scontrino(float prezzo_scontrino) {
         this.prezzo_scontrino.set(prezzo_scontrino);
+    }
+
+    public boolean isSfuso() {
+        return isSfuso;
+    }
+
+    public void setSfuso(boolean sfuso) {
+        isSfuso = sfuso;
     }
 
     public float getPrezzo_singolo() {

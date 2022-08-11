@@ -50,6 +50,7 @@ public class DBConnection {
         statement.executeUpdate("CREATE TABLE IF NOT EXISTS Scontrino(\n" +
                 "    id_scontrino SERIAL PRIMARY KEY,\n" +
                 "    creazione_ordine TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n" +
+                "    sconto DECIMAL(10,2) NOT NULL,\n" +
                 "    totale DECIMAL(10,2) NOT NULL\n" +
                 ");");
         statement.executeUpdate("CREATE TABLE IF NOT EXISTS CompScontrino(\n" +

@@ -13,7 +13,10 @@ public class data {
     private static boolean isHiding = false;
 
     private static ObservableList<ProdottoListaScontrino> scontrino = FXCollections.observableArrayList();
-    private static float totaleIntScontrino = 0;
+    private static float totaleScontrino = 0;
+
+    private static ProdottoListaScontrino prodottoSfuso = null;
+    private static boolean modifyProdottoSfuso = false;
 
     public static ObservableList<Prodotto> getProdotti() {
         return prodotti;
@@ -37,9 +40,13 @@ public class data {
     public static void setIsHiding(boolean isHiding) {data.isHiding = isHiding;}
 
     public static ObservableList<ProdottoListaScontrino> getScontrino() {return scontrino;}
-    public static void setScontrino(ObservableList<ProdottoListaScontrino> scontrino) {data.scontrino = scontrino;}
 
-    public static float getTotaleIntScontrino() { return totaleIntScontrino;}
-    public static void setTotaleIntScontrino(float totaleIntScontrino) { data.totaleIntScontrino = totaleIntScontrino;}
+    public static float getTotaleScontrino() { return totaleScontrino;}
+    public static void setTotaleScontrino(float totaleScontrino) { data.totaleScontrino = totaleScontrino;}
+
+    public static ProdottoListaScontrino getProdottoSfuso() { return prodottoSfuso;}
+    public static void setProdottoSfuso(ProdottoListaScontrino prodottoSfuso) { data.prodottoSfuso = prodottoSfuso;}
+    public static boolean isModifyProdottoSfuso() { return modifyProdottoSfuso;}
+    public static void setModifyProdottoSfuso(boolean modifyProdottoSfuso) { data.modifyProdottoSfuso = modifyProdottoSfuso;}
 }
 

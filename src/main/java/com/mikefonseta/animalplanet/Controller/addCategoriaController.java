@@ -1,4 +1,4 @@
-package com.mikefonseta.animalplanet;
+package com.mikefonseta.animalplanet.Controller;
 
 import com.mikefonseta.animalplanet.Database.Product;
 import javafx.fxml.FXML;
@@ -31,16 +31,10 @@ public class addCategoriaController {
                     }
                 }
             } catch (SQLException e) {
-
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Errore durante la connessione al database", ButtonType.OK);
-                alert.setTitle("");
-                alert.setHeaderText("");
-
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.isPresent() && result.get() == ButtonType.OK) {
-                    Stage stage = (Stage) nome.getScene().getWindow();
-                    stage.close();
-                }
+                Alert alert1 = new Alert(Alert.AlertType.ERROR, "Codice errore: 11", ButtonType.OK);
+                alert1.setTitle("");
+                alert1.setHeaderText("");
+                alert1.showAndWait();
             }
         }
     }

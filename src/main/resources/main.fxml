@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="800.0" maxWidth="1300.0" minHeight="800" minWidth="1300.0" prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: #77499D;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikefonseta.animalplanet.mainController">
+<AnchorPane maxHeight="800.0" maxWidth="1300.0" minHeight="800" minWidth="1300.0" prefHeight="800.0" prefWidth="1300.0" style="-fx-background-color: #77499D;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikefonseta.animalplanet.Controller.mainController">
    <children>
       <TabPane layoutX="7.0" layoutY="9.0" prefHeight="772.0" prefWidth="1178.0" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
         <tabs>
