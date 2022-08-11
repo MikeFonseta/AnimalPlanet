@@ -45,7 +45,7 @@
                               <Font size="19.0" />
                            </font>
                         </Button>
-                        <Button layoutX="906.0" layoutY="14.0" maxHeight="30.0" maxWidth="354.0" minHeight="30.0" minWidth="354.0" mnemonicParsing="false" onAction="#deleteProduct" prefHeight="30.0" prefWidth="354.0" stylesheets="@style.css" text="VISUALIZZA SCONTRINI GIORNALIERI" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
+                        <Button layoutX="906.0" layoutY="14.0" maxHeight="30.0" maxWidth="354.0" minHeight="30.0" minWidth="354.0" mnemonicParsing="false" onAction="#getTodayScontrini" prefHeight="30.0" prefWidth="354.0" stylesheets="@style.css" text="VISUALIZZA SCONTRINI GIORNALIERI" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
                         <Label fx:id="totaleScontrino" alignment="CENTER_RIGHT" layoutX="904.0" layoutY="610.0" prefHeight="44.0" prefWidth="355.0" text="Totale: 10€" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="14.0">
                            <font>
                               <Font size="25.0" />

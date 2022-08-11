@@ -3,14 +3,10 @@ package com.mikefonseta.animalplanet.Controller;
 import com.mikefonseta.animalplanet.Entity.ProdottoListaScontrino;
 import com.mikefonseta.animalplanet.data;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class addSfusoController  {
 
@@ -48,10 +44,16 @@ public class addSfusoController  {
     }
 
     public void addToCart(){
+
+        float numPezzi = 1;
+        if(numPezziSfuso.getText() != null && !numPezziSfuso.getText().isEmpty() && !numPezziSfuso.getText().isBlank()){
+            numPezzi = Float.parseFloat(numPezziSfuso.getText());
+        }
+
         if(!data.isModifyProdottoSfuso()) {
-            data.getScontrino().add(new ProdottoListaScontrino(data.getProdottoSfuso().getId(), data.getProdottoSfuso().getNome_scontrino(), Float.parseFloat(numPezziSfuso.getText()), data.getProdottoSfuso().getPrezzo_singolo(), true));
+            data.getListaProdottiScontrino().add(new ProdottoListaScontrino(data.getProdottoSfuso().getId(), data.getProdottoSfuso().getNome_scontrino(), data.getProdottoSfuso().getCategoria(), numPezzi, data.getProdottoSfuso().getPrezzo_singolo(), true));
         }else{
-            data.getScontrino().add(data.getScontrino().indexOf(data.getProdottoSfuso()),new ProdottoListaScontrino(data.getProdottoSfuso().getId(), data.getProdottoSfuso().getNome_scontrino(), Float.parseFloat(numPezziSfuso.getText()), data.getProdottoSfuso().getPrezzo_singolo(), true));
+            data.getListaProdottiScontrino().add(data.getListaProdottiScontrino().indexOf(data.getProdottoSfuso()),new ProdottoListaScontrino(data.getProdottoSfuso().getId(), data.getProdottoSfuso().getNome_scontrino(),data.getProdottoSfuso().getCategoria(), numPezzi, data.getProdottoSfuso().getPrezzo_singolo(), true));
         }
         data.setTotaleScontrino(data.getTotaleScontrino() + prezzoTotaleProdottoSfuso);
         totaleScontrino.setText("Totale: " + data.getTotaleScontrino() + "€");

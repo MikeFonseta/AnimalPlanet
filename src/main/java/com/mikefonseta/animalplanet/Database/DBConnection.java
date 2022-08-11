@@ -37,8 +37,8 @@ public class DBConnection {
                 "\tid INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "\tnome TEXT NOT NULL,\n" +
                 "\tcategoria TEXT NOT NULL DEFAULT 'Nessuna' NOT NULL,\n" +
-                "\tprezzo_di_acquisto TEXT NOT NULL,\n" +
-                "\tprezzo_di_vendita TEXT NOT NULL,\n" +
+                "\tprezzo_di_acquisto DECIMAL(10,2) NOT NULL,\n" +
+                "\tprezzo_di_vendita DECIMAL(10,2) NOT NULL,\n" +
                 "\tsfuso BOOLEAN default 0,\n" +
                 "  \tCONSTRAINT fkCategoria FOREIGN KEY(categoria) REFERENCES Categoria(nome_categoria)\n" +
                 ");");
@@ -48,8 +48,8 @@ public class DBConnection {
                 ");");
         statement.executeUpdate("INSERT OR IGNORE INTO Categoria(nome_categoria) VALUES('Nessuna')");
         statement.executeUpdate("CREATE TABLE IF NOT EXISTS Scontrino(\n" +
-                "    id_scontrino SERIAL PRIMARY KEY,\n" +
-                "    creazione_ordine TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n" +
+                "    id_scontrino INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                "    creazione_ordine DATE DEFAULT (STRFTIME('%H:%M %d/%m/%Y', DATETIME('now'))),\n" +
                 "    sconto DECIMAL(10,2) NOT NULL,\n" +
                 "    totale DECIMAL(10,2) NOT NULL\n" +
                 ");");
@@ -57,6 +57,7 @@ public class DBConnection {
                 "    nome_prodotto TEXT NOT NULL,\n" +
                 "    categoria TEXT NOT NULL DEFAULT 'Nessuna' NOT NULL,\n" +
                 "    num_pezzi INTEGER NOT NULL,\n" +
+                "    prezzo DECIMAL(10,2) NOT NULL,\n" +
                 "    sfuso BOOLEAN default 0,\n" +
                 "    id_scontrino INTEGER NOT NULL,\n" +
                 "    CONSTRAINT  fkCOScontrino FOREIGN KEY(id_scontrino) REFERENCES Scontrino(id_scontrino) ON DELETE CASCADE\n" +

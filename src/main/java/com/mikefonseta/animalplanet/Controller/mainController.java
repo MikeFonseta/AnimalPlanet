@@ -1,10 +1,10 @@
 package com.mikefonseta.animalplanet.Controller;
 
 import com.mikefonseta.animalplanet.Database.Product;
+import com.mikefonseta.animalplanet.Database.Receipt;
 import com.mikefonseta.animalplanet.Entity.Prodotto;
 import com.mikefonseta.animalplanet.Entity.ProdottoListaScontrino;
 import com.mikefonseta.animalplanet.data;
-import com.mikefonseta.animalplanet.main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 public class mainController implements Initializable {
@@ -76,22 +75,22 @@ public class mainController implements Initializable {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
                     Prodotto prodotto = row.getItem();
                     if(!prodotto.isSfuso()) {
-                        if (data.getScontrino().stream().anyMatch(item -> prodotto.getId() == item.getId())) {
-                            int index = IntStream.range(0, data.getScontrino().size())
-                                    .filter(i -> data.getScontrino().get(i).getId() == prodotto.getId())
+                        if (data.getListaProdottiScontrino().stream().anyMatch(item -> prodotto.getId() == item.getId())) {
+                            int index = IntStream.range(0, data.getListaProdottiScontrino().size())
+                                    .filter(i -> data.getListaProdottiScontrino().get(i).getId() == prodotto.getId())
                                     .findFirst()
                                     .orElse(-1);
-                            data.getScontrino().get(index).setNum_pezzi(data.getScontrino().get(index).getNum_pezzi() + 1);
-                            data.getScontrino().get(index).setPrezzo_scontrino(data.getScontrino().get(index).getPrezzo_singolo() * data.getScontrino().get(index).getNum_pezzi());
+                            data.getListaProdottiScontrino().get(index).setNum_pezzi(data.getListaProdottiScontrino().get(index).getNum_pezzi() + 1);
+                            data.getListaProdottiScontrino().get(index).setPrezzo_scontrino(data.getListaProdottiScontrino().get(index).getPrezzo_singolo() * data.getListaProdottiScontrino().get(index).getNum_pezzi());
                             data.setTotaleScontrino(data.getTotaleScontrino() + prodotto.getPrezzoDiVendita());
                             totaleScontrino.setText("Totale: " + data.getTotaleScontrino() + "€");
                         } else {
-                            data.getScontrino().add(new ProdottoListaScontrino(prodotto.getId(), prodotto.getNome(), 1, prodotto.getPrezzoDiVendita(), false));
+                            data.getListaProdottiScontrino().add(new ProdottoListaScontrino(prodotto.getId(), prodotto.getNome(),prodotto.getCategoria(), 1, prodotto.getPrezzoDiVendita(), false));
                             data.setTotaleScontrino(data.getTotaleScontrino() + prodotto.getPrezzoDiVendita());
                             totaleScontrino.setText("Totale: " + data.getTotaleScontrino() + "€");
                         }
                     }else{
-                        addSfusoToCart(new ProdottoListaScontrino(prodotto.getId(),prodotto.getNome(),1,prodotto.getPrezzoDiVendita(),prodotto.isSfuso()), false);
+                        addSfusoToCart(new ProdottoListaScontrino(prodotto.getId(),prodotto.getNome(), prodotto.getCategoria(), 1,prodotto.getPrezzoDiVendita(),prodotto.isSfuso()), false);
                     }
                 }
             });
@@ -108,7 +107,7 @@ public class mainController implements Initializable {
         categorie.setItems(data.getCategorie());
         listaProdotti.setItems(data.getProdotti());
 
-        scontrino.setItems(data.getScontrino());
+        scontrino.setItems(data.getListaProdottiScontrino());
         totaleScontrino.setText("Totale: " + data.getTotaleScontrino()+"€");
     }
 
@@ -167,7 +166,7 @@ public class mainController implements Initializable {
                                     prodotto.setNum_pezzi(prodotto.getNum_pezzi() - 1);
                                     prodotto.setPrezzo_scontrino(prodotto.getPrezzo_singolo() * prodotto.getNum_pezzi());
                                 } else {
-                                    data.getScontrino().remove(prodotto);
+                                    data.getListaProdottiScontrino().remove(prodotto);
                                 }
                                 data.setTotaleScontrino(data.getTotaleScontrino() - prodotto.getPrezzo_singolo());
                                 totaleScontrino.setText("Totale: " + data.getTotaleScontrino() + "€");
@@ -324,13 +323,13 @@ public class mainController implements Initializable {
     }
 
     public void svuotaScontrino(){
-        data.getScontrino().clear();
+        data.getListaProdottiScontrino().clear();
         data.setTotaleScontrino(0);
         totaleScontrino.setText("Totale: " + data.getTotaleScontrino()+"€");
     }
 
     public void procedi(){
-        if(data.getScontrino() != null && data.getScontrino().size() > 0) {
+        if(data.getListaProdottiScontrino() != null && data.getListaProdottiScontrino().size() > 0) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/addScontrino.fxml"));
                 Parent root = fxmlLoader.load();
@@ -376,4 +375,7 @@ public class mainController implements Initializable {
         }
     }
 
+    public void getTodayScontrini() throws SQLException {
+        Receipt.getTodayScontrini();
+    }
 }

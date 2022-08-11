@@ -70,7 +70,7 @@ public class modifyProdcutController {
     }
 
     public void addCategoria(){
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addCategoria.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/addCategoria.fxml"));
         Parent root1 = null;
         try {
             root1 = (Parent) fxmlLoader.load();

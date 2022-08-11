@@ -11,13 +11,15 @@ public class ProdottoListaScontrino {
     private SimpleFloatProperty prezzo_scontrino;
     private boolean isSfuso;
     private float prezzo_singolo;
+    private String categoria;
 
-    public ProdottoListaScontrino(int id, String nome, float numPezzi, float prezzoDiVendita, boolean isSfuso) {
+    public ProdottoListaScontrino(int id, String nome, String categoria, float numPezzi, float prezzoDiVendita, boolean isSfuso) {
         this.id = id;
         this.nome_scontrino = new SimpleStringProperty(nome);
         this.num_pezzi = new SimpleFloatProperty(numPezzi);
         this.prezzo_singolo = prezzoDiVendita;
         this.prezzo_scontrino = new SimpleFloatProperty(prezzoDiVendita*numPezzi);
+        this.categoria = categoria;
         this.isSfuso = isSfuso;
     }
 
@@ -79,5 +81,13 @@ public class ProdottoListaScontrino {
 
     public void setPrezzo_singolo(float prezzo_singolo) {
         this.prezzo_singolo = prezzo_singolo;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 }
