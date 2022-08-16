@@ -1,6 +1,7 @@
 package com.mikefonseta.animalplanet.Controller;
 
 import com.mikefonseta.animalplanet.Database.Receipt;
+import com.mikefonseta.animalplanet.Entity.Scontrino;
 import com.mikefonseta.animalplanet.data;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,7 +15,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class scontrinoController implements Initializable {
+public class modifyScontrinoController {
 
     //AddScontrino
     @FXML
@@ -22,42 +23,39 @@ public class scontrinoController implements Initializable {
     @FXML
     public TextField scontoTF;
 
-    private Label totaleMain;
-    private float sconto = 0;
+    private float sconto;
+    private float scontoIniziale = 0;
+    private Scontrino scontrino = null;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        subtotale.setText(data.getTotaleScontrino() + " €");
-        totale.setText(data.getTotaleScontrino() + " €");
-    }
-
-    public void setTotale(Label totaleMain){
-        this.totaleMain = totaleMain;
+    public void setInfo(Scontrino scontrino){
+        this.scontrino = scontrino;
+        this.scontoIniziale = scontrino.getScontoS();
+        this.sconto = scontrino.getScontoS();
+        scontoTF.setText(String.valueOf(this.sconto));
+        subtotale.setText(scontrino.getTotaleS() + sconto + " €");
+        totale.setText(scontrino.getTotaleS() + scontoIniziale - sconto + " €");
     }
 
     public void sconto()
     {
         if(scontoTF.getText() != null && !scontoTF.getText().isEmpty() && !scontoTF.getText().isBlank()) {
             sconto = Float.parseFloat(scontoTF.getText());
-            totale.setText(data.getTotaleScontrino() - sconto + " €");
+            totale.setText(scontrino.getTotaleS() + scontoIniziale - sconto + " €");
         }else
         {
             sconto = 0;
-            totale.setText(data.getTotaleScontrino() - sconto + " €");
+            totale.setText(scontrino.getTotaleS() + scontoIniziale - sconto + " €");
         }
     }
 
-    public void doScontrino(){
+    public void updateScontrino(){
         try {
-            if(Receipt.addScontrino(sconto, data.getTotaleScontrino()-sconto)==0){
+            if(Receipt.update(scontrino, sconto)==0){
                 Alert alert1 = new Alert(Alert.AlertType.ERROR, "Codice errore: 12.1\n", ButtonType.OK);
                 alert1.setTitle("");
                 alert1.setHeaderText("");
                 alert1.showAndWait();
             }
-            data.getListaProdottiScontrino().clear();
-            totaleMain.setText("Totale: 0.0€");
-            data.setTotaleScontrino(0);
             Stage stage = (Stage) totale.getScene().getWindow();
             stage.close();
         } catch (SQLException e) {
@@ -67,5 +65,4 @@ public class scontrinoController implements Initializable {
             alert1.showAndWait();
         }
     }
-
 }

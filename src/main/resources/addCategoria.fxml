@@ -3,8 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane prefHeight="66.0" prefWidth="321.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikefonseta.animalplanet.Controller.addCategoriaController">
+<AnchorPane prefHeight="66.0" prefWidth="321.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikefonseta.animalplanet.Controller.addCategoriaController">
    <children>
       <TextField fx:id="nome" layoutX="14.0" layoutY="21.0" prefHeight="25.0" prefWidth="164.0" AnchorPane.leftAnchor="18.0" />
       <Button layoutX="187.0" layoutY="21.0" mnemonicParsing="false" onAction="#addCategoria" prefHeight="25.0" prefWidth="104.0" text="AGGIUNGI" AnchorPane.rightAnchor="18.0" />

@@ -31,8 +31,8 @@
                         </TableView>
                         <TableView fx:id="scontrino" layoutX="904.0" layoutY="54.0" maxHeight="600.0" maxWidth="354.0" minHeight="544.0" minWidth="354.0" prefHeight="552.0" prefWidth="354.0" AnchorPane.bottomAnchor="107.0" AnchorPane.leftAnchor="904.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="55.0">
                           <columns>
-                            <TableColumn fx:id="nome_scontrino" maxWidth="231.0" minWidth="87.0" prefWidth="191.0" text="Prodotto" />
-                              <TableColumn fx:id="num_pezzi" maxWidth="154.0" minWidth="19.0" prefWidth="34.0" />
+                            <TableColumn fx:id="nome_scontrino" maxWidth="231.0" minWidth="87.0" prefWidth="161.0" text="Prodotto" />
+                              <TableColumn fx:id="num_pezzi" maxWidth="154.0" minWidth="19.0" prefWidth="64.0" text="Quantità" />
                               <TableColumn fx:id="prezzo_scontrino" maxWidth="146.0" minWidth="15.0" prefWidth="50.0" text="€" />
                           </columns>
                         </TableView>
@@ -45,7 +45,7 @@
                               <Font size="19.0" />
                            </font>
                         </Button>
-                        <Button layoutX="906.0" layoutY="14.0" maxHeight="30.0" maxWidth="354.0" minHeight="30.0" minWidth="354.0" mnemonicParsing="false" onAction="#getTodayScontrini" prefHeight="30.0" prefWidth="354.0" stylesheets="@style.css" text="VISUALIZZA SCONTRINI GIORNALIERI" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
+                        <Button layoutX="906.0" layoutY="14.0" maxHeight="30.0" maxWidth="354.0" minHeight="30.0" minWidth="354.0" mnemonicParsing="false" onAction="#openTodayScontrini" prefHeight="30.0" prefWidth="354.0" stylesheets="@style.css" text="VISUALIZZA SCONTRINI GIORNALIERI" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
                         <Label fx:id="totaleScontrino" alignment="CENTER_RIGHT" layoutX="904.0" layoutY="610.0" prefHeight="44.0" prefWidth="355.0" text="Totale: 10€" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="14.0">
                            <font>
                               <Font size="25.0" />

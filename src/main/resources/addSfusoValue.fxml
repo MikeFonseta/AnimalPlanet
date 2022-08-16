@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="209.0" prefWidth="204.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikefonseta.animalplanet.Controller.addSfusoController">
+<AnchorPane prefHeight="209.0" prefWidth="204.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikefonseta.animalplanet.Controller.addSfusoController">
     <children>
         <Label layoutX="53.0" layoutY="64.0" prefHeight="25.0" prefWidth="56.0" text="Prezzo " AnchorPane.leftAnchor="53.0" />
         <TextField fx:id="numPezziSfuso" layoutX="119.0" layoutY="92.0" onKeyTyped="#updatePrice" prefHeight="25.0" prefWidth="41.0" />

@@ -68,6 +68,7 @@ public class Product {
         st = connection.createStatement();
         result = st.executeUpdate("DELETE FROM Prodotto WHERE id="+id);
 
+        data.getListaSingoloScontrino().clear();
         data.getProdotti().removeIf(e -> e.getId() == id);
 
         st.close();

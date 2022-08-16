@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="562.0" prefWidth="815.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikefonseta.animalplanet.Controller.todayScontriniController">
+   <children>
+      <TableView fx:id="todayScontrini" focusTraversable="false" layoutX="14.0" layoutY="14.0" prefHeight="483.0" prefWidth="329.0">
+        <columns>
+          <TableColumn fx:id="id_scontrinoS" prefWidth="65.0" text="id" />
+          <TableColumn fx:id="creazione_ordineS" prefWidth="110.0" text="Data" />
+            <TableColumn fx:id="scontoS" prefWidth="79.0" text="Sconto" />
+            <TableColumn fx:id="totaleS" prefWidth="72.0" text="Totale" />
+        </columns>
+      </TableView>
+      <Button focusTraversable="false" layoutX="238.0" layoutY="507.0" mnemonicParsing="false" onAction="#deleteScontrino" prefHeight="25.0" prefWidth="105.0" text="ELIMINA" />
+      <Button fx:id="modifyScontrino" focusTraversable="false" layoutX="126.0" layoutY="507.0" mnemonicParsing="false" onAction="#modifyScontrino" prefHeight="25.0" prefWidth="105.0" text="MODIFICA" />
+      <TableView fx:id="singoloScontrino" focusTraversable="false" layoutX="364.0" layoutY="14.0" prefHeight="483.0" prefWidth="435.0">
+        <columns>
+          <TableColumn fx:id="nome_prodottoSC" prefWidth="165.0" text="Prodotto" />
+            <TableColumn fx:id="categoriaSC" prefWidth="72.0" text="Categoria" />
+          <TableColumn fx:id="num_pezziSC" prefWidth="62.0" text="Quantità" />
+            <TableColumn fx:id="prezzoSC" prefWidth="48.0" text="€" />
+        </columns>
+      </TableView>
+      <Button focusTraversable="false" layoutX="694.0" layoutY="507.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" text="ELIMINA" />
+      <Button focusTraversable="false" layoutX="582.0" layoutY="507.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" text="SALVA" />
+   </children>
+</AnchorPane>

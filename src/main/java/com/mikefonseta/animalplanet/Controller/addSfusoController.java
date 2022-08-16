@@ -17,12 +17,12 @@ public class addSfusoController  {
     @FXML
     public Button btn;
 
-    private float prezzoTotaleProdottoSfuso = 0;
-
+    private float prezzoTotaleProdottoSfuso = 0, prezzoTotaleInizialeProdottoSfuso = 0;
     private Label totaleScontrino;
 
     public void updateInfo(){
         if(data.isModifyProdottoSfuso()){
+            prezzoTotaleInizialeProdottoSfuso = data.getProdottoSfuso().getNum_pezzi() * data.getProdottoSfuso().getPrezzo_singolo();
             numPezziSfuso.setText(String.valueOf(data.getProdottoSfuso().getNum_pezzi()));
             btn.setText("AGGIORNA");
         }
@@ -38,7 +38,7 @@ public class addSfusoController  {
             prezzoTotaleProdottoSfuso = data.getProdottoSfuso().getPrezzo_singolo() * numPezzi;
             totaleProdottoSfuso.setText(prezzoTotaleProdottoSfuso + " €");
         }else{
-            prezzoTotaleProdottoSfuso = 0;
+            prezzoTotaleProdottoSfuso = data.getProdottoSfuso().getPrezzo_singolo() * 1;
             totaleProdottoSfuso.setText(prezzoTotaleProdottoSfuso + " €");
         }
     }
@@ -49,13 +49,17 @@ public class addSfusoController  {
         if(numPezziSfuso.getText() != null && !numPezziSfuso.getText().isEmpty() && !numPezziSfuso.getText().isBlank()){
             numPezzi = Float.parseFloat(numPezziSfuso.getText());
         }
-
+        data.getProdottoSfuso().setPrezzo_scontrino(data.getProdottoSfuso().getPrezzo_singolo()*numPezzi);
+        data.getProdottoSfuso().setNum_pezzi(numPezzi);
         if(!data.isModifyProdottoSfuso()) {
             data.getListaProdottiScontrino().add(new ProdottoListaScontrino(data.getProdottoSfuso().getId(), data.getProdottoSfuso().getNome_scontrino(), data.getProdottoSfuso().getCategoria(), numPezzi, data.getProdottoSfuso().getPrezzo_singolo(), true));
+            //data.setTotaleScontrino(data.getTotaleScontrino() - prezzoTotaleInizialeProdottoSfuso + data.getProdottoSfuso().getPrezzo_singolo() * numPezzi);
         }else{
-            data.getListaProdottiScontrino().add(data.getListaProdottiScontrino().indexOf(data.getProdottoSfuso()),new ProdottoListaScontrino(data.getProdottoSfuso().getId(), data.getProdottoSfuso().getNome_scontrino(),data.getProdottoSfuso().getCategoria(), numPezzi, data.getProdottoSfuso().getPrezzo_singolo(), true));
+            data.getListaProdottiScontrino().get(data.getListaProdottiScontrino().indexOf(data.getProdottoSfuso())).setPrezzo_scontrino(data.getProdottoSfuso().getPrezzo_scontrino());
+            data.getListaProdottiScontrino().get(data.getListaProdottiScontrino().indexOf(data.getProdottoSfuso())).setNum_pezzi(data.getProdottoSfuso().getNum_pezzi());
+            //data.setTotaleScontrino(data.getTotaleScontrino() + data.getProdottoSfuso().getPrezzo_singolo() * numPezzi);
         }
-        data.setTotaleScontrino(data.getTotaleScontrino() + prezzoTotaleProdottoSfuso);
+        data.setTotaleScontrino(data.getTotaleScontrino() - prezzoTotaleInizialeProdottoSfuso + data.getProdottoSfuso().getPrezzo_singolo() * numPezzi);
         totaleScontrino.setText("Totale: " + data.getTotaleScontrino() + "€");
         Stage stage = (Stage) nomeProdottoSfuso.getScene().getWindow();
         stage.close();

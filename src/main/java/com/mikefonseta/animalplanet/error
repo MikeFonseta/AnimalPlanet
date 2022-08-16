@@ -8,4 +8,10 @@
 8 Errore funzione addSfusoToCart in main.java
 9 Errore init addProductController.java
 10 Errore init addProductController.java
-11 Errore funziona addCategoria in addCategoriaController.java
+11 Errore funzione addCategoria in addCategoriaController.java
+12.1 Errore funzione doScontrino in scontrinoController.java
+12.2 Errore funzione doScontrino in scontrinoController.java
+13 Errore funzione initialize in todayScontriniController.java
+14 Errore funzione openTodayScontrini in mainController.java
+15 Errore funzione deleteScontrino in todayScontriniController.java
+16 Errore funzione modifyScontrino in todayScontriniController.java

@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="222.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikefonseta.animalplanet.Controller.modifyProdcutController">
+<AnchorPane prefHeight="222.0" prefWidth="420.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikefonseta.animalplanet.Controller.modifyProdcutController">
    <children>
       <TextField fx:id="nome" focusTraversable="false" layoutX="135.0" layoutY="29.0" prefHeight="25.0" prefWidth="251.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="29.0" />
       <Label layoutX="21.0" layoutY="33.0" text="Nome prodotto" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="33.0" />

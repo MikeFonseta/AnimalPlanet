@@ -6,63 +6,63 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Scontrino {
 
-    private SimpleIntegerProperty id_scontrino;
-    private SimpleStringProperty creazione_ordine;
-    private SimpleFloatProperty sconto;
-    private SimpleFloatProperty totale;
+    private SimpleIntegerProperty id_scontrinoS;
+    private SimpleStringProperty creazione_ordineS;
+    private SimpleFloatProperty scontoS;
+    private SimpleFloatProperty totaleS;
 
     public Scontrino(int id_scontrino, String creazione_ordine, float sconto, float totale) {
-        this.id_scontrino = new SimpleIntegerProperty(id_scontrino);
-        this.creazione_ordine = new SimpleStringProperty(creazione_ordine.toString());
-        this.sconto = new SimpleFloatProperty(sconto);
-        this.totale = new SimpleFloatProperty(totale);
+        this.id_scontrinoS = new SimpleIntegerProperty(id_scontrino);
+        this.creazione_ordineS = new SimpleStringProperty(creazione_ordine.toString());
+        this.scontoS = new SimpleFloatProperty(sconto);
+        this.totaleS = new SimpleFloatProperty(totale);
     }
 
-    public int getId_scontrino() {
-        return id_scontrino.get();
+    public int getId_scontrinoS() {
+        return id_scontrinoS.get();
     }
 
-    public SimpleIntegerProperty id_scontrinoProperty() {
-        return id_scontrino;
+    public SimpleIntegerProperty id_scontrinoSProperty() {
+        return id_scontrinoS;
     }
 
-    public void setId_scontrino(int id_scontrino) {
-        this.id_scontrino.set(id_scontrino);
+    public void setId_scontrinoS(int id_scontrinoS) {
+        this.id_scontrinoS.set(id_scontrinoS);
     }
 
-    public String getCreazione_ordine() {
-        return creazione_ordine.get();
+    public String getCreazione_ordineS() {
+        return creazione_ordineS.get();
     }
 
-    public SimpleStringProperty creazione_ordineProperty() {
-        return creazione_ordine;
+    public SimpleStringProperty creazione_ordineSProperty() {
+        return creazione_ordineS;
     }
 
-    public void setCreazione_ordine(String creazione_ordine) {
-        this.creazione_ordine.set(creazione_ordine);
+    public void setCreazione_ordineS(String creazione_ordineS) {
+        this.creazione_ordineS.set(creazione_ordineS);
     }
 
-    public float getSconto() {
-        return sconto.get();
+    public float getScontoS() {
+        return scontoS.get();
     }
 
-    public SimpleFloatProperty scontoProperty() {
-        return sconto;
+    public SimpleFloatProperty scontoSProperty() {
+        return scontoS;
     }
 
-    public void setSconto(float sconto) {
-        this.sconto.set(sconto);
+    public void setScontoS(float scontoS) {
+        this.scontoS.set(scontoS);
     }
 
-    public float getTotale() {
-        return totale.get();
+    public float getTotaleS() {
+        return totaleS.get();
     }
 
-    public SimpleFloatProperty totaleProperty() {
-        return totale;
+    public SimpleFloatProperty totaleSProperty() {
+        return totaleS;
     }
 
-    public void setTotale(float totale) {
-        this.totale.set(totale);
+    public void setTotaleS(float totaleS) {
+        this.totaleS.set(totaleS);
     }
 }

@@ -90,7 +90,18 @@ public class mainController implements Initializable {
                             totaleScontrino.setText("Totale: " + data.getTotaleScontrino() + "€");
                         }
                     }else{
-                        addSfusoToCart(new ProdottoListaScontrino(prodotto.getId(),prodotto.getNome(), prodotto.getCategoria(), 1,prodotto.getPrezzoDiVendita(),prodotto.isSfuso()), false);
+                        if (data.getListaProdottiScontrino().stream().anyMatch(item -> prodotto.getId() == item.getId())) {
+                            int index = IntStream.range(0, data.getListaProdottiScontrino().size())
+                                    .filter(i -> data.getListaProdottiScontrino().get(i).getId() == prodotto.getId())
+                                    .findFirst()
+                                    .orElse(-1);
+                            data.getListaProdottiScontrino().get(index).setNum_pezzi(data.getListaProdottiScontrino().get(index).getNum_pezzi() + 1);
+                            data.getListaProdottiScontrino().get(index).setPrezzo_scontrino(data.getListaProdottiScontrino().get(index).getPrezzo_singolo() * data.getListaProdottiScontrino().get(index).getNum_pezzi());
+                            data.setTotaleScontrino(data.getTotaleScontrino() + prodotto.getPrezzoDiVendita());
+                            totaleScontrino.setText("Totale: " + data.getTotaleScontrino() + "€");
+                        } else {
+                            addSfusoToCart(new ProdottoListaScontrino(prodotto.getId(),prodotto.getNome(), prodotto.getCategoria(), 1,prodotto.getPrezzoDiVendita(),prodotto.isSfuso()), false);
+                        }
                     }
                 }
             });
@@ -171,7 +182,9 @@ public class mainController implements Initializable {
                                 data.setTotaleScontrino(data.getTotaleScontrino() - prodotto.getPrezzo_singolo());
                                 totaleScontrino.setText("Totale: " + data.getTotaleScontrino() + "€");
                             }else{
-                                addSfusoToCart(prodotto, true);
+                                data.getListaProdottiScontrino().remove(prodotto);
+                                data.setTotaleScontrino(data.getTotaleScontrino() - prodotto.getPrezzo_singolo() * prodotto.getNum_pezzi());
+                                totaleScontrino.setText("Totale: " + data.getTotaleScontrino() + "€");
                             }
                         });
                     }
@@ -337,6 +350,9 @@ public class mainController implements Initializable {
                 stage.setScene(new Scene(root));
                 stage.show();
                 stage.setResizable(false);
+
+                scontrinoController scontrinoController = fxmlLoader.getController();
+                scontrinoController.setTotale(totaleScontrino);
             } catch (IOException e) {
                 Alert alert1 = new Alert(Alert.AlertType.ERROR, "Codice errore: 7", ButtonType.OK);
                 alert1.setTitle("");
@@ -368,14 +384,27 @@ public class mainController implements Initializable {
             addSfusoController.setLabel(totaleScontrino);
         } catch (IOException e) {
             e.printStackTrace();
-            Alert alert1 = new Alert(Alert.AlertType.ERROR, "Codice errore: 8\n"+e.getCause(), ButtonType.OK);
+            Alert alert1 = new Alert(Alert.AlertType.ERROR, "Codice errore: 8\n", ButtonType.OK);
             alert1.setTitle("");
             alert1.setHeaderText("");
             alert1.showAndWait();
         }
     }
 
-    public void getTodayScontrini() throws SQLException {
-        Receipt.getTodayScontrini();
+    public void openTodayScontrini(){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/todayScontrini.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            stage.setResizable(false);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert1 = new Alert(Alert.AlertType.ERROR, "Codice errore: 14\n", ButtonType.OK);
+            alert1.setTitle("");
+            alert1.setHeaderText("");
+            alert1.showAndWait();
+        }
     }
 }

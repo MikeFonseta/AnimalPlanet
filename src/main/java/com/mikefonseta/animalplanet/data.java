@@ -2,6 +2,7 @@ package com.mikefonseta.animalplanet;
 
 import com.mikefonseta.animalplanet.Entity.Prodotto;
 import com.mikefonseta.animalplanet.Entity.ProdottoListaScontrino;
+import com.mikefonseta.animalplanet.Entity.ProdottoSingoloScontrino;
 import com.mikefonseta.animalplanet.Entity.Scontrino;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,25 +11,32 @@ public class data {
 
     private static ObservableList<Prodotto> prodotti = FXCollections.observableArrayList();
     private static ObservableList<String> categorie = FXCollections.observableArrayList();
-    private static ObservableList<Scontrino> scontrini = FXCollections.observableArrayList();
+    private static ObservableList<Scontrino> todayScontrini = FXCollections.observableArrayList();
+    private static Scontrino selectedScontrino = null;
+    private static ObservableList<ProdottoSingoloScontrino> listaSingoloScontrino = FXCollections.observableArrayList();
 
+    private static float totaleScontrino = 0;
+    private static ProdottoListaScontrino prodottoSfuso = null;
+    private static boolean modifyProdottoSfuso = false;
     private static boolean isHiding = false;
     private static Prodotto modifyProduct = null;
+
     private static ObservableList<ProdottoListaScontrino> listaProdottiScontrino = FXCollections.observableArrayList();
     public static void setListaProdottiScontrino(ObservableList<ProdottoListaScontrino> listaProdottiScontrino) {
         data.listaProdottiScontrino = listaProdottiScontrino;
     }
-
-    private static float totaleScontrino = 0;
-
-    private static ProdottoListaScontrino prodottoSfuso = null;
-    private static boolean modifyProdottoSfuso = false;
-
-    public static ObservableList<Scontrino> getScontrini() {
-        return scontrini;
+    public static ObservableList<ProdottoSingoloScontrino> getListaSingoloScontrino() {
+        return listaSingoloScontrino;
     }
-    public static void setScontrini(ObservableList<Scontrino> scontrini) {
-        data.scontrini = scontrini;
+    public static void setListaSingoloScontrino(ObservableList<ProdottoSingoloScontrino> listaSingoloScontrino) {
+        data.listaSingoloScontrino = listaSingoloScontrino;
+    }
+
+    public static ObservableList<Scontrino> getTodayScontrini() {
+        return todayScontrini;
+    }
+    public static void setTodayScontrini(ObservableList<Scontrino> todayScontrini) {
+        data.todayScontrini = todayScontrini;
     }
 
     public static ObservableList<Prodotto> getProdotti() {
