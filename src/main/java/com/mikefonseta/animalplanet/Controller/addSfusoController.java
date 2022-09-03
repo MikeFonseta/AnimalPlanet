@@ -8,6 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import static com.mikefonseta.animalplanet.data.makePrecise;
+
 public class addSfusoController  {
 
     @FXML
@@ -17,7 +19,7 @@ public class addSfusoController  {
     @FXML
     public Button btn;
 
-    private float prezzoTotaleProdottoSfuso = 0, prezzoTotaleInizialeProdottoSfuso = 0;
+    private double prezzoTotaleProdottoSfuso = 0, prezzoTotaleInizialeProdottoSfuso = 0;
     private Label totaleScontrino;
 
     public void updateInfo(){
@@ -28,17 +30,17 @@ public class addSfusoController  {
         }
         nomeProdottoSfuso.setText(data.getProdottoSfuso().getNome_scontrino());
         prezzoSingoloProdottoSfuso.setText(data.getProdottoSfuso().getPrezzo_singolo() + " €");
-        prezzoTotaleProdottoSfuso = data.getProdottoSfuso().getPrezzo_singolo() * data.getProdottoSfuso().getNum_pezzi();
+        prezzoTotaleProdottoSfuso = makePrecise(data.getProdottoSfuso().getPrezzo_singolo() * data.getProdottoSfuso().getNum_pezzi(),2);
         totaleProdottoSfuso.setText(prezzoTotaleProdottoSfuso + " €");
     }
 
     public void updatePrice(){
         if(numPezziSfuso.getText() != null && !numPezziSfuso.getText().isEmpty() && !numPezziSfuso.getText().isBlank()) {
             float numPezzi = Float.parseFloat(numPezziSfuso.getText());
-            prezzoTotaleProdottoSfuso = data.getProdottoSfuso().getPrezzo_singolo() * numPezzi;
+            prezzoTotaleProdottoSfuso = makePrecise(data.getProdottoSfuso().getPrezzo_singolo() * numPezzi,2);
             totaleProdottoSfuso.setText(prezzoTotaleProdottoSfuso + " €");
         }else{
-            prezzoTotaleProdottoSfuso = data.getProdottoSfuso().getPrezzo_singolo() * 1;
+            prezzoTotaleProdottoSfuso = makePrecise(data.getProdottoSfuso().getPrezzo_singolo() * 1,2);
             totaleProdottoSfuso.setText(prezzoTotaleProdottoSfuso + " €");
         }
     }
@@ -52,12 +54,11 @@ public class addSfusoController  {
         data.getProdottoSfuso().setPrezzo_scontrino(data.getProdottoSfuso().getPrezzo_singolo()*numPezzi);
         data.getProdottoSfuso().setNum_pezzi(numPezzi);
         if(!data.isModifyProdottoSfuso()) {
-            data.getListaProdottiScontrino().add(new ProdottoListaScontrino(data.getProdottoSfuso().getId(), data.getProdottoSfuso().getNome_scontrino(), data.getProdottoSfuso().getCategoria(), numPezzi, data.getProdottoSfuso().getPrezzo_singolo(), true));
-            //data.setTotaleScontrino(data.getTotaleScontrino() - prezzoTotaleInizialeProdottoSfuso + data.getProdottoSfuso().getPrezzo_singolo() * numPezzi);
+            data.getListaProdottiScontrino().add(new ProdottoListaScontrino(data.getProdottoSfuso().getId(), data.getProdottoSfuso().getNome_scontrino(), data.getProdottoSfuso().getCategoria(), numPezzi, data.getProdottoSfuso().getPrezzo_singolo(), data.getProdottoSfuso().getPrezzo_di_acquisto(),true));
+
         }else{
             data.getListaProdottiScontrino().get(data.getListaProdottiScontrino().indexOf(data.getProdottoSfuso())).setPrezzo_scontrino(data.getProdottoSfuso().getPrezzo_scontrino());
             data.getListaProdottiScontrino().get(data.getListaProdottiScontrino().indexOf(data.getProdottoSfuso())).setNum_pezzi(data.getProdottoSfuso().getNum_pezzi());
-            //data.setTotaleScontrino(data.getTotaleScontrino() + data.getProdottoSfuso().getPrezzo_singolo() * numPezzi);
         }
         data.setTotaleScontrino(data.getTotaleScontrino() - prezzoTotaleInizialeProdottoSfuso + data.getProdottoSfuso().getPrezzo_singolo() * numPezzi);
         totaleScontrino.setText("Totale: " + data.getTotaleScontrino() + "€");

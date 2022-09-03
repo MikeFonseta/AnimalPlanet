@@ -14,6 +14,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import static com.mikefonseta.animalplanet.data.makePrecise;
+
 public class scontrinoController implements Initializable {
 
     //AddScontrino
@@ -23,12 +25,12 @@ public class scontrinoController implements Initializable {
     public TextField scontoTF;
 
     private Label totaleMain;
-    private float sconto = 0;
+    private double sconto = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        subtotale.setText(data.getTotaleScontrino() + " €");
-        totale.setText(data.getTotaleScontrino() + " €");
+        subtotale.setText(makePrecise(data.getTotaleScontrino(),2) + " €");
+        totale.setText(makePrecise(data.getTotaleScontrino(),2) + " €");
     }
 
     public void setTotale(Label totaleMain){
@@ -38,18 +40,18 @@ public class scontrinoController implements Initializable {
     public void sconto()
     {
         if(scontoTF.getText() != null && !scontoTF.getText().isEmpty() && !scontoTF.getText().isBlank()) {
-            sconto = Float.parseFloat(scontoTF.getText());
-            totale.setText(data.getTotaleScontrino() - sconto + " €");
+            sconto = makePrecise(Double.parseDouble(scontoTF.getText()),2);
+            totale.setText(makePrecise((data.getTotaleScontrino() - sconto),2) + " €");
         }else
         {
             sconto = 0;
-            totale.setText(data.getTotaleScontrino() - sconto + " €");
+            totale.setText(makePrecise((data.getTotaleScontrino() - sconto),2) + " €");
         }
     }
 
     public void doScontrino(){
         try {
-            if(Receipt.addScontrino(sconto, data.getTotaleScontrino()-sconto)==0){
+            if(Receipt.addScontrino(makePrecise(sconto,2), makePrecise(data.getTotaleScontrino()-sconto,2))==0){
                 Alert alert1 = new Alert(Alert.AlertType.ERROR, "Codice errore: 12.1\n", ButtonType.OK);
                 alert1.setTitle("");
                 alert1.setHeaderText("");
@@ -62,6 +64,7 @@ public class scontrinoController implements Initializable {
             stage.close();
         } catch (SQLException e) {
             Alert alert1 = new Alert(Alert.AlertType.ERROR, "Codice errore: 12.2\n", ButtonType.OK);
+            e.printStackTrace();
             alert1.setTitle("");
             alert1.setHeaderText("");
             alert1.showAndWait();

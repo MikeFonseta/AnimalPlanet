@@ -42,7 +42,9 @@ public class DBConnection {
                 "\tsfuso BOOLEAN default 0,\n" +
                 "  \tCONSTRAINT fkCategoria FOREIGN KEY(categoria) REFERENCES Categoria(nome_categoria)\n" +
                 ");");
-
+        statement.executeUpdate("CREATE TABLE IF NOT EXISTS Info(\n" +
+                "\tspese DECIMAL(10,2) NOT NULL\n" +
+                ");");
         statement.executeUpdate("CREATE TABLE IF NOT EXISTS Categoria(\n" +
                 "\tnome_categoria TEXT NOT NULL PRIMARY KEY, UNIQUE(nome_categoria)\n" +
                 ");");
@@ -57,7 +59,8 @@ public class DBConnection {
                 "    nome_prodotto TEXT NOT NULL,\n" +
                 "    categoria TEXT NOT NULL DEFAULT 'Nessuna' NOT NULL,\n" +
                 "    num_pezzi INTEGER NOT NULL,\n" +
-                "    prezzo DECIMAL(10,2) NOT NULL,\n" +
+                "    prezzo_di_acquisto DECIMAL(10,2) NOT NULL,\n" +
+                "    prezzo_di_vendita DECIMAL(10,2) NOT NULL,\n" +
                 "    sfuso BOOLEAN default 0,\n" +
                 "    id_scontrino INTEGER NOT NULL,\n" +
                 "    CONSTRAINT  fkCOScontrino FOREIGN KEY(id_scontrino) REFERENCES Scontrino(id_scontrino) ON DELETE CASCADE\n" +

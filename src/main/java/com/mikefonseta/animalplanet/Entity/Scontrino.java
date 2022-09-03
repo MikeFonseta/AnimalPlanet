@@ -1,5 +1,6 @@
 package com.mikefonseta.animalplanet.Entity;
 
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -8,14 +9,14 @@ public class Scontrino {
 
     private SimpleIntegerProperty id_scontrinoS;
     private SimpleStringProperty creazione_ordineS;
-    private SimpleFloatProperty scontoS;
-    private SimpleFloatProperty totaleS;
+    private SimpleDoubleProperty scontoS;
+    private SimpleDoubleProperty totaleS;
 
-    public Scontrino(int id_scontrino, String creazione_ordine, float sconto, float totale) {
+    public Scontrino(int id_scontrino, String creazione_ordine, double sconto, double totale) {
         this.id_scontrinoS = new SimpleIntegerProperty(id_scontrino);
         this.creazione_ordineS = new SimpleStringProperty(creazione_ordine.toString());
-        this.scontoS = new SimpleFloatProperty(sconto);
-        this.totaleS = new SimpleFloatProperty(totale);
+        this.scontoS = new SimpleDoubleProperty(sconto);
+        this.totaleS = new SimpleDoubleProperty(totale);
     }
 
     public int getId_scontrinoS() {
@@ -42,27 +43,27 @@ public class Scontrino {
         this.creazione_ordineS.set(creazione_ordineS);
     }
 
-    public float getScontoS() {
+    public double getScontoS() {
         return scontoS.get();
     }
 
-    public SimpleFloatProperty scontoSProperty() {
+    public SimpleDoubleProperty scontoSProperty() {
         return scontoS;
     }
 
-    public void setScontoS(float scontoS) {
+    public void setScontoS(double scontoS) {
         this.scontoS.set(scontoS);
     }
 
-    public float getTotaleS() {
+    public double getTotaleS() {
         return totaleS.get();
     }
 
-    public SimpleFloatProperty totaleSProperty() {
+    public SimpleDoubleProperty totaleSProperty() {
         return totaleS;
     }
 
-    public void setTotaleS(float totaleS) {
+    public void setTotaleS(double totaleS) {
         this.totaleS.set(totaleS);
     }
 }

@@ -24,6 +24,7 @@ public class main extends Application {
             stage.setResizable(false);
         } catch (IOException e) {
             Alert alert1 = new Alert(Alert.AlertType.ERROR, "Codice errore: 1", ButtonType.OK);
+            e.printStackTrace();
             alert1.setTitle("");
             alert1.setHeaderText("");
             alert1.showAndWait();

@@ -15,6 +15,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import static com.mikefonseta.animalplanet.data.makePrecise;
+
 public class modifyScontrinoController {
 
     //AddScontrino
@@ -23,34 +25,34 @@ public class modifyScontrinoController {
     @FXML
     public TextField scontoTF;
 
-    private float sconto;
-    private float scontoIniziale = 0;
+    private double sconto;
+    private double scontoIniziale = 0;
     private Scontrino scontrino = null;
 
     public void setInfo(Scontrino scontrino){
         this.scontrino = scontrino;
         this.scontoIniziale = scontrino.getScontoS();
         this.sconto = scontrino.getScontoS();
-        scontoTF.setText(String.valueOf(this.sconto));
+        scontoTF.setText(String.valueOf(makePrecise(this.sconto,2)));
         subtotale.setText(scontrino.getTotaleS() + sconto + " €");
-        totale.setText(scontrino.getTotaleS() + scontoIniziale - sconto + " €");
+        totale.setText(makePrecise((scontrino.getTotaleS() + scontoIniziale - sconto),2) + " €");
     }
 
     public void sconto()
     {
         if(scontoTF.getText() != null && !scontoTF.getText().isEmpty() && !scontoTF.getText().isBlank()) {
-            sconto = Float.parseFloat(scontoTF.getText());
-            totale.setText(scontrino.getTotaleS() + scontoIniziale - sconto + " €");
+            sconto = makePrecise(Double.parseDouble(scontoTF.getText()),2);
+            totale.setText(makePrecise(scontrino.getTotaleS() + scontoIniziale - sconto,2) + " €");
         }else
         {
             sconto = 0;
-            totale.setText(scontrino.getTotaleS() + scontoIniziale - sconto + " €");
+            totale.setText(makePrecise(scontrino.getTotaleS() + scontoIniziale - sconto,2) + " €");
         }
     }
 
     public void updateScontrino(){
         try {
-            if(Receipt.update(scontrino, sconto)==0){
+            if(Receipt.update(scontrino, makePrecise(sconto,2))==0){
                 Alert alert1 = new Alert(Alert.AlertType.ERROR, "Codice errore: 12.1\n", ButtonType.OK);
                 alert1.setTitle("");
                 alert1.setHeaderText("");

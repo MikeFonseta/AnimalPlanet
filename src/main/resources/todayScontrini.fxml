@@ -23,7 +23,5 @@
             <TableColumn fx:id="prezzoSC" prefWidth="48.0" text="€" />
         </columns>
       </TableView>
-      <Button focusTraversable="false" layoutX="694.0" layoutY="507.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" text="ELIMINA" />
-      <Button focusTraversable="false" layoutX="582.0" layoutY="507.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" text="SALVA" />
    </children>
 </AnchorPane>

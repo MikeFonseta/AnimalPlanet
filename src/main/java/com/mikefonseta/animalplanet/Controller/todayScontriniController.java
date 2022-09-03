@@ -30,10 +30,9 @@ public class todayScontriniController implements Initializable {
     @FXML
     public TableColumn<Scontrino, String> creazione_ordineS;
     @FXML
-    public TableColumn<Scontrino, Float> scontoS;
+    public TableColumn<Scontrino, Double> scontoS;
     @FXML
-    public TableColumn<Scontrino, Float> totaleS;
-
+    public TableColumn<Scontrino, Double> totaleS;
 
     @FXML
     private TableView<ProdottoSingoloScontrino> singoloScontrino;
@@ -42,9 +41,9 @@ public class todayScontriniController implements Initializable {
     @FXML
     public TableColumn<ProdottoSingoloScontrino, String> categoriaSC;
     @FXML
-    public TableColumn<ProdottoSingoloScontrino, Float> num_pezziSC;
+    public TableColumn<ProdottoSingoloScontrino, Double> num_pezziSC;
     @FXML
-    public TableColumn<ProdottoSingoloScontrino, Float> prezzoSC;
+    public TableColumn<ProdottoSingoloScontrino, Double> prezzoSC;
 
 
     @Override
@@ -58,8 +57,6 @@ public class todayScontriniController implements Initializable {
         categoriaSC.setCellValueFactory(new PropertyValueFactory<>("categoriaSC"));
         num_pezziSC.setCellValueFactory(new PropertyValueFactory<>("num_pezziSC"));
         prezzoSC.setCellValueFactory(new PropertyValueFactory<>("prezzoSC"));
-
-        addButtonToSingoloScontrino();
 
         singoloScontrino.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -88,75 +85,6 @@ public class todayScontriniController implements Initializable {
             alert1.setHeaderText("");
             alert1.showAndWait();
         }
-    }
-
-    private void addButtonToSingoloScontrino() {
-        TableColumn addBtn = new TableColumn("");
-        TableColumn removeBtn = new TableColumn("");
-
-        Callback<TableColumn<ProdottoSingoloScontrino, Void>, TableCell<ProdottoSingoloScontrino, Void>> cellFactoryAdd = new Callback<TableColumn<ProdottoSingoloScontrino, Void>, TableCell<ProdottoSingoloScontrino, Void>>() {
-            @Override
-            public TableCell<ProdottoSingoloScontrino, Void> call(final TableColumn<ProdottoSingoloScontrino, Void> param) {
-                final TableCell<ProdottoSingoloScontrino, Void> cell = new TableCell<ProdottoSingoloScontrino, Void>() {
-
-                    private final Button add_btn = new Button("+");
-                    {
-                        add_btn.setOnAction((ActionEvent event) -> {
-                            ProdottoSingoloScontrino prodotto = getTableView().getItems().get(getIndex());
-                            prodotto.getId_scontrino();
-                        });
-                    }
-
-                    @Override
-                    public void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
-                            setGraphic(add_btn);
-                        }
-                    }
-                };
-                return cell;
-            }
-        };
-
-        Callback<TableColumn<ProdottoSingoloScontrino, Void>, TableCell<ProdottoSingoloScontrino, Void>> cellFactoryRemove = new Callback<TableColumn<ProdottoSingoloScontrino, Void>, TableCell<ProdottoSingoloScontrino, Void>>() {
-            @Override
-            public TableCell<ProdottoSingoloScontrino, Void> call(final TableColumn<ProdottoSingoloScontrino, Void> param) {
-                final TableCell<ProdottoSingoloScontrino, Void> cell = new TableCell<ProdottoSingoloScontrino, Void>() {
-
-                    private final Button remove_btn = new Button("-");
-
-                    {
-                        remove_btn.setOnAction((ActionEvent event) -> {
-                        });
-                    }
-
-                    @Override
-                    public void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
-                            setGraphic(remove_btn);
-                        }
-                    }
-                };
-                return cell;
-            }
-        };
-
-        addBtn.setMaxWidth(40);
-        addBtn.setMinWidth(40);
-        addBtn.setPrefWidth(40);
-        removeBtn.setMaxWidth(40);
-        removeBtn.setMinWidth(40);
-        removeBtn.setPrefWidth(40);
-
-        addBtn.setCellFactory(cellFactoryAdd);
-        removeBtn.setCellFactory(cellFactoryRemove);
-        singoloScontrino.getColumns().addAll(addBtn,removeBtn);
     }
 
     public void deleteScontrino(){

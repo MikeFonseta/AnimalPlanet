@@ -1,25 +1,29 @@
 package com.mikefonseta.animalplanet.Entity;
 
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+
+import static com.mikefonseta.animalplanet.data.makePrecise;
 
 public class Prodotto {
 
     private int id;
     private SimpleStringProperty nome;
     private SimpleStringProperty categoria;
-    private SimpleFloatProperty prezzoDiAcquisto,prezzoDiVendita;
+    private SimpleDoubleProperty prezzoDiAcquisto;
+    private SimpleDoubleProperty prezzoDiVendita;
     private SimpleIntegerProperty ricarico;
     private boolean sfuso;
 
-    public Prodotto(int id, String nome, String categoria, float prezzoDiAcquisto, float prezzoDiVendita,boolean sfuso) {
+    public Prodotto(int id, String nome, String categoria, double prezzoDiAcquisto, double prezzoDiVendita,boolean sfuso) {
         this.id = id;
         this.nome = new SimpleStringProperty(nome);
         this.categoria = new SimpleStringProperty(categoria);
-        this.prezzoDiAcquisto = new SimpleFloatProperty(prezzoDiAcquisto);
-        this.prezzoDiVendita = new SimpleFloatProperty(prezzoDiVendita);
-        this.ricarico = new SimpleIntegerProperty((int) (((prezzoDiVendita / prezzoDiAcquisto) - 1)*100));
+        this.prezzoDiAcquisto = new SimpleDoubleProperty(makePrecise(prezzoDiAcquisto,2));
+        this.prezzoDiVendita = new SimpleDoubleProperty(makePrecise(prezzoDiVendita,2));
+        this.ricarico = new SimpleIntegerProperty((int) (((makePrecise(prezzoDiVendita,2) / makePrecise(prezzoDiAcquisto,2)) - 1)*100));
         this.sfuso = sfuso;
     }
 
@@ -43,19 +47,19 @@ public class Prodotto {
         return categoria;
     }
 
-    public float getPrezzoDiAcquisto() {
+    public double getPrezzoDiAcquisto() {
         return prezzoDiAcquisto.get();
     }
 
-    public SimpleFloatProperty prezzoDiAcquistoProperty() {
+    public SimpleDoubleProperty prezzoDiAcquistoProperty() {
         return prezzoDiAcquisto;
     }
 
-    public float getPrezzoDiVendita() {
+    public double getPrezzoDiVendita() {
         return prezzoDiVendita.get();
     }
 
-    public SimpleFloatProperty prezzoDiVenditaProperty() {
+    public SimpleDoubleProperty prezzoDiVenditaProperty() {
         return prezzoDiVendita;
     }
 

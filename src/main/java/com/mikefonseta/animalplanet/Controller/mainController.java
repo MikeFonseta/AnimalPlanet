@@ -1,16 +1,22 @@
 package com.mikefonseta.animalplanet.Controller;
 
 import com.mikefonseta.animalplanet.Database.Product;
-import com.mikefonseta.animalplanet.Database.Receipt;
+import com.mikefonseta.animalplanet.Database.Statistics;
 import com.mikefonseta.animalplanet.Entity.Prodotto;
 import com.mikefonseta.animalplanet.Entity.ProdottoListaScontrino;
+import com.mikefonseta.animalplanet.Entity.ScontrinoStatistiche;
 import com.mikefonseta.animalplanet.data;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -19,8 +25,12 @@ import javafx.util.Callback;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.IntStream;
+
+import static com.mikefonseta.animalplanet.data.makePrecise;
 
 public class mainController implements Initializable {
 
@@ -36,9 +46,9 @@ public class mainController implements Initializable {
     @FXML
     public TableColumn<Prodotto, String> categoria;
     @FXML
-    public TableColumn<Prodotto, Float> prezzo_di_acquisto;
+    public TableColumn<Prodotto, Double> prezzo_di_acquisto;
     @FXML
-    public TableColumn<Prodotto, Float> prezzo_di_vendita;
+    public TableColumn<Prodotto, Double> prezzo_di_vendita;
     @FXML
     public TableColumn<Prodotto, String> ricarico;
 
@@ -48,15 +58,115 @@ public class mainController implements Initializable {
     @FXML
     public TableColumn<Prodotto, String> nome_scontrino;
     @FXML
-    public TableColumn<Prodotto, Integer> num_pezzi;
+    public TableColumn<Prodotto, Double> num_pezzi;
     @FXML
-    public TableColumn<Prodotto, Float> prezzo_scontrino;
+    public TableColumn<Prodotto, Double> prezzo_scontrino;
     @FXML
     public Label totaleScontrino;
 
+    @FXML
+    public TextField textfieldSpese;
+
+    @FXML
+    public DatePicker dpDay;
+    @FXML
+    public Label incassoDay;
+    @FXML
+    public Label nettoDay;
+    @FXML
+    public Label ricaricoDay;
+
+    @FXML
+    public DatePicker dpWeekly;
+    @FXML
+    public Label incassoWeekly;
+    @FXML
+    public Label nettoWeekly;
+    @FXML
+    public Label ricaricoWeekly;
+
+    @FXML
+    public DatePicker dpMonthly;
+    @FXML
+    public Label incassoMonthly;
+    @FXML
+    public Label nettoMonthly;
+    @FXML
+    public Label ricaricoMonthly;
+
+    @FXML
+    public Label profittoDay;
+    @FXML
+    public Label profittoWeekly;
+    @FXML
+    public Label profittoMonthly;
+
+    @FXML
+    public LineChart<?,?> lineChart;
+
+    @FXML
+    public PieChart graficoCategorie;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        dpDay.setShowWeekNumbers(false);
+        dpWeekly.setShowWeekNumbers(false);
+        dpMonthly.setShowWeekNumbers(false);
+        dpDay.setValue(LocalDate.now());
+        dpWeekly.setValue(LocalDate.now());
+        dpMonthly.setValue(LocalDate.now());
+
+        ObservableList<PieChart.Data> pieChartData =
+                FXCollections.observableArrayList(
+                        new PieChart.Data("Grapefruit", 13),
+                        new PieChart.Data("Oranges", 25),
+                        new PieChart.Data("Plums", 10),
+                        new PieChart.Data("Pears", 22),
+                        new PieChart.Data("Apples", 30));
+        graficoCategorie.setData(pieChartData);
+
+        try {
+            List<ScontrinoStatistiche> scontrinoListStat = Statistics.getScontriniStats();
+
+            XYChart.Series series = new XYChart.Series();
+
+            for (ScontrinoStatistiche s: scontrinoListStat) {
+                series.getData().add(new XYChart.Data(s.getScontrino().getCreazione_ordineS(), s.getScontrino().getTotaleS()));
+            }
+            lineChart.getData().addAll(series);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if(Statistics.getSpese() != 0){
+                textfieldSpese.setText(String.valueOf(data.getSpese()));
+            }
+            if(Statistics.dayStatistics(null)==1){
+                incassoDay.setText((data.getIncassoDay())+"€");
+                nettoDay.setText((data.getNettoDay())+"€");
+                ricaricoDay.setText((data.getRicaricoDay())+ "%");
+                profittoDay.setText((data.getNettoDay()-data.getSpese())+"€");
+            }
+            if(Statistics.weeklyStatistics(null)==1){
+                incassoWeekly.setText((data.getIncassoWeekly())+"€");
+                nettoWeekly.setText((data.getNettoWeekly())+"€");
+                ricaricoWeekly.setText((data.getRicaricoWeekly())+ "%");
+                profittoWeekly.setText(data.getNettoWeekly()-(data.getSpese()*6)+"€");
+            }
+            if(Statistics.monthlyStatistics(null)==1){
+                incassoMonthly.setText((data.getIncassoMonthly())+"€");
+                nettoMonthly.setText((data.getNettoMonthly())+"€");
+                ricaricoMonthly.setText((data.getRicaricoMonthly())+ "%");
+                profittoMonthly.setText((data.getNettoMonthly()-(data.getSpese()*26)+"€"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         categoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
         prezzo_di_acquisto.setCellValueFactory(new PropertyValueFactory<>("prezzoDiAcquisto"));
@@ -85,7 +195,7 @@ public class mainController implements Initializable {
                             data.setTotaleScontrino(data.getTotaleScontrino() + prodotto.getPrezzoDiVendita());
                             totaleScontrino.setText("Totale: " + data.getTotaleScontrino() + "€");
                         } else {
-                            data.getListaProdottiScontrino().add(new ProdottoListaScontrino(prodotto.getId(), prodotto.getNome(),prodotto.getCategoria(), 1, prodotto.getPrezzoDiVendita(), false));
+                            data.getListaProdottiScontrino().add(new ProdottoListaScontrino(prodotto.getId(), prodotto.getNome(),prodotto.getCategoria(), 1, prodotto.getPrezzoDiVendita(), prodotto.getPrezzoDiAcquisto(),false));
                             data.setTotaleScontrino(data.getTotaleScontrino() + prodotto.getPrezzoDiVendita());
                             totaleScontrino.setText("Totale: " + data.getTotaleScontrino() + "€");
                         }
@@ -100,7 +210,7 @@ public class mainController implements Initializable {
                             data.setTotaleScontrino(data.getTotaleScontrino() + prodotto.getPrezzoDiVendita());
                             totaleScontrino.setText("Totale: " + data.getTotaleScontrino() + "€");
                         } else {
-                            addSfusoToCart(new ProdottoListaScontrino(prodotto.getId(),prodotto.getNome(), prodotto.getCategoria(), 1,prodotto.getPrezzoDiVendita(),prodotto.isSfuso()), false);
+                            addSfusoToCart(new ProdottoListaScontrino(prodotto.getId(),prodotto.getNome(), prodotto.getCategoria(), 1,prodotto.getPrezzoDiVendita(),prodotto.getPrezzoDiAcquisto(),prodotto.isSfuso()), false);
                         }
                     }
                 }
@@ -120,6 +230,105 @@ public class mainController implements Initializable {
 
         scontrino.setItems(data.getListaProdottiScontrino());
         totaleScontrino.setText("Totale: " + data.getTotaleScontrino()+"€");
+    }
+
+    public void updateSpese(){
+        if(textfieldSpese.getText() != null && !textfieldSpese.getText().isEmpty() && !textfieldSpese.getText().isBlank()) {
+            try {
+                if(Statistics.updateSpese(makePrecise(Double.parseDouble(textfieldSpese.getText()),2))==1){
+                    textfieldSpese.setText(String.valueOf(data.getSpese()));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void updateStat(){
+
+        try {
+            if(Statistics.getSpese() != 0){
+                textfieldSpese.setText(String.valueOf(data.getSpese()));
+            }
+            if(Statistics.dayStatistics(null)==1){
+                incassoDay.setText((data.getIncassoDay())+"€");
+                nettoDay.setText((data.getNettoDay())+"€");
+                ricaricoDay.setText((data.getRicaricoDay())+ "%");
+                profittoDay.setText((data.getNettoDay()-data.getSpese())+"€");
+            }
+            if(Statistics.weeklyStatistics(null)==1){
+                incassoWeekly.setText((data.getIncassoWeekly())+"€");
+                nettoWeekly.setText((data.getNettoWeekly())+"€");
+                ricaricoWeekly.setText((data.getRicaricoWeekly())+ "%");
+                profittoWeekly.setText(data.getNettoWeekly()-(data.getSpese()*6)+"€");
+            }
+            if(Statistics.monthlyStatistics(null)==1){
+                incassoMonthly.setText((data.getIncassoMonthly())+"€");
+                nettoMonthly.setText((data.getNettoMonthly())+"€");
+                ricaricoMonthly.setText((data.getRicaricoMonthly())+ "%");
+                profittoMonthly.setText((data.getNettoMonthly()-(data.getSpese()*26)+"€"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void dpDayChange(){
+
+        incassoDay.setText("0€");
+        nettoDay.setText("0€");
+        ricaricoDay.setText("0%");
+        profittoDay.setText(data.getSpese()+"€");
+
+        try {
+            if(Statistics.dayStatistics(String.valueOf(dpDay.getValue()))==1){
+                incassoDay.setText((data.getIncassoDay())+"€");
+                nettoDay.setText((data.getNettoDay())+"€");
+                ricaricoDay.setText((data.getRicaricoDay())+ "%");
+                profittoDay.setText((data.getNettoDay()-data.getSpese())+"€");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void dpWeeklyChange(){
+
+        incassoWeekly.setText("0€");
+        nettoWeekly.setText("0€");
+        ricaricoWeekly.setText("0%");
+        profittoWeekly.setText(data.getSpese()*6+"€");
+
+        try {
+            if(Statistics.weeklyStatistics(String.valueOf(dpWeekly.getValue()))==1){
+                incassoWeekly.setText((data.getIncassoWeekly())+"€");
+                nettoWeekly.setText((data.getNettoWeekly())+"€");
+                ricaricoWeekly.setText((data.getRicaricoWeekly())+ "%");
+                profittoWeekly.setText(data.getNettoWeekly()-(data.getSpese()*6)+"€");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void dpMonthlyChange(){
+
+        incassoMonthly.setText("0€");
+        nettoMonthly.setText("0€");
+        ricaricoMonthly.setText("0%");
+        profittoMonthly.setText(data.getSpese()*26+"€");
+
+        try {
+            if(Statistics.monthlyStatistics(String.valueOf(dpMonthly.getValue()))==1){
+                incassoMonthly.setText((data.getIncassoMonthly())+"€");
+                nettoMonthly.setText((data.getNettoMonthly())+"€");
+                ricaricoMonthly.setText((data.getRicaricoMonthly())+ "%");
+                profittoMonthly.setText((data.getNettoMonthly()-(data.getSpese()*26)+"€"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void addButtonToScontrino() {
