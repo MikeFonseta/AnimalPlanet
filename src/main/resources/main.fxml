@@ -153,7 +153,7 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <LineChart fx:id="lineChart" layoutX="16.0" layoutY="375.0" prefHeight="356.0" prefWidth="709.0">
+                              <LineChart fx:id="lineChart" layoutX="16.0" layoutY="375.0" prefHeight="373.0" prefWidth="709.0">
                                 <xAxis>
                                   <CategoryAxis prefHeight="27.0" prefWidth="508.0" side="BOTTOM" tickLabelFill="WHITE" />
                                 </xAxis>

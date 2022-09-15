@@ -1,7 +1,6 @@
 package com.mikefonseta.animalplanet.Entity;
 
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -9,12 +8,16 @@ public class Scontrino {
 
     private SimpleIntegerProperty id_scontrinoS;
     private SimpleStringProperty creazione_ordineS;
+    private SimpleDoubleProperty profitto;
+    private SimpleIntegerProperty ricarico;
     private SimpleDoubleProperty scontoS;
     private SimpleDoubleProperty totaleS;
 
-    public Scontrino(int id_scontrino, String creazione_ordine, double sconto, double totale) {
+    public Scontrino(int id_scontrino, String creazione_ordine, double profitto, int ricarico, double sconto, double totale) {
         this.id_scontrinoS = new SimpleIntegerProperty(id_scontrino);
-        this.creazione_ordineS = new SimpleStringProperty(creazione_ordine.toString());
+        this.creazione_ordineS = new SimpleStringProperty(creazione_ordine);
+        this.profitto = new SimpleDoubleProperty(profitto);
+        this.ricarico = new SimpleIntegerProperty(ricarico);
         this.scontoS = new SimpleDoubleProperty(sconto);
         this.totaleS = new SimpleDoubleProperty(totale);
     }
@@ -41,6 +44,30 @@ public class Scontrino {
 
     public void setCreazione_ordineS(String creazione_ordineS) {
         this.creazione_ordineS.set(creazione_ordineS);
+    }
+
+    public double getProfitto() {
+        return profitto.get();
+    }
+
+    public SimpleDoubleProperty profittoProperty() {
+        return profitto;
+    }
+
+    public void setProfitto(double profitto) {
+        this.profitto.set(profitto);
+    }
+
+    public int getRicarico() {
+        return ricarico.get();
+    }
+
+    public SimpleIntegerProperty ricaricoProperty() {
+        return ricarico;
+    }
+
+    public void setRicarico(int ricarico) {
+        this.ricarico.set(ricarico);
     }
 
     public double getScontoS() {

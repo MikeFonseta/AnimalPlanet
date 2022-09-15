@@ -1,9 +1,6 @@
 package com.mikefonseta.animalplanet.Database;
 
-import com.mikefonseta.animalplanet.Entity.Prodotto;
-import com.mikefonseta.animalplanet.Entity.ProdottoListaScontrino;
-import com.mikefonseta.animalplanet.Entity.ProdottoSingoloScontrino;
-import com.mikefonseta.animalplanet.Entity.Scontrino;
+import com.mikefonseta.animalplanet.Entity.*;
 import com.mikefonseta.animalplanet.data;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,7 +18,8 @@ public class Receipt {
 
     public static ObservableList<Scontrino> getTodayScontrini() throws SQLException {
 
-        ObservableList<Scontrino> scontrini = FXCollections.observableArrayList();
+        List<ScontrinoStatistiche> stat = new ArrayList<ScontrinoStatistiche>();
+        ObservableList<Scontrino> scontrini =  FXCollections.observableArrayList();
 
         String sql = "SELECT * FROM Scontrino WHERE STRFTIME('%d/%m/%Y', creazione_ordine) = STRFTIME('%d/%m/%Y', DATETIME('now','localtime'))";
         Connection conn = DBConnection.getInstance().getConnection();
@@ -29,15 +27,30 @@ public class Receipt {
         ResultSet rs = statement.executeQuery(sql);
 
         while (rs.next()) {
-
-            scontrini.add(new Scontrino(rs.getInt("id_scontrino"), rs.getString("creazione_ordine"),
-                    makePrecise(rs.getDouble("sconto"),2), makePrecise(rs.getDouble("totale"),2)));
+            stat.add(new ScontrinoStatistiche(new Scontrino(rs.getInt("id_scontrino"), rs.getString("creazione_ordine"), 0,0,
+                    makePrecise(rs.getDouble("sconto"),2), makePrecise(rs.getDouble("totale"),2)), null));
         }
 
-        data.setTodayScontrini(scontrini);
         rs.close();
         statement.close();
         conn.close();
+
+        for(ScontrinoStatistiche s: stat){
+            s.setCompScontrino(Receipt.getSingoloScontrino(s.getScontrino().getId_scontrinoS()));
+        }
+
+        double totaleAcquisto = 0;
+        for(ScontrinoStatistiche s: stat){
+            totaleAcquisto = 0;
+            for(ProdottoSingoloScontrino p: s.getCompScontrino()){
+                totaleAcquisto += p.getPrezzo_di_acquisto()*p.getNum_pezziSC();
+            }
+            s.getScontrino().setProfitto(makePrecise(s.getScontrino().getTotaleS() - totaleAcquisto,2));
+            s.getScontrino().setRicarico((int) makePrecise(((s.getScontrino().getTotaleS() / totaleAcquisto) - 1) * 100, 2));
+            scontrini.add(s.getScontrino());
+        }
+
+        data.setTodayScontrini(scontrini);
 
         return scontrini;
     }
@@ -57,7 +70,7 @@ public class Receipt {
             for(ProdottoListaScontrino p: data.getListaProdottiScontrino())
             {
                 result = st.executeUpdate("INSERT INTO CompScontrino VALUES('"+p.getNome_scontrino()+"','"
-                        +p.getCategoria()+"',"+makePrecise(p.getNum_pezzi(),2)+","+makePrecise(p.getPrezzo_singolo(),2)+","+makePrecise(p.getPrezzo_di_acquisto(),2)+","
+                        +p.getCategoria()+"',"+makePrecise(p.getNum_pezzi(),2)+","+makePrecise(p.getPrezzo_di_acquisto(),2)+","+makePrecise(p.getPrezzo_singolo(),2)+","
                         + p.isSfuso()+","+rs.getInt("last_insert_rowid()")+")");
             }
             if(result != 1){
@@ -98,8 +111,8 @@ public class Receipt {
         while (rs.next()) {
             singoloScontrino.add(new ProdottoSingoloScontrino(rs.getString("nome_prodotto"), rs.getString("categoria")
                     ,rs.getDouble("num_pezzi")
-                    ,rs.getDouble("prezzo_di_acquisto")
                     ,rs.getDouble("prezzo_di_vendita")
+                    ,rs.getDouble("prezzo_di_acquisto")
                     ,rs.getBoolean("sfuso")
                     ,rs.getInt("id_scontrino")));
         }
@@ -122,7 +135,7 @@ public class Receipt {
         st = connection.createStatement();
         result = st.executeUpdate("UPDATE Scontrino SET sconto="+sconto+",totale=" + (scontrino.getTotaleS()+scontrino.getScontoS()-sconto) +  " WHERE id_scontrino="+scontrino.getId_scontrinoS());
 
-        data.getTodayScontrini().set(data.getTodayScontrini().indexOf(scontrino), new Scontrino(scontrino.getId_scontrinoS(),scontrino.getCreazione_ordineS(),sconto,makePrecise((scontrino.getTotaleS()+scontrino.getScontoS()-sconto),2)));
+        data.getTodayScontrini().set(data.getTodayScontrini().indexOf(scontrino), new Scontrino(scontrino.getId_scontrinoS(),scontrino.getCreazione_ordineS(),scontrino.getProfitto(),scontrino.getRicarico(),sconto,makePrecise((scontrino.getTotaleS()+scontrino.getScontoS()-sconto),2)));
 
         st.close();
         connection.close();

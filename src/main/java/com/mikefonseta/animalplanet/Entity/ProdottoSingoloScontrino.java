@@ -1,7 +1,6 @@
 package com.mikefonseta.animalplanet.Entity;
 
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import static com.mikefonseta.animalplanet.data.makePrecise;

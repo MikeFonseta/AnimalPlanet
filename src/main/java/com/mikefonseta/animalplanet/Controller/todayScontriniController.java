@@ -1,11 +1,11 @@
 package com.mikefonseta.animalplanet.Controller;
 
-import com.mikefonseta.animalplanet.Database.Product;
 import com.mikefonseta.animalplanet.Database.Receipt;
 import com.mikefonseta.animalplanet.Entity.ProdottoSingoloScontrino;
 import com.mikefonseta.animalplanet.Entity.Scontrino;
+import com.mikefonseta.animalplanet.Entity.ScontrinoStatistiche;
 import com.mikefonseta.animalplanet.data;
-import javafx.event.ActionEvent;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,7 +14,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,6 +28,10 @@ public class todayScontriniController implements Initializable {
     public TableColumn<Scontrino, Integer> id_scontrinoS;
     @FXML
     public TableColumn<Scontrino, String> creazione_ordineS;
+    @FXML
+    public TableColumn<Scontrino, Double> ricarico;
+    @FXML
+    public TableColumn<Scontrino, Double> profitto;
     @FXML
     public TableColumn<Scontrino, Double> scontoS;
     @FXML
@@ -50,6 +53,8 @@ public class todayScontriniController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         id_scontrinoS.setCellValueFactory(new PropertyValueFactory<>("id_scontrinoS"));
         creazione_ordineS.setCellValueFactory(new PropertyValueFactory<>("creazione_ordineS"));
+        ricarico.setCellValueFactory(new PropertyValueFactory<>("ricarico"));
+        profitto.setCellValueFactory(new PropertyValueFactory<>("profitto"));
         scontoS.setCellValueFactory(new PropertyValueFactory<>("scontoS"));
         totaleS.setCellValueFactory(new PropertyValueFactory<>("totaleS"));
 
@@ -60,22 +65,6 @@ public class todayScontriniController implements Initializable {
 
         singoloScontrino.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        todayScontrini.setRowFactory(tv -> {
-            TableRow<Scontrino> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 1 && (! row.isEmpty()) ) {
-                    Scontrino scontrino = row.getItem();
-                    try {
-                        singoloScontrino.getItems().clear();
-                        singoloScontrino.setItems(Receipt.getSingoloScontrino(scontrino.getId_scontrinoS()));
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            return row ;
-        });
-
         try {
             todayScontrini.setItems(Receipt.getTodayScontrini());
         } catch (SQLException e) {
@@ -85,6 +74,26 @@ public class todayScontriniController implements Initializable {
             alert1.setHeaderText("");
             alert1.showAndWait();
         }
+
+        todayScontrini.setRowFactory(tv -> {
+            TableRow<Scontrino> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 1 && (! row.isEmpty()) ) {
+                    singoloScontrino.getItems().clear();
+                    try {
+                        singoloScontrino.setItems(Receipt.getSingoloScontrino(row.getItem().getId_scontrinoS()));
+                    } catch (SQLException e) {
+                        Alert alert1 = new Alert(Alert.AlertType.ERROR, "Codice errore: 13\n", ButtonType.OK);
+                        e.printStackTrace();
+                        alert1.setTitle("");
+                        alert1.setHeaderText("");
+                        alert1.showAndWait();
+                    }
+                }
+            });
+            return row ;
+        });
+
     }
 
     public void deleteScontrino(){
@@ -92,7 +101,7 @@ public class todayScontriniController implements Initializable {
             ButtonType yes = new ButtonType("SI", ButtonBar.ButtonData.BACK_PREVIOUS);
             ButtonType no = new ButtonType("NO", ButtonBar.ButtonData.NEXT_FORWARD);
             Alert alert = new Alert(Alert.AlertType.WARNING, "Sicuro di voler eliminare lo scontrino con id "+
-                    data.getTodayScontrini().get(todayScontrini.getSelectionModel().getSelectedIndex()).getId_scontrinoS() +"?", yes, no);
+                    data.getTodayScontrini().get(todayScontrini.getSelectionModel().getSelectedIndex()).getId_scontrinoS()+"?", yes, no);
             alert.setTitle("");
             alert.setHeaderText("");
             alert.showAndWait();

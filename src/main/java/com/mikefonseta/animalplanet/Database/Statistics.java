@@ -2,6 +2,7 @@ package com.mikefonseta.animalplanet.Database;
 
 import com.mikefonseta.animalplanet.Entity.ProdottoSingoloScontrino;
 import com.mikefonseta.animalplanet.Entity.Scontrino;
+import com.mikefonseta.animalplanet.Entity.ScontrinoGrafico;
 import com.mikefonseta.animalplanet.Entity.ScontrinoStatistiche;
 import com.mikefonseta.animalplanet.data;
 import javafx.collections.FXCollections;
@@ -29,9 +30,10 @@ public class Statistics {
         Statement statement  = conn.createStatement();
         ResultSet rs = statement.executeQuery(sql);
         int result = 0;
+
         while (rs.next()) {
             result = 1;
-            scontrini.add(new ScontrinoStatistiche(new Scontrino(rs.getInt("id_scontrino"), rs.getString("creazione_ordine"),
+            scontrini.add(new ScontrinoStatistiche(new Scontrino(rs.getInt("id_scontrino"), rs.getString("creazione_ordine"),0,0,
                     rs.getFloat("sconto"), rs.getFloat("totale")),null));
 
         }
@@ -55,13 +57,14 @@ public class Statistics {
         }
 
         if(totale != 0) {
-            data.setIncassoDay(totale);
-            data.setNettoDay(totale - totaleAcquisto);
-            data.setRicaricoDay((int) (((totale / totaleAcquisto) - 1) * 100));//
+            data.setIncassoDay(makePrecise(totale,2));
+            data.setNettoDay(makePrecise(totale - totaleAcquisto,2));
+            data.setRicaricoDay((int) makePrecise(((totale / totaleAcquisto) - 1) * 100, 2));
         }else{
             data.setIncassoDay(0);
             data.setNettoDay(0);
             data.setRicaricoDay(0);
+            result = 1;
         }
         //System.out.println("INCASSO: " + totale + "\nNETTO: " + (totale-totaleAcquisto) + "\nRICARICO: " + (int) (((totale / totaleAcquisto) - 1)*100));
         return result;
@@ -80,7 +83,7 @@ public class Statistics {
         int result = 0;
         while (rs.next()) {
             result = 1;
-            scontrini.add(new ScontrinoStatistiche(new Scontrino(rs.getInt("id_scontrino"), rs.getString("creazione_ordine"),
+            scontrini.add(new ScontrinoStatistiche(new Scontrino(rs.getInt("id_scontrino"), rs.getString("creazione_ordine"),0,0,
                     rs.getFloat("sconto"), rs.getFloat("totale")),null));
 
         }
@@ -104,9 +107,9 @@ public class Statistics {
         }
 
         if(totale != 0) {
-            data.setIncassoWeekly(totale);
-            data.setNettoWeekly(totale - totaleAcquisto);
-            data.setRicaricoWeekly((int) (((totale / totaleAcquisto) - 1) * 100));
+            data.setIncassoWeekly(makePrecise(totale,2));
+            data.setNettoWeekly(makePrecise(totale - totaleAcquisto,2));
+            data.setRicaricoWeekly((int) makePrecise(((totale / totaleAcquisto) - 1) * 100, 2));
         }else{
             data.setIncassoWeekly(0);
             data.setNettoWeekly(0);
@@ -131,7 +134,7 @@ public class Statistics {
         int result = 0;
         while (rs.next()) {
             result = 1;
-            scontrini.add(new ScontrinoStatistiche(new Scontrino(rs.getInt("id_scontrino"), rs.getString("creazione_ordine"),
+            scontrini.add(new ScontrinoStatistiche(new Scontrino(rs.getInt("id_scontrino"), rs.getString("creazione_ordine"),0,0,
                     rs.getFloat("sconto"), rs.getFloat("totale")),null));
 
         }
@@ -153,48 +156,63 @@ public class Statistics {
                 totaleAcquisto += p.getPrezzo_di_acquisto()*p.getNum_pezziSC();
             }
         }
-        data.setIncassoMonthly(totale);
-        data.setNettoMonthly(totale-totaleAcquisto);
-        data.setRicaricoMonthly((int) (((totale / totaleAcquisto) - 1)*100));
+        data.setIncassoMonthly(makePrecise(totale,2));
+        data.setNettoMonthly(makePrecise(totale - totaleAcquisto,2));
+        data.setRicaricoMonthly((int) makePrecise(((totale / totaleAcquisto) - 1) * 100, 2));
 
         return result;
     }
 
-    public static List<ScontrinoStatistiche> getScontriniStats() throws SQLException {
+    public static List<ScontrinoGrafico> getScontriniStats() throws SQLException {
 
         ArrayList<ScontrinoStatistiche> scontrini = new ArrayList<>();
+        ArrayList<ScontrinoGrafico> result = new ArrayList<>();
 
         double spese = getSpese();
 
-        String sql = "SELECT id_scontrino,strftime('%Y-%m-%d', creazione_ordine),SUM(sconto),SUM(totale) FROM Scontrino  GROUP BY strftime('%d', creazione_ordine) ORDER BY creazione_ordine ASC ";
+        String sql = "SELECT * FROM Scontrino ORDER BY creazione_ordine ASC LIMIT 20 ";
         Connection conn = DBConnection.getInstance().getConnection();
         Statement statement  = conn.createStatement();
         ResultSet rs = statement.executeQuery(sql);
 
         while (rs.next()) {
 
-            scontrini.add(new ScontrinoStatistiche(new Scontrino(rs.getInt("id_scontrino"), rs.getString("strftime('%Y-%m-%d', creazione_ordine)"),
-                    makePrecise(rs.getDouble("SUM(sconto)"),2), makePrecise(rs.getDouble("SUM(totale)"),2)),null));
+            scontrini.add(new ScontrinoStatistiche(new Scontrino(rs.getInt("id_scontrino"), rs.getString("creazione_ordine"),0,0,
+                    makePrecise(rs.getDouble("sconto"),2), makePrecise(rs.getDouble("totale"),2)),null));
         }
 
         for(ScontrinoStatistiche s: scontrini){
             s.setCompScontrino(Receipt.getSingoloScontrino(s.getScontrino().getId_scontrinoS()));
         }
 
+
+        float totale = 0;
         float totaleAcquisto = 0;
-        for(ScontrinoStatistiche s: scontrini){
-            totaleAcquisto = 0;
-            for(ProdottoSingoloScontrino p: s.getCompScontrino()){
+        String date = "";
+        for(int i = 0; i < scontrini.size(); i++){
+            date = scontrini.get(i).getScontrino().getCreazione_ordineS().substring(0,7);
+            totale += scontrini.get(i).getScontrino().getTotaleS();
+            for(ProdottoSingoloScontrino p: scontrini.get(i).getCompScontrino()){
                 totaleAcquisto += p.getPrezzo_di_acquisto()*p.getNum_pezziSC();
             }
-            s.getScontrino().setTotaleS(s.getScontrino().getTotaleS() - totaleAcquisto - spese);
+
+            while(i + 1 < scontrini.size() && scontrini.get(i + 1).getScontrino().getCreazione_ordineS().substring(0,7).equals(date)){
+                totale += scontrini.get(i + 1).getScontrino().getTotaleS();
+                for(ProdottoSingoloScontrino p: scontrini.get(i + 1).getCompScontrino()){
+                    totaleAcquisto += p.getPrezzo_di_acquisto()*p.getNum_pezziSC();
+                }
+                i++;
+            }
+            result.add(new ScontrinoGrafico(date, totale-totaleAcquisto-spese));
+            totale = 0;
+            totaleAcquisto = 0;
         }
 
         rs.close();
         statement.close();
         conn.close();
 
-        return scontrini;
+        return result;
     }
 
     public static double getSpese() throws SQLException {
@@ -211,7 +229,6 @@ public class Statistics {
 
             spese = rs.getDouble("spese");
         }
-        System.out.println(spese);
         data.setSpese(spese);
         rs.close();
         statement.close();
@@ -227,7 +244,10 @@ public class Statistics {
         Connection conn = DBConnection.getInstance().getConnection();
         Statement statement  = conn.createStatement();
         result = statement.executeUpdate(sql);
-
+        if(result == 0){
+            sql = "INSERT INTO Info(spese) VALUES(0)";
+            statement.executeUpdate(sql);
+        }
         data.setSpese(newValue);
         statement.close();
         conn.close();

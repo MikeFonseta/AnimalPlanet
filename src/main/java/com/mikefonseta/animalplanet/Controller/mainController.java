@@ -4,6 +4,7 @@ import com.mikefonseta.animalplanet.Database.Product;
 import com.mikefonseta.animalplanet.Database.Statistics;
 import com.mikefonseta.animalplanet.Entity.Prodotto;
 import com.mikefonseta.animalplanet.Entity.ProdottoListaScontrino;
+import com.mikefonseta.animalplanet.Entity.ScontrinoGrafico;
 import com.mikefonseta.animalplanet.Entity.ScontrinoStatistiche;
 import com.mikefonseta.animalplanet.data;
 import javafx.collections.FXCollections;
@@ -106,6 +107,7 @@ public class mainController implements Initializable {
 
     @FXML
     public PieChart graficoCategorie;
+    XYChart.Series series = new XYChart.Series();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -127,13 +129,14 @@ public class mainController implements Initializable {
         graficoCategorie.setData(pieChartData);
 
         try {
-            List<ScontrinoStatistiche> scontrinoListStat = Statistics.getScontriniStats();
+            List<ScontrinoGrafico> scontrinoListStat = Statistics.getScontriniStats();
 
-            XYChart.Series series = new XYChart.Series();
+            series = new XYChart.Series();
 
-            for (ScontrinoStatistiche s: scontrinoListStat) {
-                series.getData().add(new XYChart.Data(s.getScontrino().getCreazione_ordineS(), s.getScontrino().getTotaleS()));
+            for (ScontrinoGrafico s: scontrinoListStat) {
+                series.getData().add(new XYChart.Data(s.getData(), s.getProfitto()));
             }
+            lineChart.getData().removeAll();
             lineChart.getData().addAll(series);
 
         } catch (SQLException e) {
@@ -148,7 +151,9 @@ public class mainController implements Initializable {
                 incassoDay.setText((data.getIncassoDay())+"€");
                 nettoDay.setText((data.getNettoDay())+"€");
                 ricaricoDay.setText((data.getRicaricoDay())+ "%");
-                profittoDay.setText((data.getNettoDay()-data.getSpese())+"€");
+                double netto = data.getNettoDay();
+                System.out.println(netto -data.getSpese());
+                profittoDay.setText((data.getNettoDay()-(data.getSpese()*1))+"€");
             }
             if(Statistics.weeklyStatistics(null)==1){
                 incassoWeekly.setText((data.getIncassoWeekly())+"€");
@@ -160,7 +165,7 @@ public class mainController implements Initializable {
                 incassoMonthly.setText((data.getIncassoMonthly())+"€");
                 nettoMonthly.setText((data.getNettoMonthly())+"€");
                 ricaricoMonthly.setText((data.getRicaricoMonthly())+ "%");
-                profittoMonthly.setText((data.getNettoMonthly()-(data.getSpese()*26)+"€"));
+                profittoMonthly.setText((data.getNettoMonthly()-(data.getSpese()*26) +"€"));
             }
 
         } catch (SQLException e) {
@@ -237,6 +242,7 @@ public class mainController implements Initializable {
             try {
                 if(Statistics.updateSpese(makePrecise(Double.parseDouble(textfieldSpese.getText()),2))==1){
                     textfieldSpese.setText(String.valueOf(data.getSpese()));
+                    updateStat();
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -247,6 +253,16 @@ public class mainController implements Initializable {
     public void updateStat(){
 
         try {
+            List<ScontrinoGrafico> scontrinoListStat = Statistics.getScontriniStats();
+
+            lineChart.setAnimated(false);
+            lineChart.getData().clear();
+            series.getData().clear();
+            for (ScontrinoGrafico s: scontrinoListStat) {
+                series.getData().add(new XYChart.Data(s.getData(), s.getProfitto()));
+            }
+            lineChart.getData().add(series);
+
             if(Statistics.getSpese() != 0){
                 textfieldSpese.setText(String.valueOf(data.getSpese()));
             }

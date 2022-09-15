@@ -2,18 +2,14 @@ package com.mikefonseta.animalplanet.Controller;
 
 import com.mikefonseta.animalplanet.Database.Receipt;
 import com.mikefonseta.animalplanet.Entity.Scontrino;
-import com.mikefonseta.animalplanet.data;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.net.URL;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
 import static com.mikefonseta.animalplanet.data.makePrecise;
 

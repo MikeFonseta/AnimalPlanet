@@ -3,19 +3,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="562.0" prefWidth="815.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikefonseta.animalplanet.Controller.todayScontriniController">
+<AnchorPane prefHeight="553.0" prefWidth="885.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikefonseta.animalplanet.Controller.todayScontriniController">
    <children>
-      <TableView fx:id="todayScontrini" focusTraversable="false" layoutX="14.0" layoutY="14.0" prefHeight="483.0" prefWidth="329.0">
+      <TableView fx:id="todayScontrini" focusTraversable="false" layoutX="14.0" layoutY="14.0" prefHeight="483.0" prefWidth="477.0">
         <columns>
           <TableColumn fx:id="id_scontrinoS" prefWidth="65.0" text="id" />
           <TableColumn fx:id="creazione_ordineS" prefWidth="110.0" text="Data" />
-            <TableColumn fx:id="scontoS" prefWidth="79.0" text="Sconto" />
-            <TableColumn fx:id="totaleS" prefWidth="72.0" text="Totale" />
+            <TableColumn fx:id="ricarico" prefWidth="68.0" text="Ricarico" />
+            <TableColumn fx:id="profitto" prefWidth="71.0" text="Profitto" />
+            <TableColumn fx:id="scontoS" prefWidth="61.0" text="Sconto" />
+            <TableColumn fx:id="totaleS" prefWidth="101.0" text="Totale" />
         </columns>
       </TableView>
-      <Button focusTraversable="false" layoutX="238.0" layoutY="507.0" mnemonicParsing="false" onAction="#deleteScontrino" prefHeight="25.0" prefWidth="105.0" text="ELIMINA" />
-      <Button fx:id="modifyScontrino" focusTraversable="false" layoutX="126.0" layoutY="507.0" mnemonicParsing="false" onAction="#modifyScontrino" prefHeight="25.0" prefWidth="105.0" text="MODIFICA" />
-      <TableView fx:id="singoloScontrino" focusTraversable="false" layoutX="364.0" layoutY="14.0" prefHeight="483.0" prefWidth="435.0">
+      <Button focusTraversable="false" layoutX="133.0" layoutY="507.0" mnemonicParsing="false" onAction="#deleteScontrino" prefHeight="25.0" prefWidth="105.0" text="ELIMINA" />
+      <Button fx:id="modifyScontrino" focusTraversable="false" layoutX="14.0" layoutY="507.0" mnemonicParsing="false" onAction="#modifyScontrino" prefHeight="25.0" prefWidth="105.0" text="MODIFICA" />
+      <TableView fx:id="singoloScontrino" focusTraversable="false" layoutX="516.0" layoutY="14.0" prefHeight="483.0" prefWidth="347.0">
         <columns>
           <TableColumn fx:id="nome_prodottoSC" prefWidth="165.0" text="Prodotto" />
             <TableColumn fx:id="categoriaSC" prefWidth="72.0" text="Categoria" />

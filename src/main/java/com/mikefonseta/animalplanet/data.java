@@ -41,13 +41,13 @@ public class data {
     public static double getIncassoDay() {
         return makePrecise(incassoDay,2);
     }
-    public static void setIncassoDay(float incassoDay) {
+    public static void setIncassoDay(double incassoDay) {
         data.incassoDay = incassoDay;
     }
     public static double getNettoDay() {
         return makePrecise(nettoDay,2);
     }
-    public static void setNettoDay(float nettoDay) {
+    public static void setNettoDay(double nettoDay) {
         data.nettoDay = nettoDay;
     }
     public static int getRicaricoDay() {
@@ -59,13 +59,13 @@ public class data {
     public static double getIncassoWeekly() {
         return makePrecise(incassoWeekly,2);
     }
-    public static void setIncassoWeekly(float incassoWeekly) {
+    public static void setIncassoWeekly(double incassoWeekly) {
         data.incassoWeekly = incassoWeekly;
     }
     public static double getNettoWeekly() {
         return makePrecise(nettoWeekly,2);
     }
-    public static void setNettoWeekly(float nettoWeekly) {
+    public static void setNettoWeekly(double nettoWeekly) {
         data.nettoWeekly = nettoWeekly;
     }
     public static int getRicaricoWeekly() {
@@ -77,13 +77,13 @@ public class data {
     public static double getIncassoMonthly() {
         return makePrecise(incassoMonthly,2);
     }
-    public static void setIncassoMonthly(float incassoMonthly) {
+    public static void setIncassoMonthly(double incassoMonthly) {
         data.incassoMonthly = incassoMonthly;
     }
     public static double getNettoMonthly() {
         return makePrecise(nettoMonthly,2);
     }
-    public static void setNettoMonthly(float nettoMonthly) {
+    public static void setNettoMonthly(double nettoMonthly) {
         data.nettoMonthly = nettoMonthly;
     }
     public static int getRicaricoMonthly() {
