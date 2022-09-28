@@ -2,9 +2,6 @@
   <library name="javafx-sdk-18.0">
     <CLASSES />
     <JAVADOC />
-    <SOURCES>
-      <root url="file://$PROJECT_DIR$/../javafx-sdk-18.0.2" />
-    </SOURCES>
-    <jarDirectory url="file://$PROJECT_DIR$/../javafx-sdk-18.0.2" recursive="false" type="SOURCES" />
+    <SOURCES />
   </library>
 </component>

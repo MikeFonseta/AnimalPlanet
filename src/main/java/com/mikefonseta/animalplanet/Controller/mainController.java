@@ -1,11 +1,9 @@
 package com.mikefonseta.animalplanet.Controller;
 
 import com.mikefonseta.animalplanet.Database.Product;
+import com.mikefonseta.animalplanet.Database.Receipt;
 import com.mikefonseta.animalplanet.Database.Statistics;
-import com.mikefonseta.animalplanet.Entity.Prodotto;
-import com.mikefonseta.animalplanet.Entity.ProdottoListaScontrino;
-import com.mikefonseta.animalplanet.Entity.ScontrinoGrafico;
-import com.mikefonseta.animalplanet.Entity.ScontrinoStatistiche;
+import com.mikefonseta.animalplanet.Entity.*;
 import com.mikefonseta.animalplanet.data;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -109,6 +107,23 @@ public class mainController implements Initializable {
     public PieChart graficoCategorie;
     XYChart.Series series = new XYChart.Series();
 
+    @FXML
+    public TableView<ProdottoSingoloScontrino> prodottiVenduti;
+    @FXML
+    public DatePicker meseProdottiVenduti;
+    @FXML
+    public TableColumn<Prodotto, String> nomep;
+    @FXML
+    public TableColumn<Prodotto, Double> categoriap;
+    @FXML
+    public TableColumn<Prodotto, Double> prezzo_di_acquistop;
+    @FXML
+    public TableColumn<Prodotto, Double> num_pezzip;
+    @FXML
+    public TableColumn<Prodotto, Double> ricaricop;
+    @FXML
+    public TableColumn<Prodotto, Integer> nettop;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -118,6 +133,10 @@ public class mainController implements Initializable {
         dpDay.setValue(LocalDate.now());
         dpWeekly.setValue(LocalDate.now());
         dpMonthly.setValue(LocalDate.now());
+
+        meseProdottiVenduti.setShowWeekNumbers(false);
+        meseProdottiVenduti.setValue(LocalDate.now());
+
 
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
@@ -144,6 +163,7 @@ public class mainController implements Initializable {
         }
 
         try {
+
             if(Statistics.getSpese() != 0){
                 textfieldSpese.setText(String.valueOf(data.getSpese()));
             }
@@ -151,8 +171,6 @@ public class mainController implements Initializable {
                 incassoDay.setText((data.getIncassoDay())+"€");
                 nettoDay.setText((data.getNettoDay())+"€");
                 ricaricoDay.setText((data.getRicaricoDay())+ "%");
-                double netto = data.getNettoDay();
-                System.out.println(netto -data.getSpese());
                 profittoDay.setText((data.getNettoDay()-(data.getSpese()*1))+"€");
             }
             if(Statistics.weeklyStatistics(null)==1){
@@ -181,6 +199,13 @@ public class mainController implements Initializable {
         nome_scontrino.setCellValueFactory(new PropertyValueFactory<>("nome_scontrino"));
         num_pezzi.setCellValueFactory(new PropertyValueFactory<>("num_pezzi"));
         prezzo_scontrino.setCellValueFactory(new PropertyValueFactory<>("prezzo_scontrino"));
+
+        nomep.setCellValueFactory(new PropertyValueFactory<>("nome_prodottoSC"));
+        categoriap.setCellValueFactory(new PropertyValueFactory<>("categoriaSC"));
+        prezzo_di_acquistop.setCellValueFactory(new PropertyValueFactory<>("prezzo_di_acquisto"));
+        num_pezzip.setCellValueFactory(new PropertyValueFactory<>("num_pezziSC"));
+        ricaricop.setCellValueFactory(new PropertyValueFactory<>("ricaricoSC"));
+        nettop.setCellValueFactory(new PropertyValueFactory<>("nettoSC"));
 
         addButtonToScontrino();
 
@@ -224,6 +249,7 @@ public class mainController implements Initializable {
         });
 
         try {
+            prodottiVenduti.getItems().addAll(Statistics.getProdottiVenduti(null));
             data.setCategorie(Product.getCategorie());
             data.setProdotti(Product.getProducts());
         } catch (SQLException e) {
@@ -285,6 +311,19 @@ public class mainController implements Initializable {
                 profittoMonthly.setText((data.getNettoMonthly()-(data.getSpese()*26)+"€"));
             }
 
+            prodottiVenduti.getItems().clear();
+            prodottiVenduti.getItems().addAll(Statistics.getProdottiVenduti(null));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void prodottiVendutiChange(){
+
+        try {
+            prodottiVenduti.getItems().clear();
+            prodottiVenduti.getItems().addAll(Statistics.getProdottiVenduti(meseProdottiVenduti.getValue().toString()));
         } catch (SQLException e) {
             e.printStackTrace();
         }

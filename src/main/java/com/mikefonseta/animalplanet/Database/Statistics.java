@@ -1,9 +1,6 @@
 package com.mikefonseta.animalplanet.Database;
 
-import com.mikefonseta.animalplanet.Entity.ProdottoSingoloScontrino;
-import com.mikefonseta.animalplanet.Entity.Scontrino;
-import com.mikefonseta.animalplanet.Entity.ScontrinoGrafico;
-import com.mikefonseta.animalplanet.Entity.ScontrinoStatistiche;
+import com.mikefonseta.animalplanet.Entity.*;
 import com.mikefonseta.animalplanet.data;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.mikefonseta.animalplanet.data.makePrecise;
 
@@ -211,6 +209,54 @@ public class Statistics {
         rs.close();
         statement.close();
         conn.close();
+
+        return result;
+    }
+
+    public static ObservableList<ProdottoSingoloScontrino> getProdottiVenduti(String month) throws SQLException {
+
+        List<ScontrinoStatistiche> scontrini = new ArrayList<>();
+        ObservableList<ProdottoSingoloScontrino> result = FXCollections.observableArrayList();
+
+        if(month == null) {
+            scontrini = data.getMonthlyStatistics();
+        }
+        else {
+
+            String sql = "SELECT * FROM Scontrino WHERE strftime('%m', creazione_ordine) == strftime('%m', '" + month + "')";
+
+            Connection conn = DBConnection.getInstance().getConnection();
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                scontrini.add(new ScontrinoStatistiche(new Scontrino(rs.getInt("id_scontrino"), rs.getString("creazione_ordine"), 0, 0,
+                        rs.getFloat("sconto"), rs.getFloat("totale")), null));
+
+            }
+
+            rs.close();
+            statement.close();
+            conn.close();
+
+            for (ScontrinoStatistiche s : scontrini) {
+                s.setCompScontrino(Receipt.getSingoloScontrino(s.getScontrino().getId_scontrinoS()));
+            }
+        }
+
+        if(scontrini != null) {
+            for (ScontrinoStatistiche s : scontrini) {
+                for (ProdottoSingoloScontrino p : s.getCompScontrino()) {
+                    Optional<ProdottoSingoloScontrino> pFind = result.stream().filter(o -> o.getNome_prodottoSC().equals(p.getNome_prodottoSC())).findAny();
+                    if(pFind.isEmpty()){
+                        result.add(p);
+                    }else{
+                        result.get(result.indexOf(pFind.get())).setNum_pezziSC(result.get(result.indexOf(pFind.get())).getNum_pezziSC()+p.getNum_pezziSC());
+                        result.get(result.indexOf(pFind.get())).setPrezzoSC(result.get(result.indexOf(pFind.get())).getPrezzoSC() * result.get(result.indexOf(pFind.get())).getNum_pezziSC());
+                        result.get(result.indexOf(pFind.get())).setNettoSC(result.get(result.indexOf(pFind.get())).getNettoSC() * result.get(result.indexOf(pFind.get())).getNum_pezziSC());
+                    }
+                }
+            }
+        }
 
         return result;
     }
