@@ -1,7 +1,6 @@
 package com.mikefonseta.animalplanet.Controller;
 
 import com.mikefonseta.animalplanet.Database.Product;
-import com.mikefonseta.animalplanet.Database.Receipt;
 import com.mikefonseta.animalplanet.Database.Statistics;
 import com.mikefonseta.animalplanet.Entity.*;
 import com.mikefonseta.animalplanet.data;
@@ -116,11 +115,7 @@ public class mainController implements Initializable {
     @FXML
     public TableColumn<Prodotto, Double> categoriap;
     @FXML
-    public TableColumn<Prodotto, Double> prezzo_di_acquistop;
-    @FXML
     public TableColumn<Prodotto, Double> num_pezzip;
-    @FXML
-    public TableColumn<Prodotto, Double> ricaricop;
     @FXML
     public TableColumn<Prodotto, Integer> nettop;
 
@@ -137,15 +132,6 @@ public class mainController implements Initializable {
         meseProdottiVenduti.setShowWeekNumbers(false);
         meseProdottiVenduti.setValue(LocalDate.now());
 
-
-        ObservableList<PieChart.Data> pieChartData =
-                FXCollections.observableArrayList(
-                        new PieChart.Data("Grapefruit", 13),
-                        new PieChart.Data("Oranges", 25),
-                        new PieChart.Data("Plums", 10),
-                        new PieChart.Data("Pears", 22),
-                        new PieChart.Data("Apples", 30));
-        graficoCategorie.setData(pieChartData);
 
         try {
             List<ScontrinoGrafico> scontrinoListStat = Statistics.getScontriniStats();
@@ -202,9 +188,7 @@ public class mainController implements Initializable {
 
         nomep.setCellValueFactory(new PropertyValueFactory<>("nome_prodottoSC"));
         categoriap.setCellValueFactory(new PropertyValueFactory<>("categoriaSC"));
-        prezzo_di_acquistop.setCellValueFactory(new PropertyValueFactory<>("prezzo_di_acquisto"));
         num_pezzip.setCellValueFactory(new PropertyValueFactory<>("num_pezziSC"));
-        ricaricop.setCellValueFactory(new PropertyValueFactory<>("ricaricoSC"));
         nettop.setCellValueFactory(new PropertyValueFactory<>("nettoSC"));
 
         addButtonToScontrino();
@@ -249,7 +233,7 @@ public class mainController implements Initializable {
         });
 
         try {
-            prodottiVenduti.getItems().addAll(Statistics.getProdottiVenduti(null));
+            prodottiVenduti.getItems().addAll(Statistics.getProdottiVenduti(null, graficoCategorie));
             data.setCategorie(Product.getCategorie());
             data.setProdotti(Product.getProducts());
         } catch (SQLException e) {
@@ -312,7 +296,7 @@ public class mainController implements Initializable {
             }
 
             prodottiVenduti.getItems().clear();
-            prodottiVenduti.getItems().addAll(Statistics.getProdottiVenduti(null));
+            prodottiVenduti.getItems().addAll(Statistics.getProdottiVenduti(null, graficoCategorie));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -323,7 +307,7 @@ public class mainController implements Initializable {
 
         try {
             prodottiVenduti.getItems().clear();
-            prodottiVenduti.getItems().addAll(Statistics.getProdottiVenduti(meseProdottiVenduti.getValue().toString()));
+            prodottiVenduti.getItems().addAll(Statistics.getProdottiVenduti(meseProdottiVenduti.getValue().toString(), graficoCategorie));
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -4,6 +4,7 @@ import com.mikefonseta.animalplanet.Entity.*;
 import com.mikefonseta.animalplanet.data;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -213,9 +214,10 @@ public class Statistics {
         return result;
     }
 
-    public static ObservableList<ProdottoSingoloScontrino> getProdottiVenduti(String month) throws SQLException {
+    public static ObservableList<ProdottoSingoloScontrino> getProdottiVenduti(String month, PieChart graficoCategorie) throws SQLException {
 
         List<ScontrinoStatistiche> scontrini = new ArrayList<>();
+        ObservableList<PieChart.Data> categorieResult = FXCollections.observableArrayList();
         ObservableList<ProdottoSingoloScontrino> result = FXCollections.observableArrayList();
 
         if(month == null) {
@@ -243,10 +245,16 @@ public class Statistics {
             }
         }
 
+        double numPezziTot = 0;
+
         if(scontrini != null) {
             for (ScontrinoStatistiche s : scontrini) {
                 for (ProdottoSingoloScontrino p : s.getCompScontrino()) {
+
+                    numPezziTot+=p.getNum_pezziSC();
                     Optional<ProdottoSingoloScontrino> pFind = result.stream().filter(o -> o.getNome_prodottoSC().equals(p.getNome_prodottoSC())).findAny();
+                    Optional<PieChart.Data> cFind = categorieResult.stream().filter(o -> o.getName().equals(p.getCategoriaSC())).findAny();
+
                     if(pFind.isEmpty()){
                         result.add(p);
                     }else{
@@ -254,9 +262,26 @@ public class Statistics {
                         result.get(result.indexOf(pFind.get())).setPrezzoSC(result.get(result.indexOf(pFind.get())).getPrezzoSC() * result.get(result.indexOf(pFind.get())).getNum_pezziSC());
                         result.get(result.indexOf(pFind.get())).setNettoSC(result.get(result.indexOf(pFind.get())).getNettoSC() * result.get(result.indexOf(pFind.get())).getNum_pezziSC());
                     }
+
+                    if(cFind.isEmpty())
+                    {
+                        categorieResult.add(new PieChart.Data(p.getCategoriaSC(),p.getNum_pezziSC()));
+                    }else
+                    {
+                        categorieResult.get(categorieResult.indexOf(cFind.get())).setPieValue(categorieResult.get(categorieResult.indexOf(cFind.get())).getPieValue()+p.getNum_pezziSC());
+                    }
                 }
             }
         }
+
+        for(PieChart.Data p: categorieResult)
+        {
+            p.setPieValue(makePrecise(p.getPieValue()/numPezziTot,2)*100);
+            p.setName(p.getName() + " "+(int)p.getPieValue()+"%");
+        }
+
+        graficoCategorie.getData().clear();
+        graficoCategorie.getData().addAll(categorieResult);
 
         return result;
     }

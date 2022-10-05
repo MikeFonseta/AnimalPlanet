@@ -212,16 +212,14 @@
                               </Label>
                               <DatePicker fx:id="dpMonthly" layoutX="423.0" layoutY="73.0" onAction="#dpMonthlyChange" />
                               <DatePicker fx:id="dpMonthly1" layoutX="16.0" layoutY="336.0" onAction="#dpMonthlyChange" />
-                              <PieChart fx:id="graficoCategorie" layoutX="735.0" layoutY="336.0" prefHeight="374.0" prefWidth="530.0" />
+                              <PieChart fx:id="graficoCategorie" animated="false" layoutX="735.0" layoutY="336.0" prefHeight="374.0" prefWidth="530.0" />
                               <DatePicker fx:id="meseProdottiVenduti" layoutX="625.0" layoutY="12.0" onAction="#prodottiVendutiChange" />
                               <TableView fx:id="prodottiVenduti" layoutX="624.0" layoutY="51.0" prefHeight="264.0" prefWidth="646.0">
                                 <columns>
-                                  <TableColumn fx:id="nomep" prefWidth="196.0" text="Prodotto" />
-                                  <TableColumn fx:id="categoriap" prefWidth="113.0" text="Categoria" />
-                                    <TableColumn fx:id="prezzo_di_acquistop" prefWidth="115.0" text="Prezzo di acquisto" />
-                                    <TableColumn fx:id="num_pezzip" prefWidth="73.0" text="Quantità" />
-                                    <TableColumn fx:id="ricaricop" prefWidth="77.0" text="Ricarico" />
-                                    <TableColumn fx:id="nettop" prefWidth="74.0" text="Netto" />
+                                  <TableColumn fx:id="nomep" prefWidth="286.0" text="Prodotto" />
+                                  <TableColumn fx:id="categoriap" prefWidth="153.0" text="Categoria" />
+                                    <TableColumn fx:id="num_pezzip" prefWidth="110.0" text="Quantità" />
+                                    <TableColumn fx:id="nettop" prefWidth="96.0" text="Netto" />
                                 </columns>
                               </TableView>
                            </children></AnchorPane>
