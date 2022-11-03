@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="553.0" prefWidth="885.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikefonseta.animalplanet.Controller.todayScontriniController">
+<AnchorPane prefHeight="553.0" prefWidth="971.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikefonseta.animalplanet.Controller.todayScontriniController">
    <children>
       <TableView fx:id="todayScontrini" focusTraversable="false" layoutX="14.0" layoutY="14.0" prefHeight="483.0" prefWidth="477.0">
         <columns>
@@ -17,12 +17,12 @@
       </TableView>
       <Button focusTraversable="false" layoutX="133.0" layoutY="507.0" mnemonicParsing="false" onAction="#deleteScontrino" prefHeight="25.0" prefWidth="105.0" text="ELIMINA" />
       <Button fx:id="modifyScontrino" focusTraversable="false" layoutX="14.0" layoutY="507.0" mnemonicParsing="false" onAction="#modifyScontrino" prefHeight="25.0" prefWidth="105.0" text="MODIFICA" />
-      <TableView fx:id="singoloScontrino" focusTraversable="false" layoutX="516.0" layoutY="14.0" prefHeight="483.0" prefWidth="347.0">
+      <TableView fx:id="singoloScontrino" focusTraversable="false" layoutX="516.0" layoutY="14.0" prefHeight="483.0" prefWidth="440.0">
         <columns>
-          <TableColumn fx:id="nome_prodottoSC" prefWidth="165.0" text="Prodotto" />
-            <TableColumn fx:id="categoriaSC" prefWidth="72.0" text="Categoria" />
-          <TableColumn fx:id="num_pezziSC" prefWidth="62.0" text="Quantità" />
-            <TableColumn fx:id="prezzoSC" prefWidth="48.0" text="€" />
+          <TableColumn fx:id="nome_prodottoSC" prefWidth="174.0" text="Prodotto" />
+            <TableColumn fx:id="categoriaSC" prefWidth="119.0" text="Categoria" />
+          <TableColumn fx:id="num_pezziSC" prefWidth="79.0" text="Quantità" />
+            <TableColumn fx:id="prezzoSC" prefWidth="67.0" text="€" />
         </columns>
       </TableView>
    </children>

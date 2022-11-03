@@ -64,93 +64,93 @@
                               <DatePicker fx:id="dpDay" layoutX="14.0" layoutY="73.0" onAction="#dpDayChange" />
                               <Label alignment="CENTER" layoutX="17.0" layoutY="109.0" prefHeight="32.0" prefWidth="101.0" text="INCASSO" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
                               <Label alignment="CENTER" layoutX="19.0" layoutY="148.0" prefHeight="32.0" prefWidth="101.0" text="NETTO" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
                               <Label alignment="CENTER" layoutX="21.0" layoutY="188.0" prefHeight="32.0" prefWidth="101.0" text="RICARICO" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
                               <Label fx:id="incassoDay" alignment="CENTER" layoutX="132.0" layoutY="109.0" prefHeight="32.0" prefWidth="78.0" text="0€" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
                               <Label fx:id="nettoDay" alignment="CENTER" layoutX="134.0" layoutY="148.0" prefHeight="32.0" prefWidth="75.0" text="0€" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
                               <Label fx:id="ricaricoDay" alignment="CENTER" layoutX="134.0" layoutY="188.0" prefHeight="32.0" prefWidth="75.0" text="0%" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
                               <DatePicker fx:id="dpWeekly" layoutX="220.0" layoutY="72.0" onAction="#dpWeeklyChange" />
                               <Label alignment="CENTER" layoutX="223.0" layoutY="112.0" prefHeight="32.0" prefWidth="101.0" text="INCASSO" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
                               <Label alignment="CENTER" layoutX="225.0" layoutY="151.0" prefHeight="32.0" prefWidth="101.0" text="NETTO" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="nettoWeekly" alignment="CENTER" layoutX="340.0" layoutY="151.0" prefHeight="32.0" prefWidth="91.0" text="0€" textFill="WHITE">
+                              <Label fx:id="nettoWeekly" alignment="CENTER" layoutX="325.0" layoutY="151.0" prefHeight="32.0" prefWidth="91.0" text="0€" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
                               <Label alignment="CENTER" layoutX="220.0" layoutY="188.0" prefHeight="32.0" prefWidth="101.0" text="RICARICO" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="incassoWeekly" alignment="CENTER" layoutX="338.0" layoutY="112.0" prefHeight="32.0" prefWidth="91.0" text="0€" textFill="WHITE">
+                              <Label fx:id="incassoWeekly" alignment="CENTER" layoutX="325.0" layoutY="112.0" prefHeight="32.0" prefWidth="91.0" text="0€" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="ricaricoWeekly" alignment="CENTER" layoutX="338.0" layoutY="188.0" prefHeight="32.0" prefWidth="88.0" text="0%" textFill="WHITE">
+                              <Label fx:id="ricaricoWeekly" alignment="CENTER" layoutX="327.0" layoutY="188.0" prefHeight="32.0" prefWidth="88.0" text="0%" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
                               <Label alignment="CENTER" layoutX="423.0" layoutY="112.0" prefHeight="32.0" prefWidth="101.0" text="INCASSO" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" layoutX="425.0" layoutY="151.0" prefHeight="32.0" prefWidth="101.0" text="NETTO" textFill="WHITE">
+                              <Label alignment="CENTER" layoutX="423.0" layoutY="151.0" prefHeight="32.0" prefWidth="101.0" text="NETTO" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" layoutX="420.0" layoutY="188.0" prefHeight="32.0" prefWidth="101.0" text="RICARICO" textFill="WHITE">
+                              <Label alignment="CENTER" layoutX="423.0" layoutY="188.0" prefHeight="32.0" prefWidth="101.0" text="RICARICO" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="incassoMonthly" alignment="CENTER" layoutX="539.0" layoutY="109.0" prefHeight="32.0" prefWidth="84.0" text="0€" textFill="WHITE">
+                              <Label fx:id="incassoMonthly" alignment="CENTER" layoutX="539.0" layoutY="112.0" prefHeight="32.0" prefWidth="84.0" text="0€" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="nettoMonthly" alignment="CENTER" layoutX="541.0" layoutY="148.0" prefHeight="32.0" prefWidth="81.0" text="0€" textFill="WHITE">
+                              <Label fx:id="nettoMonthly" alignment="CENTER" layoutX="541.0" layoutY="151.0" prefHeight="32.0" prefWidth="81.0" text="0€" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="ricaricoMonthly" alignment="CENTER" layoutX="537.0" layoutY="188.0" prefHeight="32.0" prefWidth="84.0" text="0%" textFill="WHITE">
+                              <Label fx:id="ricaricoMonthly" alignment="CENTER" layoutX="539.0" layoutY="188.0" prefHeight="32.0" prefWidth="84.0" text="0%" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
                               <LineChart fx:id="lineChart" layoutX="16.0" layoutY="375.0" prefHeight="373.0" prefWidth="709.0">
@@ -161,7 +161,7 @@
                                   <NumberAxis side="LEFT" tickLabelFill="WHITE" />
                                 </yAxis>
                               </LineChart>
-                              <Separator layoutX="607.0" layoutY="1.0" orientation="VERTICAL" prefHeight="308.0" prefWidth="13.0" />
+                              <Separator layoutX="633.0" layoutY="-3.0" orientation="VERTICAL" prefHeight="308.0" prefWidth="13.0" />
                               <Label alignment="CENTER" layoutX="17.0" layoutY="14.0" prefHeight="56.0" prefWidth="196.0" text="GIORNALIERO" textFill="WHITE">
                                  <font>
                                     <Font size="27.0" />
@@ -179,47 +179,47 @@
                               </Label>
                               <TextField fx:id="textfieldSpese" layoutX="14.0" layoutY="270.0" prefHeight="31.0" prefWidth="177.0" promptText="Spese" />
                               <Button layoutX="205.0" layoutY="269.0" mnemonicParsing="false" onAction="#updateSpese" prefHeight="32.0" prefWidth="85.0" text="SALVA" />
-                              <Separator layoutX="6.0" layoutY="310.0" prefHeight="4.0" prefWidth="609.0" />
+                              <Separator layoutX="6.0" layoutY="310.0" prefHeight="2.0" prefWidth="634.0" />
                               <Label alignment="CENTER" layoutX="21.0" layoutY="226.0" prefHeight="32.0" prefWidth="101.0" text="PROFITTO" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="profittoDay" alignment="CENTER" layoutX="121.0" layoutY="226.0" prefHeight="32.0" prefWidth="113.0" text="0€" textFill="WHITE">
+                              <Label fx:id="profittoDay" alignment="CENTER" layoutX="121.0" layoutY="226.0" prefHeight="32.0" prefWidth="93.0" text="0€" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="profittoWeekly" alignment="CENTER" layoutX="323.0" layoutY="224.0" prefHeight="32.0" prefWidth="131.0" text="0€" textFill="WHITE">
+                              <Label fx:id="profittoWeekly" alignment="CENTER" layoutX="323.0" layoutY="224.0" prefHeight="32.0" prefWidth="97.0" text="0€" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="profittoMonthly" alignment="CENTER" layoutX="525.0" layoutY="224.0" prefHeight="32.0" prefWidth="110.0" text="0€" textFill="WHITE">
+                              <Label fx:id="profittoMonthly" alignment="CENTER" layoutX="528.0" layoutY="226.0" prefHeight="32.0" prefWidth="106.0" text="0€" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
                               <Label alignment="CENTER" layoutX="220.0" layoutY="226.0" prefHeight="32.0" prefWidth="101.0" text="PROFITTO" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" layoutX="420.0" layoutY="226.0" prefHeight="32.0" prefWidth="101.0" text="PROFITTO" textFill="WHITE">
+                              <Label alignment="CENTER" layoutX="423.0" layoutY="226.0" prefHeight="32.0" prefWidth="101.0" text="PROFITTO" textFill="WHITE">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
                               <DatePicker fx:id="dpMonthly" layoutX="423.0" layoutY="73.0" onAction="#dpMonthlyChange" />
                               <DatePicker fx:id="dpMonthly1" layoutX="16.0" layoutY="336.0" onAction="#dpMonthlyChange" />
-                              <PieChart fx:id="graficoCategorie" animated="false" layoutX="735.0" layoutY="336.0" prefHeight="374.0" prefWidth="530.0" />
-                              <DatePicker fx:id="meseProdottiVenduti" layoutX="625.0" layoutY="12.0" onAction="#prodottiVendutiChange" />
-                              <TableView fx:id="prodottiVenduti" layoutX="624.0" layoutY="51.0" prefHeight="264.0" prefWidth="646.0">
+                              <PieChart fx:id="graficoCategorie" animated="false" labelsVisible="false" layoutX="735.0" layoutY="336.0" prefHeight="374.0" prefWidth="530.0" />
+                              <DatePicker fx:id="meseProdottiVenduti" layoutX="645.0" layoutY="14.0" onAction="#prodottiVendutiChange" />
+                              <TableView fx:id="prodottiVenduti" layoutX="645.0" layoutY="51.0" prefHeight="264.0" prefWidth="625.0">
                                 <columns>
-                                  <TableColumn fx:id="nomep" prefWidth="286.0" text="Prodotto" />
-                                  <TableColumn fx:id="categoriap" prefWidth="153.0" text="Categoria" />
-                                    <TableColumn fx:id="num_pezzip" prefWidth="110.0" text="Quantità" />
-                                    <TableColumn fx:id="nettop" prefWidth="96.0" text="Netto" />
+                                  <TableColumn fx:id="nomep" prefWidth="250.0" text="Prodotto" />
+                                  <TableColumn fx:id="categoriap" prefWidth="160.0" text="Categoria" />
+                                    <TableColumn fx:id="num_pezzip" minWidth="0.0" prefWidth="115.0" text="Quantità" />
+                                    <TableColumn fx:id="nettop" prefWidth="97.0" text="Netto" />
                                 </columns>
                               </TableView>
                            </children></AnchorPane>

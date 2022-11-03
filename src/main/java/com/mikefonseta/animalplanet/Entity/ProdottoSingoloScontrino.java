@@ -24,7 +24,7 @@ public class ProdottoSingoloScontrino {
         this.num_pezziSC = new SimpleDoubleProperty(numPezzi);
         this.prezzoSC = new SimpleDoubleProperty(makePrecise(prezzo*numPezzi,2));
         this.categoriaSC = new SimpleStringProperty(categoria);
-        this.nettoSC = new SimpleDoubleProperty(prezzoSC.get()-prezzo_di_acquisto);
+        this.nettoSC = new SimpleDoubleProperty(makePrecise(prezzoSC.get()-prezzo_di_acquisto,2));
         this.ricaricoSC = new SimpleIntegerProperty((int) (((makePrecise(prezzoSC.get(),2) / makePrecise(prezzo_di_acquisto,2)) - 1)*100));
         this.isSfusoSC = isSfuso;
         this.id_scontrino = id_scontrino;

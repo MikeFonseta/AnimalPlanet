@@ -154,22 +154,22 @@ public class mainController implements Initializable {
                 textfieldSpese.setText(String.valueOf(data.getSpese()));
             }
             if(Statistics.dayStatistics(null)==1){
-                incassoDay.setText((data.getIncassoDay())+"€");
-                nettoDay.setText((data.getNettoDay())+"€");
-                ricaricoDay.setText((data.getRicaricoDay())+ "%");
-                profittoDay.setText((data.getNettoDay()-(data.getSpese()*1))+"€");
+                incassoDay.setText(makePrecise((data.getIncassoDay()),2)+"€");
+                nettoDay.setText(makePrecise((data.getNettoDay()),2)+"€");
+                ricaricoDay.setText(makePrecise((data.getRicaricoDay()),2)+ "%");
+                profittoDay.setText(makePrecise((data.getNettoDay()-(data.getSpese()*1)),2)+"€");
             }
             if(Statistics.weeklyStatistics(null)==1){
-                incassoWeekly.setText((data.getIncassoWeekly())+"€");
-                nettoWeekly.setText((data.getNettoWeekly())+"€");
-                ricaricoWeekly.setText((data.getRicaricoWeekly())+ "%");
-                profittoWeekly.setText(data.getNettoWeekly()-(data.getSpese()*6)+"€");
+                incassoWeekly.setText(makePrecise(data.getIncassoWeekly(),2)+"€");
+                nettoWeekly.setText(makePrecise(data.getNettoWeekly(),2)+"€");
+                ricaricoWeekly.setText(makePrecise(data.getRicaricoWeekly(),2)+ "%");
+                profittoWeekly.setText(makePrecise(data.getNettoWeekly()-(data.getSpese()*6),2)+"€");
             }
             if(Statistics.monthlyStatistics(null)==1){
-                incassoMonthly.setText((data.getIncassoMonthly())+"€");
-                nettoMonthly.setText((data.getNettoMonthly())+"€");
-                ricaricoMonthly.setText((data.getRicaricoMonthly())+ "%");
-                profittoMonthly.setText((data.getNettoMonthly()-(data.getSpese()*26) +"€"));
+                incassoMonthly.setText(makePrecise(data.getIncassoMonthly(),2)+"€");
+                nettoMonthly.setText(makePrecise(data.getNettoMonthly(),2)+"€");
+                ricaricoMonthly.setText(makePrecise(data.getRicaricoMonthly(),2)+ "%");
+                profittoMonthly.setText(makePrecise(data.getNettoMonthly()-(data.getSpese()*26),2) +"€");
             }
 
         } catch (SQLException e) {
@@ -277,25 +277,25 @@ public class mainController implements Initializable {
                 textfieldSpese.setText(String.valueOf(data.getSpese()));
             }
             if(Statistics.dayStatistics(null)==1){
-                incassoDay.setText((data.getIncassoDay())+"€");
-                nettoDay.setText((data.getNettoDay())+"€");
-                ricaricoDay.setText((data.getRicaricoDay())+ "%");
-                profittoDay.setText((data.getNettoDay()-data.getSpese())+"€");
+                incassoDay.setText(makePrecise((data.getIncassoDay()),2)+"€");
+                nettoDay.setText(makePrecise((data.getNettoDay()),2)+"€");
+                ricaricoDay.setText(makePrecise((data.getRicaricoDay()),2)+ "%");
+                profittoDay.setText(makePrecise((data.getNettoDay()-(data.getSpese()*1)),2)+"€");
             }
             if(Statistics.weeklyStatistics(null)==1){
-                incassoWeekly.setText((data.getIncassoWeekly())+"€");
-                nettoWeekly.setText((data.getNettoWeekly())+"€");
-                ricaricoWeekly.setText((data.getRicaricoWeekly())+ "%");
-                profittoWeekly.setText(data.getNettoWeekly()-(data.getSpese()*6)+"€");
+                incassoWeekly.setText(makePrecise(data.getIncassoWeekly(),2)+"€");
+                nettoWeekly.setText(makePrecise(data.getNettoWeekly(),2)+"€");
+                ricaricoWeekly.setText(makePrecise(data.getRicaricoWeekly(),2)+ "%");
+                profittoWeekly.setText(makePrecise(data.getNettoWeekly()-(data.getSpese()*6),2)+"€");
             }
             if(Statistics.monthlyStatistics(null)==1){
-                incassoMonthly.setText((data.getIncassoMonthly())+"€");
-                nettoMonthly.setText((data.getNettoMonthly())+"€");
-                ricaricoMonthly.setText((data.getRicaricoMonthly())+ "%");
-                profittoMonthly.setText((data.getNettoMonthly()-(data.getSpese()*26)+"€"));
+                incassoMonthly.setText(makePrecise(data.getIncassoMonthly(),2)+"€");
+                nettoMonthly.setText(makePrecise(data.getNettoMonthly(),2)+"€");
+                ricaricoMonthly.setText(makePrecise(data.getRicaricoMonthly(),2)+ "%");
+                profittoMonthly.setText(makePrecise(data.getNettoMonthly()-(data.getSpese()*26),2) +"€");
             }
 
-            prodottiVenduti.getItems().clear();
+
             prodottiVenduti.getItems().addAll(Statistics.getProdottiVenduti(null, graficoCategorie));
 
         } catch (SQLException e) {
@@ -322,10 +322,10 @@ public class mainController implements Initializable {
 
         try {
             if(Statistics.dayStatistics(String.valueOf(dpDay.getValue()))==1){
-                incassoDay.setText((data.getIncassoDay())+"€");
-                nettoDay.setText((data.getNettoDay())+"€");
-                ricaricoDay.setText((data.getRicaricoDay())+ "%");
-                profittoDay.setText((data.getNettoDay()-data.getSpese())+"€");
+                incassoDay.setText(makePrecise((data.getIncassoDay()),2)+"€");
+                nettoDay.setText(makePrecise((data.getNettoDay()),2)+"€");
+                ricaricoDay.setText(makePrecise((data.getRicaricoDay()),2)+ "%");
+                profittoDay.setText(makePrecise((data.getNettoDay()-(data.getSpese()*1)),2)+"€");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -341,10 +341,10 @@ public class mainController implements Initializable {
 
         try {
             if(Statistics.weeklyStatistics(String.valueOf(dpWeekly.getValue()))==1){
-                incassoWeekly.setText((data.getIncassoWeekly())+"€");
-                nettoWeekly.setText((data.getNettoWeekly())+"€");
-                ricaricoWeekly.setText((data.getRicaricoWeekly())+ "%");
-                profittoWeekly.setText(data.getNettoWeekly()-(data.getSpese()*6)+"€");
+                incassoWeekly.setText(makePrecise(data.getIncassoWeekly(),2)+"€");
+                nettoWeekly.setText(makePrecise(data.getNettoWeekly(),2)+"€");
+                ricaricoWeekly.setText(makePrecise(data.getRicaricoWeekly(),2)+ "%");
+                profittoWeekly.setText(makePrecise(data.getNettoWeekly()-(data.getSpese()*6),2)+"€");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -360,10 +360,10 @@ public class mainController implements Initializable {
 
         try {
             if(Statistics.monthlyStatistics(String.valueOf(dpMonthly.getValue()))==1){
-                incassoMonthly.setText((data.getIncassoMonthly())+"€");
-                nettoMonthly.setText((data.getNettoMonthly())+"€");
-                ricaricoMonthly.setText((data.getRicaricoMonthly())+ "%");
-                profittoMonthly.setText((data.getNettoMonthly()-(data.getSpese()*26)+"€"));
+                incassoMonthly.setText(makePrecise(data.getIncassoMonthly(),2)+"€");
+                nettoMonthly.setText(makePrecise(data.getNettoMonthly(),2)+"€");
+                ricaricoMonthly.setText(makePrecise(data.getRicaricoMonthly(),2)+ "%");
+                profittoMonthly.setText(makePrecise(data.getNettoMonthly()-(data.getSpese()*26),2) +"€");
             }
         } catch (SQLException e) {
             e.printStackTrace();
