@@ -258,10 +258,10 @@ public class Statistics {
                     if(pFind.isEmpty()){
                         result.add(p);
                     }else{
-                        result.get(result.indexOf(pFind.get())).setNum_pezziSC(result.get(result.indexOf(pFind.get())).getNum_pezziSC()+p.getNum_pezziSC());
+                        result.get(result.indexOf(pFind.get())).setNum_pezziSC(makePrecise(result.get(result.indexOf(pFind.get())).getNum_pezziSC()+p.getNum_pezziSC(),2));
                         result.get(result.indexOf(pFind.get())).setPrezzoSC(makePrecise(result.get(result.indexOf(pFind.get())).getPrezzoSC() * result.get(result.indexOf(pFind.get())).getNum_pezziSC(),2));
-                        result.get(result.indexOf(pFind.get())).setNettoSC(makePrecise(result.get(result.indexOf(pFind.get())).getNettoSC() * result.get(result.indexOf(pFind.get())).getNum_pezziSC(),2));
                     }
+
 
                     if(cFind.isEmpty())
                     {

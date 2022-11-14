@@ -116,8 +116,6 @@ public class mainController implements Initializable {
     public TableColumn<Prodotto, Double> categoriap;
     @FXML
     public TableColumn<Prodotto, Double> num_pezzip;
-    @FXML
-    public TableColumn<Prodotto, Integer> nettop;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -189,7 +187,6 @@ public class mainController implements Initializable {
         nomep.setCellValueFactory(new PropertyValueFactory<>("nome_prodottoSC"));
         categoriap.setCellValueFactory(new PropertyValueFactory<>("categoriaSC"));
         num_pezzip.setCellValueFactory(new PropertyValueFactory<>("num_pezziSC"));
-        nettop.setCellValueFactory(new PropertyValueFactory<>("nettoSC"));
 
         addButtonToScontrino();
 
@@ -233,6 +230,7 @@ public class mainController implements Initializable {
         });
 
         try {
+            prodottiVenduti.getItems().clear();
             prodottiVenduti.getItems().addAll(Statistics.getProdottiVenduti(null, graficoCategorie));
             data.setCategorie(Product.getCategorie());
             data.setProdotti(Product.getProducts());
@@ -295,7 +293,7 @@ public class mainController implements Initializable {
                 profittoMonthly.setText(makePrecise(data.getNettoMonthly()-(data.getSpese()*26),2) +"€");
             }
 
-
+            prodottiVenduti.getItems().clear();
             prodottiVenduti.getItems().addAll(Statistics.getProdottiVenduti(null, graficoCategorie));
 
         } catch (SQLException e) {

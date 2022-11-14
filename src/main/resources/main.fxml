@@ -153,7 +153,7 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <LineChart fx:id="lineChart" layoutX="16.0" layoutY="375.0" prefHeight="373.0" prefWidth="709.0">
+                              <LineChart fx:id="lineChart" layoutX="16.0" layoutY="375.0" prefHeight="373.0" prefWidth="630.0">
                                 <xAxis>
                                   <CategoryAxis prefHeight="27.0" prefWidth="508.0" side="BOTTOM" tickLabelFill="WHITE" />
                                 </xAxis>
@@ -216,10 +216,9 @@
                               <DatePicker fx:id="meseProdottiVenduti" layoutX="645.0" layoutY="14.0" onAction="#prodottiVendutiChange" />
                               <TableView fx:id="prodottiVenduti" layoutX="645.0" layoutY="51.0" prefHeight="264.0" prefWidth="625.0">
                                 <columns>
-                                  <TableColumn fx:id="nomep" prefWidth="250.0" text="Prodotto" />
-                                  <TableColumn fx:id="categoriap" prefWidth="160.0" text="Categoria" />
-                                    <TableColumn fx:id="num_pezzip" minWidth="0.0" prefWidth="115.0" text="Quantità" />
-                                    <TableColumn fx:id="nettop" prefWidth="97.0" text="Netto" />
+                                  <TableColumn fx:id="nomep" prefWidth="322.0" text="Prodotto" />
+                                  <TableColumn fx:id="categoriap" prefWidth="197.0" text="Categoria" />
+                                    <TableColumn fx:id="num_pezzip" minWidth="0.0" prefWidth="105.0" text="Quantità" />
                                 </columns>
                               </TableView>
                            </children></AnchorPane>
