@@ -24,7 +24,7 @@ public class Statistics {
 
         if(day == null) { day = "now"; }
 
-        String sql = "SELECT * FROM Scontrino WHERE STRFTIME('%Y-%m-%d', creazione_ordine) = STRFTIME('%Y-%m-%d', DATETIME('"+day+"'))";
+        String sql = "SELECT * FROM Scontrino WHERE STRFTIME('%Y-%m-%d', creazione_ordine) = STRFTIME('%Y-%m-%d', '"+day+"')";
         Connection conn = DBConnection.getInstance().getConnection();
         Statement statement  = conn.createStatement();
         ResultSet rs = statement.executeQuery(sql);
@@ -75,7 +75,7 @@ public class Statistics {
 
         if(week == null) { week = "now"; }
 
-        String sql = "SELECT * FROM Scontrino WHERE strftime('%W', creazione_ordine) == strftime('%W', '"+week+"')";
+        String sql = "SELECT * FROM Scontrino WHERE strftime('%W', creazione_ordine) == strftime('%W', '"+week+"') AND strftime('%Y',creazione_ordine) = strftime('%Y','"+week+"')";
         Connection conn = DBConnection.getInstance().getConnection();
         Statement statement  = conn.createStatement();
         ResultSet rs = statement.executeQuery(sql);
@@ -125,7 +125,7 @@ public class Statistics {
 
         if(month == null) { month = "now"; }
 
-        String sql = "SELECT * FROM Scontrino WHERE strftime('%m', creazione_ordine) == strftime('%m', '"+month+"')";
+        String sql = "SELECT * FROM Scontrino WHERE strftime('%m', creazione_ordine) == strftime('%m', '"+month+"') AND strftime('%Y',creazione_ordine) = strftime('%Y','"+month+"')";
 
         Connection conn = DBConnection.getInstance().getConnection();
         Statement statement  = conn.createStatement();

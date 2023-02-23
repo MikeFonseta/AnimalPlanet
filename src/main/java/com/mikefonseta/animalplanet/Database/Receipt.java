@@ -21,7 +21,7 @@ public class Receipt {
         List<ScontrinoStatistiche> stat = new ArrayList<ScontrinoStatistiche>();
         ObservableList<Scontrino> scontrini =  FXCollections.observableArrayList();
 
-        String sql = "SELECT * FROM Scontrino WHERE STRFTIME('%d/%m/%Y', creazione_ordine) = STRFTIME('%d/%m/%Y', DATETIME('now','localtime'))";
+        String sql = "SELECT * FROM Scontrino WHERE STRFTIME('%d/%m/%Y', creazione_ordine) = STRFTIME('%d/%m/%Y', DATETIME('now','localtime')) ORDER BY creazione_ordine";
         Connection conn = DBConnection.getInstance().getConnection();
         Statement statement  = conn.createStatement();
         ResultSet rs = statement.executeQuery(sql);

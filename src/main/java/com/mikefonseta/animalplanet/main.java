@@ -16,7 +16,7 @@ public class main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource("/main.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1300, 800);
-            stage.setTitle("Animal Planet - Mike Fonseta v1.0.2");
+            stage.setTitle("Animal Planet - Mike Fonseta v1.0.4");
             stage.setScene(scene);
             stage.show();
             stage.setResizable(false);
