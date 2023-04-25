@@ -48,7 +48,18 @@ public class DBConnection {
         statement.executeUpdate("CREATE TABLE IF NOT EXISTS Categoria(\n" +
                 "\tnome_categoria TEXT NOT NULL PRIMARY KEY, UNIQUE(nome_categoria)\n" +
                 ");");
+        statement.executeUpdate("CREATE TABLE IF NOT EXISTS Fornitore(\n" +
+                "\tnome TEXT NOT NULL PRIMARY KEY, UNIQUE(nome)\n" +
+                ");");
+        statement.executeUpdate("CREATE TABLE IF NOT EXISTS Scarico (\n" +
+                "\tid INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                "\tfornitore TEXT NOT NULL DEFAULT 'Nessuno' NOT NULL,\n" +
+                "\timporto DECIMAL(10,2) NOT NULL,\n" +
+                "\tdata_scarico DATE DEFAULT (STRFTIME('%d/%m/%Y', DATETIME('now'))),\n" +
+                " \tCONSTRAINT fkFornitore FOREIGN KEY(fornitore) REFERENCES Fornitore(nome)\n" +
+                ");");
         statement.executeUpdate("INSERT OR IGNORE INTO Categoria(nome_categoria) VALUES('Nessuna')");
+        statement.executeUpdate("INSERT OR IGNORE INTO Fornitore(nome) VALUES('Nessuno')");
         statement.executeUpdate("CREATE TABLE IF NOT EXISTS Scontrino(\n" +
                 "    id_scontrino INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "    creazione_ordine DATE DEFAULT (STRFTIME('%H:%M %d/%m/%Y', DATETIME('now'))),\n" +

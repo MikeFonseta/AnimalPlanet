@@ -7,7 +7,9 @@ import javafx.collections.ObservableList;
 public class data {
 
     private static ObservableList<Prodotto> prodotti = FXCollections.observableArrayList();
+    private static ObservableList<Scarico> scarichi = FXCollections.observableArrayList();
     private static ObservableList<String> categorie = FXCollections.observableArrayList();
+    private static ObservableList<String> fornitori = FXCollections.observableArrayList();
     private static double spese = 0;
     private static ObservableList<Scontrino> todayScontrini = FXCollections.observableArrayList();
     private static ObservableList<ProdottoSingoloScontrino> listaSingoloScontrino = FXCollections.observableArrayList();
@@ -28,7 +30,7 @@ public class data {
     private static boolean modifyProdottoSfuso = false;
     private static boolean isHiding = false;
     private static Prodotto modifyProduct = null;
-
+    private static Scarico modifyScarico = null;
     private static double incassoDay = 0, nettoDay = 0;
     private static int ricaricoDay = 0;
 
@@ -126,6 +128,19 @@ public class data {
         data.todayScontrini = todayScontrini;
     }
 
+    public static ObservableList<Scarico> getScarichi() {
+        return scarichi;
+    }
+    public static void setScarichi(ObservableList<Scarico> scarichi) {
+        data.scarichi = scarichi;
+    }
+
+    public static ObservableList<String> getFornitori() {
+        return fornitori;
+    }
+    public static void setFornitori(ObservableList<String> fornitori) {
+        data.fornitori = fornitori;
+    }
     public static ObservableList<Prodotto> getProdotti() {
         return prodotti;
     }
@@ -157,6 +172,14 @@ public class data {
     public static void setProdottoSfuso(ProdottoListaScontrino prodottoSfuso) { data.prodottoSfuso = prodottoSfuso;}
     public static boolean isModifyProdottoSfuso() { return modifyProdottoSfuso;}
     public static void setModifyProdottoSfuso(boolean modifyProdottoSfuso) { data.modifyProdottoSfuso = modifyProdottoSfuso;}
+
+    public static Scarico getModifyScarico() {
+        return modifyScarico;
+    }
+
+    public static void setModifyScarico(Scarico modifyScarico) {
+        data.modifyScarico = modifyScarico;
+    }
 
     public final static double makePrecise(double value, int precision) {
         double pow = Math.pow(10, precision);

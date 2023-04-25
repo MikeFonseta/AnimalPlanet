@@ -39,6 +39,7 @@ public class mainController implements Initializable {
     private TextField ricerca;
     @FXML
     private TableView<Prodotto> listaProdotti;
+
     @FXML
     public TableColumn<Prodotto, String> nome;
     @FXML
@@ -229,6 +230,7 @@ public class mainController implements Initializable {
             return row ;
         });
 
+
         try {
             prodottiVenduti.getItems().clear();
             prodottiVenduti.getItems().addAll(Statistics.getProdottiVenduti(null, graficoCategorie));
@@ -240,7 +242,6 @@ public class mainController implements Initializable {
         data.getCategorie().add(0,"");
         categorie.setItems(data.getCategorie());
         listaProdotti.setItems(data.getProdotti());
-
         scontrino.setItems(data.getListaProdottiScontrino());
         totaleScontrino.setText("Totale: " + data.getTotaleScontrino()+"€");
     }
@@ -515,6 +516,21 @@ public class mainController implements Initializable {
         }
     }
 
+    public void openFornitori() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fornitori.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            stage.setResizable(false);
+        } catch (IOException e) {
+            Alert alert1 = new Alert(Alert.AlertType.ERROR, "Codice errore: (Fornitori Open)", ButtonType.OK);
+            alert1.setTitle("");
+            alert1.setHeaderText("");
+            alert1.showAndWait();
+        }
+    }
     public void modifyProduct() {
         if(listaProdotti.getSelectionModel().getSelectedIndex() != -1) {
             try {
@@ -551,6 +567,7 @@ public class mainController implements Initializable {
         }
         listaProdotti.setItems(data.getProdotti());
     }
+
 
     public void svuotaListaProdotti(){
         ricerca.setText("");

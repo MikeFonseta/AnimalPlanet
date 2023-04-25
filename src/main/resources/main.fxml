@@ -221,6 +221,7 @@
                                     <TableColumn fx:id="num_pezzip" minWidth="0.0" prefWidth="105.0" text="Quantità" />
                                 </columns>
                               </TableView>
+                              <Button layoutX="299.0" layoutY="270.0" mnemonicParsing="false" onAction="#openFornitori" prefHeight="30.0" prefWidth="147.0" text="FORNITORI" />
                            </children></AnchorPane>
                      </children></AnchorPane>
             </content>

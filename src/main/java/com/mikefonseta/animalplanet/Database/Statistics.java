@@ -169,7 +169,7 @@ public class Statistics {
 
         double spese = getSpese();
 
-        String sql = "SELECT * FROM Scontrino ORDER BY creazione_ordine ASC LIMIT 20 ";
+        String sql = "SELECT * FROM Scontrino ORDER BY creazione_ordine ASC LIMIT 50";
         Connection conn = DBConnection.getInstance().getConnection();
         Statement statement  = conn.createStatement();
         ResultSet rs = statement.executeQuery(sql);

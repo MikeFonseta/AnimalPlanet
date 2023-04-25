@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="582.0" prefWidth="628.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikefonseta.animalplanet.Controller.fornitoriController">
+   <children>
+      <TableView fx:id="listaScarichi" focusTraversable="false" layoutX="14.0" layoutY="59.0" prefHeight="456.0" prefWidth="609.0">
+        <columns>
+            <TableColumn fx:id="id" prefWidth="76.0" text="ID" />
+            <TableColumn fx:id="fornitore" prefWidth="279.0" text="Fornitore" />
+            <TableColumn fx:id="importo" prefWidth="113.0" text="Totale" />
+          <TableColumn fx:id="data_scarico" prefWidth="140.0" text="Data" />
+        </columns>
+      </TableView>
+      <Button focusTraversable="false" layoutX="509.0" layoutY="532.0" mnemonicParsing="false" onAction="#delete" prefHeight="25.0" prefWidth="105.0" text="ELIMINA" />
+      <ChoiceBox fx:id="fornitori" layoutX="14.0" layoutY="24.0" prefWidth="150.0" />
+      <DatePicker fx:id="dp" layoutX="174.0" layoutY="24.0" prefHeight="25.0" prefWidth="164.0" />
+      <Button focusTraversable="false" layoutX="285.0" layoutY="535.0" mnemonicParsing="false" onAction="#add" prefHeight="25.0" prefWidth="105.0" text="AGGIUNGI" />
+      <Label fx:id="lbl_tot" layoutX="14.0" layoutY="534.0" prefHeight="25.0" prefWidth="133.0" text="Totale: 3000€">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button focusTraversable="false" layoutX="398.0" layoutY="535.0" mnemonicParsing="false" onAction="#modify" prefHeight="25.0" prefWidth="105.0" text="MODIFICA" />
+      <Button fx:id="svuotaListaScarichi" layoutX="419.0" layoutY="24.0" mnemonicParsing="false" onAction="#svuotaListaScarichi" prefHeight="25.0" prefWidth="64.0" text="SVUOTA" />
+      <Button fx:id="search" layoutX="346.0" layoutY="24.0" mnemonicParsing="false" onAction="#searchScarico" prefHeight="25.0" prefWidth="64.0" text="CECRA" />
+   </children>
+</AnchorPane>

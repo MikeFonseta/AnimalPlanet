@@ -4,7 +4,6 @@ module com.mikefonseta.animalplanet {
     requires java.sql;
     requires org.xerial.sqlitejdbc;
 
-
     opens com.mikefonseta.animalplanet to javafx.fxml;
     exports com.mikefonseta.animalplanet;
     exports com.mikefonseta.animalplanet.Entity;
